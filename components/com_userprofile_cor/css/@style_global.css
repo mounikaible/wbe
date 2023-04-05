@@ -1,0 +1,24 @@
+.modal .modal-body{max-height:450px; overflow:auto;}
+ul.nav.menu.nav.navbar-nav.mod-list { display: none; }
+.tbl-height{max-height:350px; overflow:auto;}
+
+#inv_view .modal-body{width:100% !important;}
+
+
+@media (min-width:1024px){
+#inv_view .modal-dialog {width:800px;}
+}
+
+@media (max-width:1366px)
+{
+	.modal .modal-body{max-height:450px;}
+}
+
+@media (max-width:991px){
+#inv_view .modal-dialog {width: 95%;}
+}
+
+@media (max-width: 767px){
+    #inv_view iframe{width:100% !important;}
+    .rdo_rd1{float:none;}
+}
