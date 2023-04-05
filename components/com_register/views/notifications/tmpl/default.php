@@ -56,7 +56,7 @@ $joomla(document).on('click','.panel-title',function() {
 <div class="container">
 	<div class="main_panel persnl_panel">
 	    
-		<div class="main_heading">Notifications with github</div>
+		<div class="main_heading">Notifications</div>
 		<div class="panel-body">
 		    <div class="col-sm-12">
 		       <div class="panel notifction_panel">
