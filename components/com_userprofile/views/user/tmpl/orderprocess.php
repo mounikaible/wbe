@@ -815,10 +815,11 @@
                            var hrefs=loop[i];
                            hrefs=hrefs.split(' ').join('%20');
                            hrefs=hrefs.replace("#",":");
-                           tdns+='<td> <div><div><label><?php echo Jtext::_('COM_USERPROFILE_SHIP_POPUP_INVOICE_UPLOAD');?></label></div><div><input type="file" class="upoadfe" name="invFile[]" multiple id='+whtr+'></div><div><p><?php echo Jtext::_('COM_USERPROFILE_SHIP_KTABLE_UPLOAD_EXT_TYPE_TXT');?></p></div></div><div class="clearfix"></div><a class="sfile" href="'+hrefs+'" target="_blank">(<?php echo Jtext::_('COM_USERPROFILE_INVOICE');?>)</a></td>';
+                          tdns+='<td> <div><div><label><?php echo Jtext::_('COM_USERPROFILE_SHIP_POPUP_INVOICE_UPLOAD');?></label></div><div><input type="file" class="upoadfe" name="invFile[]" multiple id='+whtr+'></div><div><p><?php echo Jtext::_('COM_USERPROFILE_SHIP_KTABLE_UPLOAD_EXT_TYPE_TXT');?></p></div></div><div class="clearfix"></div><a class="sfile" href="'+hrefs+'" target="_blank">(<?php echo Jtext::_('COM_USERPROFILE_INVOICE');?>)</a></td>';
                          }else{
                            tdns+='<td> <div><div><label><?php echo Jtext::_('COM_USERPROFILE_SHIP_POPUP_INVOICE_UPLOAD');?></label></div><div><input type="file" class="upoadfe" name="invFile[]"  multiple id='+whtr+'></div><div><p><?php echo Jtext::_('COM_USERPROFILE_SHIP_KTABLE_UPLOAD_EXT_TYPE_TXT');?></p></div></div></td>';
                          }
+   
    
                          var file2Name = loop[i];
                          console.log("file2Name:"+file2Name);
@@ -2323,26 +2324,26 @@
                            hrefs1=hrefs1.split(' ').join('%20');
                            hrefs1=hrefs1.replace("#",":");
                            if(hrefs1 !='')
-                           image1='<a class="sfile" href="'+hrefs1+'" target="_blank">(<?php echo Jtext::_('COM_USERPROFILE_INVOICE');?>)</a>';
+                           image1='<a class="" href="'+hrefs1+'" target="_blank">(<?php echo Jtext::_('COM_USERPROFILE_INVOICE');?>)</a>';
                            
                            var hrefs2=loop[26];
                            hrefs2=hrefs2.split(' ').join('%20');
                            hrefs2=hrefs2.replace("#",":");
                            if(hrefs2 !='')
-                           image2='<a class="sfile" href="'+hrefs2+'" target="_blank">(<?php echo Jtext::_('COM_USERPROFILE_INVOICE');?>)</a>';
+                           image2='<a class="" href="'+hrefs2+'" target="_blank">(<?php echo Jtext::_('COM_USERPROFILE_INVOICE');?>)</a>';
                            
                            var hrefs3=loop[27];
                            
                            hrefs3=hrefs3.split(' ').join('%20');
                            hrefs3=hrefs3.replace("#",":");
                            if(hrefs3 !='')
-                           image3='<a class="sfile" href="'+hrefs3+'" target="_blank">(<?php echo Jtext::_('COM_USERPROFILE_INVOICE');?>)</a>';
+                           image3='<a class="" href="'+hrefs3+'" target="_blank">(<?php echo Jtext::_('COM_USERPROFILE_INVOICE');?>)</a>';
                            
                            
                            
-                           tdns+='<td> <div><div><label><?php echo Jtext::_('COM_USERPROFILE_SHIP_POPUP_INVOICE_UPLOAD');?></label></div><div><input type="file" class="upoadfe" name="invFile[]" multiple id='+whtr+'><p class="error-msg inv_error"></p><a class="update_invoice_submit_ktable" data-idk='+whtr+' ><?php echo $assArr['upload']  ?></a></div><div><p><?php echo Jtext::_('COM_USERPROFILE_SHIP_KTABLE_UPLOAD_EXT_TYPE_TXT');?></p></div></div><div class="clearfix"></div><a class="sfile" href="'+hrefs+'" target="_blank">(<?php echo Jtext::_('COM_USERPROFILE_INVOICE');?>)</a>'+image1+image2+image3+'</td>';
+                           tdns+='<td> <div><div><label><?php echo Jtext::_('COM_USERPROFILE_SHIP_POPUP_INVOICE_UPLOAD');?></label></div><div><input type="file" class="upoadfe" name="invFile[]" multiple id='+whtr+'><p class="error-msg inv_error"></p><a class="update_invoice_submit_ktable" data-idk='+whtr+' ><?php echo $assArr['upload']  ?></a></div><div><p><?php echo Jtext::_('COM_USERPROFILE_SHIP_KTABLE_UPLOAD_EXT_TYPE_TXT');?></p></div></div><div class="clearfix"></div><p class="sfile"><a class="" href="'+hrefs+'" target="_blank">(<?php echo Jtext::_('COM_USERPROFILE_INVOICE');?>)</a>'+image1+image2+image3+'</p></td>';
                          }else{
-                           tdns+='<td> <div><div><label><?php echo Jtext::_('COM_USERPROFILE_SHIP_POPUP_INVOICE_UPLOAD');?></label></div><div><input type="file" class="upoadfe" name="invFile[]" multiple id='+whtr+'><p class="error-msg inv_error"></p><a class="update_invoice_submit_ktable"   data-idk='+whtr+' ><?php echo $assArr['upload']  ?></a></div><div><p><?php echo Jtext::_('COM_USERPROFILE_SHIP_KTABLE_UPLOAD_EXT_TYPE_TXT');?></p></div></div><div class="clearfix"></div><a class="sfile" ></a></td>';
+                           tdns+='<td> <div><div><label><?php echo Jtext::_('COM_USERPROFILE_SHIP_POPUP_INVOICE_UPLOAD');?></label></div><div><input type="file" class="upoadfe" name="invFile[]" multiple id='+whtr+'><p class="error-msg inv_error"></p><a class="update_invoice_submit_ktable"   data-idk='+whtr+' ><?php echo $assArr['upload']  ?></a></div><div><p><?php echo Jtext::_('COM_USERPROFILE_SHIP_KTABLE_UPLOAD_EXT_TYPE_TXT');?></p></div></div><div class="clearfix"></div><p class="sfile"><a class="" ></a></p></td>';
                          }
    
                          var file2Name = loop[i];
@@ -2352,7 +2353,7 @@
                            var hrefs2=loop[i];
                            hrefs2=hrefs2.split(' ').join('%20');
                            hrefs2=hrefs2.replace("#",":");
-                           tdns2+='<td> <div><div><label><?php echo Jtext::_('COM_USERPROFILE_SHIP_POPUP_INVOICE_UPLOAD');?></label></div><div><input type="file" class="upoadfe2" name="inv2File[]" multiple id='+whtr+'></div><div><p><?php echo Jtext::_('COM_USERPROFILE_SHIP_KTABLE_UPLOAD_EXT_TYPE_TXT');?></p></div></div><div class="clearfix"></div><a class="sfile" href="'+hrefs2+'" target="_blank">(<?php echo Jtext::_('COM_USERPROFILE_INVOICE');?>)</a></td>';
+                            tdns2+='<td> <div><div><label><?php echo Jtext::_('COM_USERPROFILE_SHIP_POPUP_INVOICE_UPLOAD');?></label></div><div><input type="file" class="upoadfe2" name="inv2File[]" multiple id='+whtr+'></div><div><p><?php echo Jtext::_('COM_USERPROFILE_SHIP_KTABLE_UPLOAD_EXT_TYPE_TXT');?></p></div></div><div class="clearfix"></div><a class="sfile" href="'+hrefs2+'" target="_blank">(<?php echo Jtext::_('COM_USERPROFILE_INVOICE');?>)</a></td>';
                          }else{
                            tdns2+='<td> <div><div><label><?php echo Jtext::_('COM_USERPROFILE_SHIP_POPUP_INVOICE_UPLOAD');?></label></div><div><input type="file" class="upoadfe2" name="inv2File[]" multiple id='+whtr+'></div><div><p><?php echo Jtext::_('COM_USERPROFILE_SHIP_KTABLE_UPLOAD_EXT_TYPE_TXT');?></p></div></div></td>';
                          }
