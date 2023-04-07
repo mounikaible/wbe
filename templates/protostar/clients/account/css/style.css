@@ -217,6 +217,10 @@ img.alignnone { max-width: 100%; }
 
 
 /*Orderprocess page page  css 22-11-2022 end*/
+.update_invoice_submit_ktable{
+border-color: #f90;
+    background-color: #f90
+}
 .action-icons {
     background: #ff9900;
 }

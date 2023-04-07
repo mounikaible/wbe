@@ -223,6 +223,11 @@ max-height: 200px; overflow-y: auto; overflow-x:hidden;}
 .action-icons {
     background: #1d54a7;
 }
+
+.update_invoice_submit_ktable{
+border-color: #1d54a7 !important;
+    background-color: #1d54a7 !important;
+}
 /* Footer */
 .footer {background:transparent;padding: 0;letter-spacing: 0;}
 .footer .footer_top {/* margin-bottom: 30px;     background: #212121 url(../../protostar/images/img-footer-bg.jpg) center center;/* padding: 0; */letter-spacing: 0;background-size: contain;background-repeat: no-repeat;}

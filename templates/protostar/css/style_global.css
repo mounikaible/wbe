@@ -934,7 +934,7 @@ color: #4c4e56;
   .page_content .main_panel .main_heading{padding: 15px 0 15px !important;}
   .prof-pic-blk1 h3{font-size:20px;text-align:center;margin-bottom: 12px;}
 	/* fileupload css start */
-.file-upload {background-color: #ffffff;margin: 0 auto;padding:0 0px;}
+.file-upload {background-color: #ffffff;margin: 6px auto;}
   .upld-btn{margin-top: 8px;}
   .submitBtn{border-radius: 0;height: 46px; width:100%;}
   .file-upload-content {display: none;text-align: center;}

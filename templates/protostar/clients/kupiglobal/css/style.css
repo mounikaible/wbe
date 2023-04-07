@@ -102,7 +102,11 @@ span.num_count:after {border-top: 6px solid transparent; border-bottom: 10px sol
 .table{background-color:#fff;}
 /* Table Design */
 
-
+.update_invoice_submit_ktable{
+border-color: #434b52 !important;
+    background-color: #434b52 !important;
+    color:#fff !important;
+}
 /* Projectrequest Form */
 .cpl-blk .acrdin-blk {margin-bottom: 10px;border: 1px solid #ab6a59;}
 .cpl-blk .active, .cpl-blk .accordion:hover {background-color: #ab6a59;}
