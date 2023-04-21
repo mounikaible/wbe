@@ -310,7 +310,7 @@ $joomla(document).ready(function(){
                  
               }else{
                  
-                $joomla('#divApiResult').html('<div class="col-sm-12"><label class="error">Service is not assigned to selected source and destination</label></div>');
+                $joomla('#divApiResult').html('<div class="col-sm-12"><label class="error">'+data+'</label></div>');
                  $joomla('#divadditionalCost').html('');
                  $joomla('#divdiscountCost').html('');
                  $joomla('#divfinalCost').html('');  

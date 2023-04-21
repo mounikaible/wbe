@@ -1704,7 +1704,7 @@ if($priceStr != ""){
 // 		var_dump($result);exit;
 		
         $msg=json_decode($result);
-        if($msg->Description=="Successfully Calculated")
+        if($msg->Response=="1")
         return $msg->Data->RatetypeIds.":".$msg->Data->VolumeMultiple.":".$msg->Data->VolWtMultiple.":".$msg->Data->quotationCost.":".$msg->Data->IdServ.":".$msg->Data->RateId.":".$msg->Data->discount.":".$msg->Data->addtServiceCost.":".$msg->Data->GrossWtMultiple.':'.$msg->Data->addtServiceId.':'.$msg->Data->addtServiceItemCost;
         else
         return $msg->Description;
@@ -2970,7 +2970,7 @@ if($priceStr != ""){
             }
             
             
-            $loop.='{"ItemName":"'.$anameTxt[$i].'","ItemQuantity":"'.$quantityTxt[$i].'","ItemPrice":"'.$declaredvalueTxt[$i].'","TotalPrice":"'.$totalpriceTxt[$i].'","ItemStatus":"'.$itemstatusTxt[$i].'","OrderIdNew":"'.$orderidTxt[$i].'","RMAValue":"'.$rmavalue[$i].'","fileName":"'.$filename[0].'","fileExtension":"'.$filext[0].'","fileName1":"'.$filename[1].'","fileExtension1":"'.$filext[1].'","fileName2":"'.$filename[2].'","fileExtension2":"'.$filext[2].'","fileName3":"'.$filename[3].'","fileExtension3":"'.$filext[3].'","ImageByteStream":"'.$imagebytestream[0].'","ImageByteStream1":"'.$imagebytestream[1].'","ImageByteStream2":"'.$imagebytestream[2].'","ImageByteStream3":"'.$imagebytestream[3].'","ItemImage":"'.$itemimage[0].'","ItemImage1":"'.$itemimage[1].'","ItemImage2":"'.$itemimage[2].'","ItemImage3":"'.$itemimage[3].'","length":"'.$lengthTxt[$i].'","height":"'.$heightTxt[$i].'","width":"'.$widthTxt[$i].'"},';    
+            $loop.='{"ItemName":"'.base64_encode($anameTxt[$i]).'","ItemQuantity":"'.$quantityTxt[$i].'","ItemPrice":"'.$declaredvalueTxt[$i].'","TotalPrice":"'.$totalpriceTxt[$i].'","ItemStatus":"'.$itemstatusTxt[$i].'","OrderIdNew":"'.$orderidTxt[$i].'","RMAValue":"'.$rmavalue[$i].'","fileName":"'.$filename[0].'","fileExtension":"'.$filext[0].'","fileName1":"'.$filename[1].'","fileExtension1":"'.$filext[1].'","fileName2":"'.$filename[2].'","fileExtension2":"'.$filext[2].'","fileName3":"'.$filename[3].'","fileExtension3":"'.$filext[3].'","ImageByteStream":"'.$imagebytestream[0].'","ImageByteStream1":"'.$imagebytestream[1].'","ImageByteStream2":"'.$imagebytestream[2].'","ImageByteStream3":"'.$imagebytestream[3].'","ItemImage":"'.$itemimage[0].'","ItemImage1":"'.$itemimage[1].'","ItemImage2":"'.$itemimage[2].'","ItemImage3":"'.$itemimage[3].'","length":"'.$lengthTxt[$i].'","height":"'.$heightTxt[$i].'","width":"'.$widthTxt[$i].'"},';    
         
         }
         
