@@ -13,9 +13,9 @@ class JConfig {
 	public $debug_lang = '0';
 	public $dbtype = 'mysqli';
 	public $host = 'localhost';
-	public $user = 'smartewe_smartusr';
-	public $password = '4s[]v,XWm@xK';
-	public $db = 'smartewe_smartdb';
+	public $user = 'root';
+	public $password = '';
+	public $db = 'inviewpr_invdb';
 	public $dbprefix = 'bnce7_';
 	public $live_site = '';
 	public $secret = 'dCzZyLDHNEW0AJU0';

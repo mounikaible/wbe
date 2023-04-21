@@ -107,10 +107,10 @@ span.num_count:after {border-top: 6px solid transparent; border-bottom: 10px sol
 .footer_top .sm-blk img { margin-right: 10px; }
 .footer_top .sm-blk { margin-bottom: 25px; }
 .footer .footer_top h4 { color: #fff; font-weight: 600; font-size: 20px; }
-.footer .footer_top p { color: #bdbdbd; font-size: 16px; margin-bottom: 20px; line-height: 28px; }
+.footer .footer_top p { color: rgba(255, 255, 255, 0.5) !important; font-size: 16px; margin-bottom: 20px; line-height: 28px;font-weight: normal; }
 .footer .footer_top ul { margin: 0; padding: 0; list-style: none; }
-.footer .footer_top ul li a { color: #fff; /*font-family: 'WorkSans-ExtraBold', sans-serif; font-size: 12px;*/ display: block; font-weight: normal; }
-.footer .footer_top ul li a:hover { text-decoration: underline; }
+.footer .footer_top ul li a { color:rgba(255, 255, 255, 0.55); /*font-family: 'WorkSans-ExtraBold', sans-serif; font-size: 12px;*/ display: block; font-weight: normal; }
+.footer .footer_top ul li a:hover { text-decoration: none;color: #fff; }
 .cpy-rgt a { color: #EC1B24; }
 .btm-bg { background: #121212;}
 .footer_bottom { background: #333;}
@@ -124,6 +124,14 @@ span.num_count:after {border-top: 6px solid transparent; border-bottom: 10px sol
 .footer .footer_top ul li a.btn-getdir span {box-shadow: inset 0 0 0 1px #bdbdbd !important;}
 .cls-subscribe input[type="submit"] { color: #ffffff !important; background-color: #fd8c40;}
 span.cls-dash {border-bottom: 2px solid #fd8c40;}
+.tuch-blck a {margin: 12px 10px;display: inline-block;font-size: 20px;color: #808080;}
+.tuch-blck img{max-width: 150px;}
+.tuch-blck .fa-facebook{background: #808080;color: #101010;width: 22px;height: 22px;padding: 3px 0 0 0;font-size: 16px;border-radius: 50px;}
+.tuch-blck .fa-instagram{background: #808080;color: #101010;width: 22px;height: 22px;padding: 3px 0 0 0;border-radius: 50px;font-size: 16px;}
+.tuch-blck a:hover{color:#000;}
+.tuch-blck .fa-facebook:hover ,.tuch-blck .fa-instagram:hover{background-color: #000;color: #5c5a5a;}
+.conditnsblk a{margin: 10px 20px;display: inline-block;font-size: 16px;color: rgba(255, 255, 255, 0.5) !important;}
+.conditnsblk a:hover{text-decoration: none;}
 /* New footer styles end */
 /* Footer */
 
