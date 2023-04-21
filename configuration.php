@@ -4,7 +4,7 @@ class JConfig {
 	public $offline_message = 'This site is down for maintenance.<br />Please check back again soon.';
 	public $display_offline_message = '1';
 	public $offline_image = '';
-	public $sitename = 'boxonlogistics.com';
+	public $sitename = 'inviewpro.com';
 	public $editor = 'tinymce';
 	public $captcha = '0';
 	public $list_limit = '20';
@@ -13,8 +13,8 @@ class JConfig {
 	public $debug_lang = '0';
 	public $dbtype = 'mysqli';
 	public $host = 'localhost';
-	public $user = 'root';
-	public $password = '';
+	public $user = 'inviewpr_invusr';
+	public $password = 'yAi@Sa1fUP?D';
 	public $db = 'inviewpr_invdb';
 	public $dbprefix = 'bnce7_';
 	public $live_site = '';
@@ -42,7 +42,7 @@ class JConfig {
 	public $smtpport = '25';
 	public $caching = '0';
 	public $cache_handler = 'file';
-	public $cachetime = '15';
+	public $cachetime = '2';
 	public $cache_platformprefix = '0';
 	public $MetaDesc = 'Logistic Software';
 	public $MetaKeys = 'International Logistics and US address My Box';
@@ -56,8 +56,8 @@ class JConfig {
 	public $unicodeslugs = '0';
 	public $feed_limit = '10';
 	public $feed_email = 'none';
-	public $log_path = '/home/smartwebtest/public_html/administrator/logs';
-	public $tmp_path = '/home/smartwebtest/public_html/tmp';
+	public $log_path = '/home/inviewpro/public_html/wbe/administrator/logs';
+	public $tmp_path = '/home/inviewpro/wbe/public_html/wbe/tmp';
 	public $lifetime = '15';
 	public $session_handler = 'database';
 	public $shared_session = '0';
@@ -99,6 +99,6 @@ class JConfig {
 	public $cookie_path = '';
 	public $asset_id = '1';
 	public $debug_lang_const = '1';
-	public $backend_url = 'http://manage.smarteweb.com/';
+	public $backend_url = 'http://manage.inviewpro.com/';
 	public $help_url = 'https://lms.iblesoft.com/';
 }
