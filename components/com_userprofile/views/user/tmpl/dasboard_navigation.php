@@ -226,7 +226,7 @@ $joomla(document).ready(function(){
             }
               }
 			});
-//F_table
+   //F_table
    $joomla('#F_table').DataTable(
 		{
 		      "ordering": true,
