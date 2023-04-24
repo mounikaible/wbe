@@ -88,6 +88,12 @@ $joomla(function() {
     });
 });
 
+$joomla(document).keydown('#orderdateTxt,#txtOrderDate',function(e) {
+        if(e.keyCode > 46 && e.keyCode < 58){
+            e.preventDefault();
+        }
+    });
+
 // tab functionality disable
 
 // $joomla("select").on("keydown",function(e){
