@@ -33,7 +33,7 @@ header .theme_nav .navbar-header img {height: 60px;vertical-align: middle;margin
 /* Language Menu */
 
 /* Page Content */
-.page_content {margin: 106px 0 0 0;min-height: 54vh;background-color: #FFFFFF;  background-position: center left; background-repeat: no-repeat; background-size: cover; }
+.page_content {margin: 106px 0 0 0;min-height: 58vh;background-color: #FFFFFF;background-image: url(../images/img-page-bg.jpg);background-repeat: no-repeat;background-size: cover;background-position:center top;}
 .page_content .main_panel {background-color: rgba(255, 255, 255, 0.78); }
 
 /* Page Content */
@@ -92,9 +92,8 @@ span.num_count:after {border-top: 6px solid transparent; border-bottom: 10px sol
 .cls-add-ico {margin-top: 44px;}
 /* Projectrequest Form */
 
-.convertToPickup a,.updateInvoice a {
-    background: #23bbed;
-    color: #fff;
+.warehuse-bg {
+    background: #cae6ff;
 }
 
 /* Footer */
@@ -133,7 +132,6 @@ span.cls-dash {border-bottom: 2px solid #fd8c40;}
 .conditnsblk a{margin: 10px 20px;display: inline-block;font-size: 16px;color: rgba(255, 255, 255, 0.5) !important;}
 .conditnsblk a:hover{text-decoration: none;}
 /* New footer styles end */
-/* Footer */
 
 .addserv-blk { background: #fff;}
 
@@ -165,6 +163,7 @@ span.cls-dash {border-bottom: 2px solid #fd8c40;}
 .prof-pic-sec .img-prof {border: 1px solid #ccc;}
 .page_loader span{color: #ccc;}
 header .theme_nav{padding: 10px 0;}
+.warehuse-bg{background: #cae6ff;}
 
 /*calculator page  css 22-11-2022 start*/
 .rty div{display: block; clear: both; width: 100%;}
