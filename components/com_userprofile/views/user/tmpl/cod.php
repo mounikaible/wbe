@@ -437,7 +437,7 @@ $joomla(document).ready(function() {
         <div class="row">
           <div class="col-md-12">
             <div class="table-responsive">
-              <table class="table table-bordered theme_table" id="j_table">
+              <table class="table table-bordered theme_table " id="c_table">
                 <thead>
                   <tr>
                     <th class="action_btns"  width=100><?php echo $assArr['action']; ?></th>

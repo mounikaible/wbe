@@ -258,6 +258,38 @@ $joomla(document).ready(function(){
             }
               }
 			});
+
+      $joomla('#S_table').DataTable(
+		{
+		      "ordering": true,
+              select: true,
+              dom: 'Blfrtip',
+              lengthMenu: [10,25,75, 100],
+              dom: 'Bfrtip',
+ 			  "buttons": [
+				{
+				text: '<i class="fa fa-file-pdf-o btn btn-default"></i>',extend: 'pdfHtml5',filename: 'Inventory purchases',orientation: 'landscape',pageSize: 'A4',exportOptions: {
+						columns:':visible'
+			          },
+				  customize: pdfFunction
+				    
+				}, 
+				 {extend: 'csvHtml5',text:  '<i class="fa fa-file-text-o btn btn-default" ></i>',titleAttr: 'CSV',title:'Inventory purchases' },
+                 { extend: 'excelHtml5', text:  '<i class="fa fa-file-excel-o btn btn-default">',titleAttr: 'Excel',title:'Inventory purchases' },
+				'pageLength',],
+				
+			"language": {
+            "lengthMenu": showEntText,
+            "search": searchText,
+            "info": showingEntriesText,
+            "infoEmpty": showingEmptyEntriesText,
+            "emptyTable":nodataText,
+            "paginate": {
+              "previous": previousPageText,
+              "next": nextPageText
+            }
+              }
+			});
  
  //N_table 
    
@@ -269,20 +301,16 @@ $joomla(document).ready(function(){
      dom: 'Bfrtip',
     
       buttons: 
-      [{ extend:'pdfHtml5',text:  '<i class="fa fa-file-pdf-o btn btn-default"></i>',titleAttr: 'PDF',title:'Inventory purchases',
-         exportOptions: {
-                    rows: ':visible:not(.wrchild)',columns: [1,2,3,4,5],
-                  }
-      },
+      [{ extend:'pdfHtml5',text:  '<i class="fa fa-file-pdf-o btn btn-default"></i>',titleAttr: 'PDF',title:'Inventory purchases',exportOptions: {
+						columns:':visible'
+			          },
+				  customize: pdfFunction
+              },
       {extend: 'csvHtml5',text:      '<i class="fa fa-file-text-o btn btn-default"></i>',titleAttr: 'CSV',title:'Inventory purchases',
-          exportOptions: {
-                    rows: ':visible:not(.wrchild)',columns: [1,2,3,4,5],
-                   }
+        
       },
       { extend: 'excelHtml5', text:    '<i class="fa fa-file-excel-o btn btn-default"></i>',titleAttr: 'Excel',title:'Inventory purchases',
-      exportOptions: {
-                    rows: ':visible:not(.wrchild)',columns: [1,2,3,4,5],
-                   }},
+     },
       'pageLength' ,
       ],
       "language": {

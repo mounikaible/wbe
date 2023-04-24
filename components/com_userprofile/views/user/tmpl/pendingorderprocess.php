@@ -52,7 +52,7 @@ $joomla(document).ready(function() {
     $joomla( "#orderdateTxt" ).datepicker({ maxDate: new Date });
     var tmp='';
     tmp=$joomla("#ord_edit .modal-body").html();
-     $joomla('#tabs1 #N_table').on('click','a:nth-child(1)',function(e){
+     $joomla('#tabs1 #S_table').on('click','a:nth-child(1)',function(e){
         e.preventDefault();
         var resnew=$joomla(this).data('id');
         $joomla.ajax({
@@ -146,7 +146,7 @@ $joomla(document).ready(function() {
     });    
 
     //delete inventry purchases order
-    $joomla('#tabs1 #N_table').on('click','a:nth-child(2)',function(e){
+    $joomla('#tabs1 #S_table').on('click','a:nth-child(2)',function(e){
         e.preventDefault();
         var res=$joomla(this).data('id');
         var reshtml=$joomla(this);
@@ -1251,7 +1251,7 @@ function isNumber(evt) {
         <div class="row">
           <div class="col-md-12">
               <div class="table-responsive">
-            <table class="table table-bordered theme_table" id="N_table">
+            <table class="table table-bordered theme_table" id="S_table">
               <thead>
                 <tr>
                   <th><?php echo $assArr['sNo'];?></th>
