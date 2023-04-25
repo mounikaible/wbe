@@ -1120,7 +1120,7 @@ class Controlbox{
        	// var_dump($result);exit;
        	
 		$msg=json_decode($result);
-		return $msg->Response;
+		return $msg->Description;
     }
 
 
@@ -1153,7 +1153,7 @@ class Controlbox{
 // 		var_dump($result);exit;
 		
 		$msg=json_decode($result);
-		return $msg->Response;
+		return $msg->Description;
     }
 
 
