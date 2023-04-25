@@ -606,7 +606,7 @@ for(k=0;k<filtereditmidks.length;k++){
         return false;
 
     });
-    $joomla(document).live('blur','input[name="txtQuantity[]"]',function(){
+    $joomla(document).on('blur','input[name="txtQuantity[]"]',function(){
       
         if($joomla('input[name="txtDvalue[]"]').val()!= "" && $joomla(this).val() !=""){
         $joomla(".page_loader").show();
@@ -627,7 +627,7 @@ for(k=0;k<filtereditmidks.length;k++){
     });  
     
     
-    $joomla(document).live('blur','input[name="txtDvalue[]"]',function(){
+    $joomla(document).on('blur','input[name="txtDvalue[]"]',function(){
       if($joomla('input[name="txtQuantity[]"]').val()!= ""  && $joomla(this).val() !=""){
         $joomla(".page_loader").show();
         $joomla(this).closest('.rows').find('input[name="txtTprice[]"]').val('');
