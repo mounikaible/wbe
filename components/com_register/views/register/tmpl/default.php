@@ -743,8 +743,16 @@
       <div class="container">
          <div class="register_view">
             <div class="main_panel">
-               <div class="main_heading"> <?php echo Jtext::_('COM_REGISTER_REGISTRATION');?> </div>
-               <div class="panel-body">
+               <div class="main_heading"> <?php echo Jtext::_('COM_REGISTER_REGISTRATION');?> </div> 
+               <div>
+               <label>PLEASE SELECT COUNTRY<span class="error">*</span></label>
+               </div>
+               <div>
+               <select name="reg_country" id="reg_country" class="form-control">
+                <option data-id="" value="">Select Country</option>
+               </select>
+               </div>
+              <div class="panel-body">
                   <?php
                      if($res == '0' ){
                           $errorMsg = $_GET['msg'];
