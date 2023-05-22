@@ -5365,8 +5365,10 @@ if($priceStr != ""){
     
      /** getpaymentmethods **/
      
-     public static function getpaymentgateways($paymentmethod)
+     public static function getpaymentgateways($paymentmethod,$agnPaymentTypeArr)
     {
+
+       
        
         mb_internal_encoding('UTF-8');
         $CompanyId = Controlbox::getCompanyId();
@@ -5390,8 +5392,10 @@ if($priceStr != ""){
                 if($method->id_values == $paymentmethod){
                     foreach($method->PaymentGatewayDetail as $gateway){
                         if($method->desc_vals){
-                            $paymentgatewayStr .= '<input type="radio" name="cc" value="'.$gateway->id_values.'">';
-                            $paymentgatewayStr .='<label>'.$gateway->desc_vals.'</label>';
+                            if(in_array("ALL",$agnPaymentTypeArr) || in_array($gateway->id_values,$agnPaymentTypeArr)){
+                                $paymentgatewayStr .= '<input type="radio" name="cc" value="'.$gateway->id_values.'">';
+                                $paymentgatewayStr .='<label>'.$gateway->desc_vals.'</label>';
+                            }
                         }
                     }
                 }

@@ -5347,24 +5347,30 @@ if($joomla(this).html() == '+'){
                             <div class="rdo_rd1">
                               <div class="paymentmethodsDiv">
                                 <?php 
-                               //$paymentType = $session->get('payment_type'); 
+                               $agnPaymentType = $session->get('payment_type'); 
+                               $agnPaymentTypeArr = explode(",",$agnPaymentType);
+                               
                                  if($elem['PaymentType'][1] != "ACT"){	
                                     echo '<input type="radio" style="display:none;" class="other_payment_type"  name="cc" value="'.$elem['PaymentType'][4].'" >';	
                                  }else{
-                                    
-                                    $paymentmethodsStr = ''; 
-                                    $paymentmethods = Controlbox::getpaymentmethods();
-                                    foreach($paymentmethods as $method){
-                                        if($method->desc_vals){
-                                            if($method->id_values == "COD"){
-                                                $paymentmethodsStr .= '<input type="radio" name="cc" value="'.$method->id_values.'">';
-                                                $paymentmethodsStr .='<label>'.$method->desc_vals.'</label>';
-                                            }
-                                        }
-                                    }
-                                    
-                                    $paymentmethodsStr.=Controlbox::getpaymentgateways('PPD');
-                                    echo $paymentmethodsStr;
+
+                                          $paymentmethodsStr = ''; 
+                                          $paymentmethods = Controlbox::getpaymentmethods();
+                                          foreach($paymentmethods as $method){
+                                             if($method->desc_vals){
+                                                if($method->id_values == "COD"){
+                                                  if(in_array("ALL",$agnPaymentTypeArr) || in_array("COD",$agnPaymentTypeArr)){
+                                                      $paymentmethodsStr .= '<input type="radio" name="cc" value="'.$method->id_values.'">';
+                                                      $paymentmethodsStr .='<label>'.$method->desc_vals.'</label>';
+                                                  }  
+                                                }
+                                             }
+                                          }
+                                          
+                                          $paymentmethodsStr.=Controlbox::getpaymentgateways('PPD',$agnPaymentTypeArr);
+                                          echo $paymentmethodsStr;
+
+
                                  }
                                 ?>
                                

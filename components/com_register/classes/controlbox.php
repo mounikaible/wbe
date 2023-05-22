@@ -339,10 +339,15 @@ class Controlbox{
 //         var_dump($result);exit;
         
         $msg=json_decode($result);
-        if($msg->ResCode==1)
-        return $msg->Data->UserName;
-        else
-        return 0;
+        if($msg->ResCode==1){
+            $session = JFactory::getSession();
+            $session->set('user_country', $msg->Data->Country_code);
+            $session->set('payment_type', $msg->Data->PaymentType);
+            return $msg->Data->UserName;
+        }else{
+            return 0;
+        }
+            
     }
     
     

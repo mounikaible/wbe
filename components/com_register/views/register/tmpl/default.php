@@ -53,6 +53,8 @@
    foreach($res as $element){
       $elem[trim($element->ElementId)]=array($element->ElementDescription,$element->ElementStatus,$element->is_mandatory,$element->is_default,$element->ElementValue);
    }
+
+   $agency_country = true;
    
 // echo '<pre>';   
 // var_dump($elem);exit;
@@ -254,7 +256,10 @@
    var $joomla = jQuery.noConflict(); 
    $joomla(document).ready(function() {
      
+      agency_country = "<?php echo $agency_country; ?>";
        // Customer registration under agent
+if(agency_country){
+
    setregCountry = 0;
     $joomla('input').prop('readonly', true);
     $joomla('button').prop('disabled', true);
@@ -298,6 +303,11 @@
         
        
     });
+
+
+
+}
+   
 
        var emailRequired = "<?php echo $elem['EMAIL'][2];  ?>";
        
@@ -512,7 +522,11 @@
            $joomla('#fnameTxt').parent('div').html('<input type="text" class="form-control" name="fnameTxt" id="fnameTxt" maxlength="25"  value="<?=$elem['FIRSTNAME'][4]?>" <?php if($elem['FIRSTNAME'][3]){ ?> readonly <?php } ?>  <?php if($elem['FIRSTNAME'][2]){ ?> required <?php } ?> >');
    	    $joomla('#lnameTxt').parent('div').html('<input type="text" class="form-control" name="lnameTxt" id="lnameTxt" maxlength="25" value="<?=$elem['LASTNAME'][4]?>" <?php if($elem['LASTNAME'][3]){ ?> readonly <?php } ?> <?php if($elem['LASTNAME'][2]){ ?> required <?php } ?> >');
    	    if($joomla(this).val()=="CUST"){
-            $joomla('input').prop('readonly', true);
+            if(agency_country){
+               $joomla('input').prop('readonly', true);
+            }
+            
+
    	        $joomla('.fname').html('<label><?php echo $assArr['first_name'];?><?php if($elem['FIRSTNAME'][2]){ ?> <span class="error">*</span> <?php } ?></label>');
    	        $joomla('.lname').html('<label><?php echo $assArr['last_Name'];?></label><?php if($elem['LASTNAME'][2]){ ?><span class="error">*</span><?php } ?>');
    	        $joomla('.rdo_rd1').parent('div').show();
@@ -812,7 +826,10 @@
          <div class="register_view">
             <div class="main_panel">
                <div class="main_heading"> <?php echo Jtext::_('COM_REGISTER_REGISTRATION');?></div> 
-               <div class="row col-lg-12 col-md-12 col-sm-12 select-cuntry">
+               <?php 
+                  if($agency_country){
+                ?>
+                <div class="row col-lg-12 col-md-12 col-sm-12 select-cuntry">
                     <div class="col-md-5 col-sm-6 col-xs-12">
                              <label>PLEASE SELECT COUNTRY<span class="error">*</span></label>
                           </div>
@@ -822,8 +839,11 @@
                          <option data-id="" value="">Select Country</option>
                          <?php echo $countries;  ?>
                      </select>
-                 </div>
-             </div>
+                     </div>
+                  </div> 
+
+                  <?php } ?>
+
               
             <div class="clearfix"></div>
               <div class="panel-body">
