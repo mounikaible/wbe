@@ -244,6 +244,8 @@ class RegisterControllerRegister extends JControllerLegacy
     			$session->set('user_casillero_id', $user_casillero_id);
     			
     			$session->set('user_casillero_password', $user_casillero_password);
+				$session->set('user_country', $regView->Data->CountryCode);
+                $session->set('payment_type', $regView->Data->PaymentType);
     
     			//$session->set('sms_message', $sms_message);
                 $app->enqueueMessage(JText::_('COM_REGISTER_YOU_ARE_SUCCESSFULLY_REGISTERED'), 'notice');

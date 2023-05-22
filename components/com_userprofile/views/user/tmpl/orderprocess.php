@@ -120,7 +120,9 @@
     $assArr[$response->id]  = $response->text;
     }
     
- 
+   //  $PaymentType = $session->get('payment_type');
+
+   //  var_dump($PaymentType);exit;
    ?>
   
 <?php include 'dasboard_navigation.php' ?>
@@ -159,7 +161,8 @@
 <script type="text/javascript">
    var $joomla = jQuery.noConflict(); 
    $joomla(document).ready(function() {
-      
+
+      var PaymentType = "<?php echo $PaymentType; ?>";
       clientId = "<?php echo $ClientId; ?>";
       declaredVal = "<?php echo $elem['DeclaredValue($)'][3]; ?>";
       baseurl = "<?php echo JURI::base(); ?>";
@@ -5342,14 +5345,13 @@ if($joomla(this).html() == '+'){
                            
                             <div class="rdo_cust">
                             <div class="rdo_rd1">
-                            <div class="paymentmethodsDiv">
-                                
+                              <div class="paymentmethodsDiv">
                                 <?php 
-                               
-                                
+                               //$paymentType = $session->get('payment_type'); 
                                  if($elem['PaymentType'][1] != "ACT"){	
                                     echo '<input type="radio" style="display:none;" class="other_payment_type"  name="cc" value="'.$elem['PaymentType'][4].'" >';	
                                  }else{
+                                    
                                     $paymentmethodsStr = ''; 
                                     $paymentmethods = Controlbox::getpaymentmethods();
                                     foreach($paymentmethods as $method){

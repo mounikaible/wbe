@@ -33,6 +33,9 @@
    $domainName =  $domainDetails[0]->Domain;
    
    $AgencyId=JRequest::getVar('agn');
+   $agentSession = $session->get('agentId');
+
+   //var_dump($agentSession);
   
    $accTypeDet = RegisterHelpersRegister::getaccounttype();
    $accountTypeDef = array();
@@ -250,6 +253,52 @@
 <script type="text/javascript">
    var $joomla = jQuery.noConflict(); 
    $joomla(document).ready(function() {
+     
+       // Customer registration under agent
+   setregCountry = 0;
+    $joomla('input').prop('readonly', true);
+    $joomla('button').prop('disabled', true);
+    $joomla('select').not("#reg_country").css("background-color","#eee");
+    
+    $joomla('select').not("#reg_country").on('mousedown', function(e) {
+        if(setregCountry==0){
+           e.preventDefault();
+           this.blur();
+           window.focus();
+        }else{
+            $joomla(this).not("#countryTxt").unbind('mousedown');
+        }
+    });
+    
+    $joomla('#countryTxt').on('mousedown', function(e) {
+           e.preventDefault();
+           this.blur();
+           window.focus();
+    });
+    
+     $joomla("#reg_country").on('change',function(){
+         if($joomla(this).val() != ""){
+             setregCountry = 1;
+            var element = $joomla(this).find('option:selected'); 
+           var agentId = element.attr("data-id");
+            $joomla("#agentId").val(agentId);
+            $joomla("#countryTxt").val($joomla(this).val()).change();
+            $joomla("#accounttypeTxt").val("CUST").change();
+            $joomla('input').prop('readonly', false);
+            $joomla('button').prop('disabled', false);
+            $joomla('select').not("#reg_country,#countryTxt").css("background-color","#fff");
+         }else{
+            $joomla("#countryTxt").val("").change();
+            $joomla("#accounttypeTxt").val("").change();
+            $joomla('input').prop('readonly', true);
+            $joomla('button').prop('disabled', true);
+            $joomla('select').not("#reg_country").css("background-color","#eee");
+             setregCountry = 0;
+         }
+        
+       
+    });
+
        var emailRequired = "<?php echo $elem['EMAIL'][2];  ?>";
        
    	// Wait for the DOM to be ready
@@ -463,6 +512,7 @@
            $joomla('#fnameTxt').parent('div').html('<input type="text" class="form-control" name="fnameTxt" id="fnameTxt" maxlength="25"  value="<?=$elem['FIRSTNAME'][4]?>" <?php if($elem['FIRSTNAME'][3]){ ?> readonly <?php } ?>  <?php if($elem['FIRSTNAME'][2]){ ?> required <?php } ?> >');
    	    $joomla('#lnameTxt').parent('div').html('<input type="text" class="form-control" name="lnameTxt" id="lnameTxt" maxlength="25" value="<?=$elem['LASTNAME'][4]?>" <?php if($elem['LASTNAME'][3]){ ?> readonly <?php } ?> <?php if($elem['LASTNAME'][2]){ ?> required <?php } ?> >');
    	    if($joomla(this).val()=="CUST"){
+            $joomla('input').prop('readonly', true);
    	        $joomla('.fname').html('<label><?php echo $assArr['first_name'];?><?php if($elem['FIRSTNAME'][2]){ ?> <span class="error">*</span> <?php } ?></label>');
    	        $joomla('.lname').html('<label><?php echo $assArr['last_Name'];?></label><?php if($elem['LASTNAME'][2]){ ?><span class="error">*</span><?php } ?>');
    	        $joomla('.rdo_rd1').parent('div').show();
@@ -734,7 +784,25 @@
        });
        
    });
+
 </script>
+
+<?php
+       $countryView= RegisterHelpersRegister::getCountriesList();
+       $arr = json_decode($countryView); 
+       $countries='';
+       $config = JFactory::getConfig();
+       $agentIdAG=$config->get('agentIdAG');
+       
+       foreach($arr->Data as $rg){
+         $agentId='';
+         if($rg->CountryCode == "AG"){
+         $agentId = $agentIdAG;
+         }  
+        $countries.= '<option data-id="'.$agentId.'"  value="'.$rg->CountryCode.':'.preg_replace('/[^0-9]/', '', $rg->CountryDailCodes).'">'.$rg->CountryDesc.'</option>';
+        //$countries.= '<option  value="'.$rg->CountryCode.':'.preg_replace('/[^0-9]/', '', $rg->CountryDailCodes).'" >'.$rg->CountryDesc.'</option>';
+       }
+    ?>
 <?php  $session->set('authorizarionFlag', 1); ?>
 <div class="item_fields">
    <form name="registerFormOne" id="registerFormOne" method="post" action="" autocomplete="off" enctype="multipart/form-data">
@@ -743,15 +811,21 @@
       <div class="container">
          <div class="register_view">
             <div class="main_panel">
-               <div class="main_heading"> <?php echo Jtext::_('COM_REGISTER_REGISTRATION');?> </div> 
-               <div>
-               <label>PLEASE SELECT COUNTRY<span class="error">*</span></label>
-               </div>
-               <div>
-               <select name="reg_country" id="reg_country" class="form-control">
-                <option data-id="" value="">Select Country</option>
-               </select>
-               </div>
+               <div class="main_heading"> <?php echo Jtext::_('COM_REGISTER_REGISTRATION');?></div> 
+               <div class="row col-lg-12 col-md-12 col-sm-12 select-cuntry">
+                    <div class="col-md-5 col-sm-6 col-xs-12">
+                             <label>PLEASE SELECT COUNTRY<span class="error">*</span></label>
+                          </div>
+                    
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                     <select name="reg_country" id="reg_country" class="form-control">
+                         <option data-id="" value="">Select Country</option>
+                         <?php echo $countries;  ?>
+                     </select>
+                 </div>
+             </div>
+              
+            <div class="clearfix"></div>
               <div class="panel-body">
                   <?php
                      if($res == '0' ){

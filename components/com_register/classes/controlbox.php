@@ -231,7 +231,10 @@ class Controlbox{
 
     $response = curl_exec($curl);
     curl_close($curl);
-    // var_dump($req);exit;
+    // var_dump($req);
+    // var_dump($response);exit;
+    // exit;
+    $session->set('agentId', $agentId);
     $msg=json_decode($response);
         
     return $msg;

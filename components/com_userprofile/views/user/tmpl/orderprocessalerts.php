@@ -65,7 +65,9 @@ if(!$user){
     foreach($res->data as $response){
     $assArr[$response->id]  = $response->text;
     }
-
+    //country code
+    $countryCode = $session->get('user_country');
+    
 ?>
 <?php include 'dasboard_navigation.php' ?>
 <script type="text/javascript" src="<?php echo JUri::base(true); ?>/components/com_userprofile/js/jquery.validate.min.js"></script>
@@ -79,6 +81,9 @@ if(!$user){
 <script type="text/javascript">
 var $joomla = jQuery.noConflict(); 
 $joomla(document).ready(function() {
+  var countryCode = "<?php echo $countryCode; ?>";
+  
+
     var domainName = '<?php echo strtolower($domainName); ?>';
     var carrierReq = '';
 
@@ -871,7 +876,8 @@ $joomla(document).on('keydown','#orderdateTxt,#txtOrderDate',function(e) {
        $joomla('#itemCount span').html(i);
 
     });
-    
+ 
+    $joomla("#country3Txt").val(countryCode);
 	$joomla('#country2Txt').on('change',function(){
 	    $joomla('input[name="city2Txt"]').val('');
 		$joomla('#state2Txt').val(0);

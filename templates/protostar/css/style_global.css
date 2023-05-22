@@ -1022,6 +1022,15 @@ color: #4c4e56;
 /*.text-right input[type=checkbox]{position: absolute;z-index: -1;}*/
 input[type=checkbox]#expandAll {display: none;}
 input[type=checkbox]#expandAllHold {display: none;}
+.select-cuntry{
+  margin-top: 20px;
+}
+.select-cuntry label {
+  vertical-align: middle;
+  margin-top: 8px;
+  text-align: right;
+  display: block;
+}
 
 /* Responsive Start  */
 @media (max-width:1180px) {
