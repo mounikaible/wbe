@@ -54,11 +54,16 @@
       $elem[trim($element->ElementId)]=array($element->ElementDescription,$element->ElementStatus,$element->is_mandatory,$element->is_default,$element->ElementValue);
    }
 
-   $agency_country = true;
+   if(strtolower($elem['AGENCYCOUNTRY'][1]) == "act"){
+      $agency_country = true;
+   }else{
+      $agency_country = false;
+   }
+   
    
 // echo '<pre>';   
-// var_dump($elem);exit;
-//end
+// var_dump($elem['AGENCYCOUNTRY'][1]);exit;
+
 
 
    
