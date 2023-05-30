@@ -1280,6 +1280,12 @@ $joomla('#typeuserTxt').on('change',function(){
                 <input type="text" class="form-control"  name="aemailTxt" id="aemailTxt" maxlength="50" value="<?php echo $UserView->AlternativeEmail;?>">
               </div>
             </div>
+            <div class="form-group">
+                <label><?php echo 'Email Notifications : ';?></label>
+                <input type="radio"   name="emailNotif" id="emailNotifOn" value="ON" > ON &nbsp;
+                <input type="radio"   name="emailNotif" id="emailNotifOff" value="ON" > OFF
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-12">
