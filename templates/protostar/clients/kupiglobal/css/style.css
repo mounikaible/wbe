@@ -142,6 +142,7 @@ border-color: #434b52 !important;
     margin: 0 5px 0 0;
     font-style: italic;
 font-weight: bold;
+    font-size: 13px;
 background-color: #8d3600;;
 border-start-end-radius: 15px;
 border-start-start-radius: 15px;
@@ -252,13 +253,29 @@ span.cls-dash {border-bottom: 2px solid #fd8c40;}
 
 
 /*Responsive CSS Start */
+@media (min-width: 412px){    
+
+}
 @media (max-width: 767px){
 header .theme_nav .navbar-header img {height: 62px;margin-top: 0px !important;}
     .lang_menu{margin-top: -32px !important;margin-right: 52px;}
     header .theme_nav .navbar-header .logo-txt{font-size: 28px;display: block;padding-top: 12px;}
     header .theme_nav .navbar-header .logo-txt .title{font-size: 14px;line-height: 18px;display: flex !important;}
 .page_content {margin: 85px 0 0 0 !important;}
-.navbar-toggle {top: 28px !important;}}
+.navbar-toggle {top: 28px !important;}
+.notifction-tab-view ul.nav.nav-tabs li{
+    margin-bottom: 10px;
+}
+.notifction-tab-view ul.nav.nav-tabs li a {
+    font-size: 12px;
+    padding: 8px 10px !important;
+    margin: 0 0 0px 0;
+}
+.notifiction-main-panel .login-frm {
+    margin-top: -155px;
+}
+}
+
 @media (max-width: 768px){
   .lang_menu {margin-top: -54px;}
   header .theme_nav .navbar-header .logo-txt .title{display:block;}
@@ -277,4 +294,14 @@ header .theme_nav .navbar-header img {height: 62px;margin-top: 0px !important;}
 {
     .row.rows.row-mob label {min-height: 40px;}
     .btn-grp1 {margin-top: 0px;}
+}
+@media (max-width: 1024px){
+    .notifction-tab-view ul.nav.nav-tabs li a {
+    padding: 10px 6px !important;
+}
+}
+@media (max-width: 1200px){
+     .notifction-tab-view ul.nav.nav-tabs li a {
+    padding: 10px 6px !important;
+}
 }
