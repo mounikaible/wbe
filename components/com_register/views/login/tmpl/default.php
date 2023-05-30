@@ -167,27 +167,37 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
                     ?>
                     
                
- <?php             }else{
-                  foreach($mainPageDetails as $data){
-                    $str = '$id';
-                   echo '<div id="'.$data->$str.'" class="" id="notification"><h4>'.$data->Heading.'</h4>';
-                   
-                        $doc = new DOMDocument();
-                        $doc->loadHTML($data->Content);
-                        // $tags = $doc->getElementsByTagName('img');
-                        
-                        // foreach ($tags as $tag) {
-                        //     $oldSrc = $tag->getAttribute('src');
-                        //     $newScrURL = $config->get('backend_url').$oldSrc;
-                        //     $tag->setAttribute('src', $newScrURL);
-                        //     $tag->setAttribute('data-src', $oldSrc);
-                        // } 
-                        
-                        $htmlString = $doc->saveHTML();
-                        echo '<p>'.$htmlString.'</p></div>';
-                    
-               }
-              }
+ <?php             }else{ 
+                            // foreach($mainPageDetails as $data){
+                            // $str = '$id';
+                            // echo '<div id="'.$data->$str.'" class="" id="notification"><h4>'.$data->Heading.'</h4>';
+
+                            // $doc = new DOMDocument();
+                            // $doc->loadHTML($data->Content);
+
+                            // $htmlString = $doc->saveHTML();
+                            // echo '<p>'.$htmlString.'</p></div>';
+
+                            // }
+
+                            ?>
+
+                            <div class="row">
+                            <div class="col-sm-12 tab_view">
+                              <ul class="nav nav-tabs">
+                               
+                                      <li> <a class="active" href="">Tab1</a> </li>
+                                      <li> <a class="active" href="">Tab2</a> </li>
+                                      <li> <a class="active" href="">Tab3</a> </li>
+                                      <li> <a class="active" href="">Tab4</a> </li>
+                                      <li> <a class="active" href="">Tab5</a> </li>
+ 
+                              </ul>
+                            </div>
+                          </div>
+
+
+           <?php   }
               
              
                ?>
