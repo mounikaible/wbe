@@ -55,6 +55,8 @@ $imgpt=explode('/com_userprofile/',$UserView->imagePath);
 ?>
 <?php include 'dasboard_navigation.php' ?>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+
+
 <script type="text/javascript">
 var $joomla = jQuery.noConflict(); 
 $joomla(document).ready(function() {
@@ -62,6 +64,10 @@ $joomla(document).ready(function() {
     window.onpopstate = function () {
         history.go(1);
     };
+   
+  
+    
+
 
     $joomla('#DoumentDiv').html('<img src="<?php echo JURI::base(); ?>/components/com_userprofile/images/loader.gif"></div>');
 	$joomla.ajax({
@@ -1279,11 +1285,19 @@ $joomla('#typeuserTxt').on('change',function(){
                 <label><?php echo $assArr['alternative_email'];?></label>
                 <input type="text" class="form-control"  name="aemailTxt" id="aemailTxt" maxlength="50" value="<?php echo $UserView->AlternativeEmail;?>">
               </div>
-            </div>
-            <div class="form-group">
+              <div class="form-group">
                 <label><?php echo 'Email Notifications : ';?></label>
-                <input type="radio"   name="emailNotif" id="emailNotifOn" value="ON" > ON &nbsp;
-                <input type="radio"   name="emailNotif" id="emailNotifOff" value="ON" > OFF
+               <div class="onoffswitch">
+        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+        <label class="onoffswitch-label" for="myonoffswitch">
+            <span class="onoffswitch-inner"></span>
+            <span class="onoffswitch-switch"></span>
+        </label>
+    </div>   
+            </div>
+             
+                <!-- <input type="radio"   name="emailNotif" id="emailNotifOn" value="ON" > ON &nbsp;
+                <input type="radio"   name="emailNotif" id="emailNotifOff" value="ON" > OFF -->
               </div>
             </div>
           </div>
