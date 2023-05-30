@@ -290,7 +290,7 @@ $joomla(document).on('click','.exp_item',function(e){
        var htmse='';
        var rs=$joomla(this).attr("data-id");
        rs = rs.replace(/\s/g,'');
-       htmse+='<tr class="child_row"><td colspan="10"><table class="table table-bordered"><tr class="'+rs+' wrhuse-grid"><th style="display:none"></th><th>Item Name</th><th>Item Quantity</th><th>Item Status</th><th>Update Invoice</th><th style="display:none"></th><th style="display:none"></th><th style="display:none"></th><th style="display:none"></th><th style="display:none"></th></tr>';
+       htmse+='<tr class="child_row"><td colspan="10"><table class="table table-bordered"><tr class="'+rs+' wrhuse-grid"><th style="display:none"></th><th>Item Name</th><th>Item Quantity</th><th>Item Status</th><th>Expected Delivery Date</th><th>Update Invoice</th><th style="display:none"></th><th style="display:none"></th><th style="display:none"></th><th style="display:none"></th><th style="display:none"></th></tr>';
        $joomla('#M_table tbody tr').each( function () {
            
          if($joomla(this).attr('id') == rs){
@@ -679,11 +679,12 @@ $joomla(document).on('change','select[name=M_table_length]',function(){
                   echo '<tr  class="child_row"  id="'.$res->BillFormNo.'" style="display:none"><td style="display:none"></td>
                   <td>'.$rg->ItemName.'</td>
                   <td>'.$rg->ItemQuantity.'</td>
-                  <td>'.$rg->ItemStatus.'</td>';
+                  <td>'.$rg->ItemStatus.'</td>
+                  <td> - </td>';
                   
                   //var_dump($rg->Status);
                   
-                  if($rg->ItemStatus != "Ship"){
+                  if($rg->ItemStatus == "Received" || $rg->ItemStatus == "In Progress" || $rg->ItemStatus == "Hold"){
                     echo '<td class="updateInvoice"><input type="hidden" name="ItemIdkTxt" value="'.$rg->ItemIdk.'"><a class="ship_img" data-target="#view_image" data-idk="'.$rg->ItemIdk.'"  data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#" >Update Invoice</a></td>';
                   }else{
                       echo '<td class="updateInvoice">-</td>';
