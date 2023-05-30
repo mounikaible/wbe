@@ -129,7 +129,41 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
           </div>
         </div>
         </div>
-         <div class="col-md-8 col-sm-12 ntfctin-blk">
+         <div class="col-md-8 col-sm-12 ntfctin-blk notifiction-main-panel">
+         
+                            <div class="col-sm-12 tab_view notifction-tab-view">
+                              <ul class="nav nav-tabs">
+                                 <li class="active"> <a data-toggle="tab" href="#Notification">Notifications</a> </li>
+                                <li> <a class="" data-toggle="tab" href="#Legalinformation">Legal Information</a> </li>
+                                <li> <a class="" data-toggle="tab" href="#Aboutus">About Us</a> </li> 
+                                <li> <a class="" data-toggle="tab" href="#Contactus">Contact Us</a> </li>
+                                <li> <a class="" data-toggle="tab" href="#Onlinestore">Online Stores</a> </li>
+                          </ul>
+
+                          <div class="tab-content">
+                            <div id="Notification" class="tab-pane fade in active">
+                              <h3>Notification</h3>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            </div>
+                            <div id="Legalinformation" class="tab-pane fade">
+                              <h3>Legal Information</h3>
+                              <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                            <div id="Aboutus" class="tab-pane fade">
+                              <h3>About Us</h3>
+                              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                            </div>
+                            <div id="Contactus" class="tab-pane fade">
+                              <h3>Contact Us</h3>
+                              <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                            </div>
+                            <div id="Onlinestore" class="tab-pane fade">
+                              <h3>Online Store</h3>
+                              <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                            </div>
+                          </div>                             
+                            </div>
+                          
                <div class="">
                <div class="main_panel login-frm notification_panel">
             <div class="main_heading">
@@ -182,19 +216,7 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
 
                             ?>
 
-                            <div class="row">
-                            <div class="col-sm-12 tab_view">
-                              <ul class="nav nav-tabs">
-                               
-                                      <li> <a class="active" href="">Tab1</a> </li>
-                                      <li> <a class="active" href="">Tab2</a> </li>
-                                      <li> <a class="active" href="">Tab3</a> </li>
-                                      <li> <a class="active" href="">Tab4</a> </li>
-                                      <li> <a class="active" href="">Tab5</a> </li>
- 
-                              </ul>
-                            </div>
-                          </div>
+                            
 
 
            <?php   }
