@@ -195,6 +195,7 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
                               ?>
                             </div>
                             <div id="Onlinestore" class="tab-pane fade">
+                            
                               <?php 
                               $storesContent = getCategoryContent($mainPageDetails,'ONLINE STORES');
                               if($aboutContent !=NULL){ echo $storesContent; }else{ echo $cmgSoonImg; }   
@@ -211,9 +212,7 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
             
                <?php
                
-               if(!isset($mainPageDetails)){
-                  echo '<img src="'.JURI::base().'/images/cmg-soon-image.png" >';
-               }
+               
                
                $config = JFactory::getConfig();
                
@@ -237,6 +236,10 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
                                    echo '<div class="row ntifiction-info"><a href="index.php/en/component/register/notifications?Itemid=131#'.$data->$str.'" >'.$data->Heading.'</a><p>'.$content.'</p></div>';
                                 
                                }
+
+                               if(!isset($mainPageDetails)){
+                                echo '<img src="'.JURI::base().'/images/cmg-soon-image.png" >';
+                             }
                        
                     echo '</div>';   
                        
