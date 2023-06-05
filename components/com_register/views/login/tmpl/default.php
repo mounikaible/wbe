@@ -46,6 +46,32 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
     foreach($res1 as $response){
         $assArr[$response['Id']]  = $response['Text'];
      }
+     
+     
+     // notifications 
+     
+              $categoryList = array();
+              foreach($mainPageDetails as $data){
+                  $categoryList[] = $data->CategoryName;
+              }
+              $categoryList = array_unique($categoryList);
+              sort($categoryList);
+              
+              function getCategoryContent($mainPageDetails,$category){
+                  
+                  
+                    foreach($mainPageDetails as $data){
+                          if($data->CategoryName == $category ){
+                                $str = '$id';
+                                echo '<div id="'.$data->$str.'" class="" id="notification"><h4>'.$data->Heading.'</h4>';
+                           
+                                $doc = new DOMDocument();
+                                $doc->loadHTML($data->Content);
+                                $htmlString = $doc->saveHTML();
+                                echo '<p>'.$htmlString.'</p></div>';
+                            }
+                      } 
+                }
 
 
 ?>
@@ -130,49 +156,60 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
         </div>
         </div>
          <div class="col-md-8 col-sm-12 ntfctin-blk notifiction-main-panel">
-         
-                            <div class="col-sm-12 tab_view notifction-tab-view">
+             
+             <?php  if(strtolower($domainName) == "kupiglobal"){  ?>
+             
+                        <div class="col-sm-12 tab_view notifction-tab-view">
                               <ul class="nav nav-tabs">
                                  <li class="active"> <a data-toggle="tab" href="#Notification">Notifications</a> </li>
                                 <li> <a class="" data-toggle="tab" href="#Legalinformation">Legal Information</a> </li>
-                                <li> <a class="" data-toggle="tab" href="#Aboutus">About Us</a> </li> 
+                                <li> <a class="" data-toggle="tab" href="#Aboutus">About Us</a> </li>
                                 <li> <a class="" data-toggle="tab" href="#Contactus">Contact Us</a> </li>
                                 <li> <a class="" data-toggle="tab" href="#Onlinestore">Online Stores</a> </li>
                           </ul>
 
                           <div class="tab-content">
                             <div id="Notification" class="tab-pane fade in active">
-                              <h3>Notification</h3>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                              <?php 
+                              $cmgSoonImg = '<img src="'.JURI::base().'/images/cmg-soon-image.png" >';
+                              $newsContent = getCategoryContent($mainPageDetails,'NEWS');
+                              if($newsContent !=NULL){ echo $newsContent; }else{ echo $cmgSoonImg; }  
+                              ?>
                             </div>
                             <div id="Legalinformation" class="tab-pane fade">
-                              <h3>Legal Information</h3>
-                              <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                              <?php 
+                              $legalInfoContent = getCategoryContent($mainPageDetails,'LEGAL INFORMATION');
+                              if($legalInfoContent !=NULL){ echo $legalInfoContent; }else{ echo $cmgSoonImg; }   
+                              ?>
                             </div>
                             <div id="Aboutus" class="tab-pane fade">
-                              <h3>About Us</h3>
-                              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                              <?php 
+                              $aboutContent = getCategoryContent($mainPageDetails,'ABOUT US');
+                              if($aboutContent !=NULL){ echo $aboutContent; }else{ echo $cmgSoonImg; }   
+                              ?>
                             </div>
                             <div id="Contactus" class="tab-pane fade">
-                              <h3>Contact Us</h3>
-                              <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                              <?php 
+                              $contactContent = getCategoryContent($mainPageDetails,'CONTACT US');
+                              if($aboutContent !=NULL){ echo $contactContent; }else{ echo $cmgSoonImg; }   
+                              ?>
                             </div>
                             <div id="Onlinestore" class="tab-pane fade">
-                              <h3>Online Store</h3>
-                              <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                              <?php 
+                              $storesContent = getCategoryContent($mainPageDetails,'ONLINE STORES');
+                              if($aboutContent !=NULL){ echo $storesContent; }else{ echo $cmgSoonImg; }   
+                              ?>
                             </div>
                           </div>                             
                             </div>
-                          
+                            
+                      <?php } ?>
+             
                <div class="">
                <div class="main_panel login-frm notification_panel">
-            <div class="main_heading">
-               <?php echo $assArr['notifications']; ?>
-            </div>
-            <div class="panel-body" >
+            
+            
                <?php
-               
-               
                
                if(!isset($mainPageDetails)){
                   echo '<img src="'.JURI::base().'/images/cmg-soon-image.png" >';
@@ -181,49 +218,47 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
                $config = JFactory::getConfig();
                
                 if(strtolower($domainName) != "kupiglobal"){
+                    
+                    echo '<div class="main_heading">'.$assArr['notifications'].'</div>'; 
+                    echo '<div class="panel-body" >';
                   
-                $nb_elem_per_page = 5;
-                $page = isset($_GET['page'])?intval($_GET['page']):1;
-                $number_of_pages = ceil(count($mainPageDetails)/$nb_elem_per_page);
-                
-                        foreach(array_slice($mainPageDetails, ($page-1)*$nb_elem_per_page, $nb_elem_per_page) as $data){
-                            $str = '$id';
-                            if(strlen($data->Content) > 100){
-                                $content = substr(strip_tags($data->Content),0,100);
-                                $content .= '...<a href="index.php/en/component/register/notifications?Itemid=131#'.$data->$str.'" class="ntifiction-link">Read more</a>';
-                            }else{
-                                $content = strip_tags($data->Content);
-                            }
-                           echo '<div class="row ntifiction-info"><a href="index.php/en/component/register/notifications?Itemid=131#'.$data->$str.'" >'.$data->Heading.'</a><p>'.$content.'</p></div>';
+                        $nb_elem_per_page = 5;
+                        $page = isset($_GET['page'])?intval($_GET['page']):1;
+                        $number_of_pages = ceil(count($mainPageDetails)/$nb_elem_per_page);
                         
-                       }
+                                foreach(array_slice($mainPageDetails, ($page-1)*$nb_elem_per_page, $nb_elem_per_page) as $data){
+                                    $str = '$id';
+                                    if(strlen($data->Content) > 100){
+                                        $content = substr(strip_tags($data->Content),0,100);
+                                        $content .= '...<a href="index.php/en/component/register/notifications?Itemid=131#'.$data->$str.'" class="ntifiction-link">Read more</a>';
+                                    }else{
+                                        $content = strip_tags($data->Content);
+                                    }
+                                   echo '<div class="row ntifiction-info"><a href="index.php/en/component/register/notifications?Itemid=131#'.$data->$str.'" >'.$data->Heading.'</a><p>'.$content.'</p></div>';
+                                
+                               }
+                       
+                    echo '</div>';   
                        
                     ?>
                     
                
- <?php             }else{ 
-                            // foreach($mainPageDetails as $data){
-                            // $str = '$id';
-                            // echo '<div id="'.$data->$str.'" class="" id="notification"><h4>'.$data->Heading.'</h4>';
-
-                            // $doc = new DOMDocument();
-                            // $doc->loadHTML($data->Content);
-
-                            // $htmlString = $doc->saveHTML();
-                            // echo '<p>'.$htmlString.'</p></div>';
-
-                            // }
-
-                            ?>
-
-                            
-
-
-           <?php   }
+ <?php             }else{
+            //       foreach($mainPageDetails as $data){
+            //         $str = '$id';
+            //       echo '<div id="'.$data->$str.'" class="" id="notification"><h4>'.$data->Heading.'</h4>';
+                   
+            //             $doc = new DOMDocument();
+            //             $doc->loadHTML($data->Content);
+            //             $htmlString = $doc->saveHTML();
+            //             echo '<p>'.$htmlString.'</p></div>';
+                    
+            //   }
+              }
               
              
                ?>
-            </div>
+            
             <div class="panel-footer">
                 <ul id='paginator' class="pagination">
                     <?php
