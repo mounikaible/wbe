@@ -264,7 +264,7 @@
       agency_country = "<?php echo $agency_country; ?>";
        // Customer registration under agent
 if(agency_country){
-
+    
    setregCountry = 0;
     $joomla('input').prop('readonly', true);
     $joomla('button').prop('disabled', true);
@@ -292,6 +292,7 @@ if(agency_country){
             var element = $joomla(this).find('option:selected'); 
            var agentId = element.attr("data-id");
             $joomla("#agentId").val(agentId);
+            $joomla("#countryTxt").attr("tabindex", -1);
             $joomla("#countryTxt").val($joomla(this).val()).change();
             $joomla("#accounttypeTxt").val("CUST").change();
             $joomla('input').prop('readonly', false);
