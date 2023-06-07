@@ -1117,7 +1117,7 @@ input[type=checkbox]#expandAllHold {display: none;}
 .navbar { min-height: 70px; }
 .navbar-right .dropdown-menu{right:auto;width: 100%;}
 .navbar-header { float: none; }
-header .theme_nav{padding:14px 0 !important ;}
+header .theme_nav{padding:6px 0 !important ;}
 .navbar-left, .navbar-right { float: none !important; }
 .navbar-toggle { display: block; top: 10px; }
 .navbar-collapse { border-top: 1px solid transparent; box-shadow: inset 0 1px 0 rgba(255,255,255,0.1); }
