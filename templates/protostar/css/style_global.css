@@ -1111,6 +1111,7 @@ input[type=checkbox]#expandAllHold {display: none;}
 .pp_load span{left:28%;}
 .dash_panel .user_info .panel address span.user_num {font-size: 15px;}
 .dash_option_blck h5 {font-size: 14px !important;}
+header .theme_nav{padding:8px 0 !important;}
 }
 
 @media (max-width: 991px) {
