@@ -139,7 +139,7 @@ border-color: #434b52 !important;
 .notifction-tab-view ul li {
     list-style-type: none;
     padding: 0;
-    margin: 0 5px 0 0;
+    margin: 0 4px 0 0;
     font-style: italic;
 font-weight: bold;
 }
@@ -310,37 +310,45 @@ header .theme_nav .navbar-header img {height: 62px;margin-top: 0px !important;}
     padding: 10px 8px;
 }
 .notifction-tab-view ul.nav.nav-tabs li a{
-    padding: 10px 8px;
+    padding: 10px 3px;
+     font-size: 10px;
 }
     
 }
 @media (max-width: 1024px){
     .notifction-tab-view ul.nav.nav-tabs li a{
-    padding: 10px 8px;
+    padding: 10px 3px;
     font-size: 11px !important;
 }
 }
 @media (max-width: 1180px){
     .notifction-tab-view ul.nav.nav-tabs li a {
-    padding: 10px 8px;
-    font-size: 12px;
+    padding: 10px 3px;
+    font-size: 10px;
 }
 }
 @media (max-width: 1194px){
 .notifction-tab-view ul.nav.nav-tabs li a {
   padding: 10px 4px !important;
-  font-size: 12px;
+  font-size: 10px;
 }
 }
 @media (max-width: 1200px){
     .notifction-tab-view ul.nav.nav-tabs li a {
-    padding: 10px 8px;
-    font-size: 11px;
+     padding: 10px 3px;
+    font-size: 10px;
+}
+}
+@media (max-width: 1400px){
+    .notifction-tab-view ul.nav.nav-tabs li a {
+    padding: 10px 5px;
+      font-size: 10px;
 }
 }
 @media (max-width: 1366px){
     .notifction-tab-view ul.nav.nav-tabs li a {
     padding: 10px 5px;
+      font-size: 10px;
 }
 }
 @media screen and ( min-height: 991px )
@@ -348,3 +356,11 @@ header .theme_nav .navbar-header img {height: 62px;margin-top: 0px !important;}
     .row.rows.row-mob label {min-height: 40px;}
     .btn-grp1 {margin-top: 0px;}
 }
+@media screen and (min-width: 1080px) and (max-width: 1920px) {
+    .notifction-tab-view ul.nav.nav-tabs li a {
+    padding: 10px 3px;
+    font-size: 10px;
+}
+
+}
+  
