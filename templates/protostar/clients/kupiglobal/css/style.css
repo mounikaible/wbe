@@ -336,19 +336,19 @@ header .theme_nav .navbar-header img {height: 62px;margin-top: 0px !important;}
 @media (max-width: 1200px){
     .notifction-tab-view ul.nav.nav-tabs li a {
      padding: 10px 3px;
-    font-size: 10px;
+    
 }
 }
 @media (max-width: 1400px){
     .notifction-tab-view ul.nav.nav-tabs li a {
-    padding: 10px 5px;
-      font-size: 10px;
+    padding: 10px 8px;
+    
 }
 }
 @media (max-width: 1366px){
     .notifction-tab-view ul.nav.nav-tabs li a {
-    padding: 10px 5px;
-      font-size: 10px;
+    padding: 10px 8px;
+      
 }
 }
 @media screen and ( min-height: 991px )
