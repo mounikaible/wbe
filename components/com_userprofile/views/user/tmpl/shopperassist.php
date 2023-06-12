@@ -1204,7 +1204,7 @@ $joomla(document).on('change','.mulinvoices,input[type="file"]', function(){
                                         }
                                     }
                                     
-                                    $paymentmethodsStr.=Controlbox::shopgetpaymentgateways('PPD',$elem['Paypal'][1],$elem['Stripe'][1],$elem['Authorize.net'][1]);
+                                    $paymentmethodsStr.=Controlbox::shopgetpaymentgateways('PPD',$elem['Paypal'][1],$elem['Stripe'][1],$elem['authorize.net'][1]);
                                     echo $paymentmethodsStr;
                                 ?>
                                 

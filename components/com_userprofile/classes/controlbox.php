@@ -5408,7 +5408,7 @@ if($priceStr != ""){
     
      /** getpaymentmethods **/
      
-     public static function shopgetpaymentgateways($paymentmethod)
+     public static function shopgetpaymentgateways($paymentmethod,$paypal,$stripe,$authorize)
     {
        
         mb_internal_encoding('UTF-8');
@@ -5423,7 +5423,7 @@ if($priceStr != ""){
         $res=json_decode($result);
         
         // echo $url;
-        // var_dump($res);
+        // var_dump($authorize);
         // exit;
         
         
@@ -5434,18 +5434,19 @@ if($priceStr != ""){
                     foreach($method->PaymentGatewayDetail as $gateway){
                         if($method->desc_vals){
 
-                        if($gateway->id_values == "Paypal" && $paypal == "ACT"){
+                        if($gateway->id_values == "Paypal" && strtolower($paypal) == "act"){
+                            $paymentgatewayStr .= '<input type="radio" name="cc" value="'.$gateway->id_values.'">';
+                            $paymentgatewayStr .='<label>'.$gateway->desc_vals.'</label>';
+                            
+                        }
+                        if($gateway->id_values == "Stripe" && strtolower($stripe) == "act"){
                             $paymentgatewayStr .= '<input type="radio" name="cc" value="'.$gateway->id_values.'">';
                             $paymentgatewayStr .='<label>'.$gateway->desc_vals.'</label>';
                         }
-                        if($gateway->id_values == "Stripe" && $stripe == "ACT"){
+                        if($gateway->id_values == "authorize.net" && strtolower($authorize) == "act"){
                             $paymentgatewayStr .= '<input type="radio" name="cc" value="'.$gateway->id_values.'">';
                             $paymentgatewayStr .='<label>'.$gateway->desc_vals.'</label>';
                         }
-                        //if($gateway->id_values == "Authorize.net" && $authorize == "ACT"){
-                            $paymentgatewayStr .= '<input type="radio" name="cc" value="'.$gateway->id_values.'">';
-                            $paymentgatewayStr .='<label>'.$gateway->desc_vals.'</label>';
-                       // }
                        
                         }
                     }
@@ -5455,6 +5456,7 @@ if($priceStr != ""){
         
         return $paymentgatewayStr;
     }
+    
     
     
      /**
