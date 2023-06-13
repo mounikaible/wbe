@@ -1270,7 +1270,7 @@ $joomla(document).on('keydown','#orderdateTxt,#txtOrderDate',function(e) {
                 <!--<input type="text" class="form-control"  name="widthTxt[]" id="widthTxt_1" maxlength="25" <?#php if($elem['Width'][2]){ echo "required";  } ?> value="<?#php if($elem['Width'][4]){  echo intval($elem['Width'][4]);  } ?>" <?#php if($elem['Width'][4]){ echo 'readonly'; } ?> >-->
               </div>
             </div>
-            <?php } if(strtolower($elem['Height'][1]) == strtolower("ACT")){ ?>
+            <?php } if(strtolower($elem['Height'][1]) == "act"){ ?>
             <div class="col-sm-12 col-md-3">
               <div class="form-group">
                    <label><?php echo $assArr['height']; ?><?php if($elem['Height'][2]){ ?><span class="error">*</span><?php } ?></label>
@@ -1283,6 +1283,8 @@ $joomla(document).on('keydown','#orderdateTxt,#txtOrderDate',function(e) {
           </div>
            
             <!-- End -->
+
+            <?php if(strtolower($elem['AddingMultipleItems'][1]) == "act"){ ?>
             
             <div class="col-sm-12 col-md-2">
               <div class="form-group btn-grp1">
@@ -1290,6 +1292,8 @@ $joomla(document).on('keydown','#orderdateTxt,#txtOrderDate',function(e) {
                 <input type="button" name="deleterow" value="x" class="btn btn-danger btn-rem">
               </div>
             </div>
+
+            <?php } ?>
             
              <div class="clearfix"></div>
              

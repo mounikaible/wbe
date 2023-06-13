@@ -13,6 +13,7 @@ $document->setTitle("Calculator in Boxon Pobox Software");
 defined('_JEXEC') or die;
 $session = JFactory::getSession();
 $user=$session->get('user_casillero_id');
+
 if(!$user){
     $app =& JFactory::getApplication();
     $app->redirect('index.php?option=com_register&view=login');
@@ -24,12 +25,27 @@ $resWp=UserprofileHelpersUserprofile::getPickupFieldviewsList($user);
    $clientConfigObj = file_get_contents(JURI::base().'/client_config.json');
    $clientConf = json_decode($clientConfigObj, true);
    $clients = $clientConf['ClientList'];
-   
+  
    $domainDetails = ModProjectrequestformHelper::getDomainDetails();
    $CompanyId = $domainDetails[0]->CompanyId;
    $companyName = $domainDetails[0]->CompanyName;
    $domainEmail = $domainDetails[0]->PrimaryEmail;
    $domainName =  $domainDetails[0]->Domain;
+
+   foreach($clients as $client){ 
+    if(strtolower($client['Domain']) == strtolower($domainName) ){   
+        $sourcezip_text=$client['Source_zipcode'];
+        $destzip_text=$client['Dest_zipcode'];
+        $length_def=$client['length_default'];
+        $width_def=$client['width_default'];
+        $height_def=$client['height_default'];
+        $Default_len_calc_readonly=$client['Default_len_calc_readonly'];
+        $Default_width_calc_readonly=$client['Default_width_calc_readonly'];
+        $Default_height_calc_readonly=$client['Default_height_calc_readonly'];
+        $grwtLimitLb=$client['grwtLimitLb'];
+        
+    }
+}
    
    // get domain details end
    
@@ -71,10 +87,7 @@ $joomla(document).ready(function(){
     };
     
     var domainName = '<?php echo strtolower($domainName);  ?>';
-    
-
-    
-    
+    grwtLimitlb = "<?php echo $grwtLimitLb; ?>";
 
     
     //destination country
@@ -658,7 +671,14 @@ $joomla(document).ready(function(){
 		//$joomla('#cityTxt').html('<option value="">Select City</option>'); 
 		$joomla('#dzipTxt').val(''); 
 
-	});   
+	}); 
+    
+    $joomla(document).on("keyup","input[name='txtWeight']",function(){
+        if($joomla(this).val() > parseFloat(grwtLimitlb)){
+            alert("Gross weight sholud not be greater than "+grwtLimitlb+"Lb");
+            $joomla(this).val("");
+        }
+    });
     
 });
 </script>
@@ -761,24 +781,7 @@ $joomla(document).ready(function(){
 			    <?php } ?>
 			</div>
 			
-			        <?php
-			
-		        	foreach($clients as $client){ 
-                        if(strtolower($client['Domain']) == strtolower($domainName) ){   
-                            $sourcezip_text=$client['Source_zipcode'];
-                            $destzip_text=$client['Dest_zipcode'];
-                            $length_def=$client['length_default'];
-                            $width_def=$client['width_default'];
-                            $height_def=$client['height_default'];
-                            $Default_len_calc_readonly=$client['Default_len_calc_readonly'];
-                            $Default_width_calc_readonly=$client['Default_width_calc_readonly'];
-                            $Default_height_calc_readonly=$client['Default_height_calc_readonly'];
-                            
-                            
-                        }
-		        	}
-                    
-                    ?>
+			        
 
 
 			<div class="row">

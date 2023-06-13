@@ -37,7 +37,8 @@
     "Enabled_languages":"en,es",
     "Promocodes":true,
     "OrderId":true,
-    "RmaVal":true
+    "RmaVal":true,
+    "grwtLimitLb":9
     },
     {
     "Domain":"kupiglobal",
