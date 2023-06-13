@@ -85,6 +85,7 @@ $joomla(document).ready(function() {
   globalMultWithQnt = "<?php echo $globalMultWithQnt; ?>";
   if(globalMultWithQnt.toLowerCase() != "act"){
     $joomla("input[name='totalpriceTxt[]'").parent().parent().css("display","none");
+    $joomla("input[name='txtTotalPrice'").parent().parent().css("display","none");
   }
 
     var domainName = '<?php echo strtolower($domainName); ?>';
@@ -642,21 +643,27 @@ $joomla(document).on('keydown','#orderdateTxt,#txtOrderDate',function(e) {
     
 
     $joomla('input[name="txtQuantity"]').live('blur',function(){
-        $joomla('input[name="txtTotalPrice"]').val('');
-        var total=0;
-        total=(parseFloat($joomla(this).val())*parseFloat($joomla('input[name="txtDvalue"]').val()));
-        if(total>0){
-            $joomla('input[name="txtTotalPrice"]').val(total).toFixed(2);
-        }
+      if(globalMultWithQnt.toLowerCase() == "act"){
+          $joomla('input[name="txtTotalPrice"]').val('');
+          var total=0;
+          total=(parseFloat($joomla(this).val())*parseFloat($joomla('input[name="txtDvalue"]').val()));
+          if(total>0){
+              $joomla('input[name="txtTotalPrice"]').val(total).toFixed(2);
+          }
+      }
     });
     $joomla('input[name="txtDvalue"]').live('blur',function(){
-        $joomla('input[name="txtTotalPrice"]').val('');
-        var total=0;
-        total=(parseFloat($joomla(this).val())*parseFloat($joomla('input[name="txtQuantity"]').val()));
-     
-        if(total>0){
-            $joomla('input[name="txtTotalPrice"]').val(total).toFixed(2);
-        }
+      if(globalMultWithQnt.toLowerCase() == "act"){
+          $joomla('input[name="txtTotalPrice"]').val('');
+          var total=0;
+          total=(parseFloat($joomla(this).val())*parseFloat($joomla('input[name="txtQuantity"]').val()));
+      
+          if(total>0){
+              $joomla('input[name="txtTotalPrice"]').val(total).toFixed(2);
+          }
+      }else{
+        $joomla('input[name="txtTotalPrice"]').val(parseFloat($joomla(this).val()));
+      }
     });
 
    
