@@ -42,7 +42,7 @@ if(!$user){
    foreach($res as $element){
       $elem[$element->ElementId]=array($element->ElementDescription,$element->ElementStatus,$element->is_mandatory,$element->is_default,$element->ElementValue);
    }
-   
+   $globalMultWithQnt = $elem['MultiplyWithQuatyDecVal'][1];
    $menuAccessStr=Controlbox::getMenuAccess($user,$pass);
    $menuCustData = explode(":",$menuAccessStr);
    
@@ -82,7 +82,10 @@ if(!$user){
 var $joomla = jQuery.noConflict(); 
 $joomla(document).ready(function() {
   var countryCode = "<?php echo $countryCode; ?>";
-  
+  globalMultWithQnt = "<?php echo $globalMultWithQnt; ?>";
+  if(globalMultWithQnt.toLowerCase() != "act"){
+    $joomla("input[name='totalpriceTxt[]'").parent().parent().css("display","none");
+  }
 
     var domainName = '<?php echo strtolower($domainName); ?>';
     var carrierReq = '';
@@ -611,20 +614,29 @@ $joomla(document).on('keydown','#orderdateTxt,#txtOrderDate',function(e) {
     });
     
     $joomla('input[name^="quantityTxt[]"]' ).live('blur',function(e){
-        $joomla(this).closest('.row').find('div:nth-child(4) input').val('');
-        var total=0;
-        total=(parseFloat($joomla(this).val())*parseFloat($joomla(this).closest('.row').find('div:nth-child(3) input').val()));
-        if(total>0){
-            $joomla(this).closest('.row').find('div:nth-child(4) input').val(parseFloat(total).toFixed(2));
-        }
+      
+      if(globalMultWithQnt.toLowerCase() == "act"){
+          $joomla(this).closest('.row').find('div:nth-child(4) input').val('');
+          var total=0;
+          total=(parseFloat($joomla(this).val())*parseFloat($joomla(this).closest('.row').find('div:nth-child(3) input').val()));
+          if(total>0){
+              $joomla(this).closest('.row').find('div:nth-child(4) input').val(parseFloat(total).toFixed(2));
+          }
+      }
+        
     });
     $joomla('input[name^="declaredvalueTxt[]"]' ).live('blur',function(e){
-        $joomla(this).closest('.row').find('div:nth-child(4) input').val('');
-        var total=0;
-        total=(parseFloat($joomla(this).val())*parseFloat($joomla(this).closest('.row').find('div:nth-child(2) input').val()));
-        if(total>0){
-            $joomla(this).closest('.row').find('div:nth-child(4) input').val(parseFloat(total).toFixed(2));
-        }    
+      if(globalMultWithQnt.toLowerCase() == "act"){
+          $joomla(this).closest('.row').find('div:nth-child(4) input').val('');
+          var total=0;
+          total=(parseFloat($joomla(this).val())*parseFloat($joomla(this).closest('.row').find('div:nth-child(2) input').val()));
+          if(total>0){
+              $joomla(this).closest('.row').find('div:nth-child(4) input').val(parseFloat(total).toFixed(2));
+          }
+      }else{
+        $joomla(this).closest('.row').find('div:nth-child(4) input').val(parseFloat($joomla(this).val()));
+      }
+
     });
     
     
