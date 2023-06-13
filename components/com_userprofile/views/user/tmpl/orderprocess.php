@@ -102,11 +102,20 @@
 
     // var_dump($elem['Hold'][1]);
     // exit;
-   //end
 
    // enable / hide shipping info
 
    $shippingInfoStat = $elem['ShippingInfo'][1];
+
+   // enable / disable grosswt column
+if(strtolower($elem['GrossWtDisplay'][1]) == "act"){
+   $Gross_weight_display = true;
+}else{
+   $Gross_weight_display = false;
+}
+   
+   
+
    
 // echo '<pre>';   
 // var_dump($elem);exit;
@@ -3806,7 +3815,6 @@ if($joomla(this).html() == '+'){
                             $change_address_enable=$client['change_address_enable'];
                             $prepaid_text=$client['Prepaid_text'];
                             $Payment_gateway_dynamic_enable=$client['Payment_gateway_dynamic_enable']; 
-                            $Gross_weight_display=$client['Gross_weight_display'];
                             $promocodes = $client['Promocodes'];
                             $OrderId = $client['OrderId'];
                             $RmaVal = $client['RmaVal'];
