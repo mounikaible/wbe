@@ -3692,9 +3692,9 @@ if($priceStr != ""){
 		$result=curl_exec($ch);
 		
 		/** Debug **/
-// 		echo $url;
-// 		echo '{"CompanyID":"'.$CompanyId.'","CustomerId":"'.$user.'","ActivationKey":"123456789","PurchaseType":"'.$purchasetype.'","Status":"'.$status.'"}';
-//         var_dump($result);exit;
+            // echo $url;
+            // echo '{"CompanyID":"'.$CompanyId.'","CustomerId":"'.$user.'","ActivationKey":"123456789","PurchaseType":"'.$purchasetype.'","Status":"'.$status.'"}';
+            // var_dump($result);exit;
         
         $msg=json_decode($result);
         return $msg->Data;

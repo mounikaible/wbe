@@ -56,6 +56,42 @@ $menuCustType=end($menuCustData);
     $assArr[$response->id]  = $response->text;
     }
 
+    // dynamic elements
+
+    $res = Controlbox::dynamicElements('ShipmentHistory');
+   $elem=array();
+   foreach($res as $element){
+      $elem[$element->ElementId]=array($element->ElementDescription,$element->ElementStatus,$element->is_mandatory,$element->is_default,$element->ElementValue);
+   }
+
+   // merchant name
+
+if(strtolower($elem['MerchantNameDisplay'][1]) == "act"){
+  $MerchantNameDisplay = true;
+ }else{
+  $MerchantNameDisplay = false;
+ }
+
+ // Declared Value
+
+ if(strtolower($elem['DeclaredValDisplay'][1]) == "act"){
+  $DeclaredValDisplay = true;
+ }else{
+  $DeclaredValDisplay = false;
+ }
+
+ // Shipping Id Value
+
+ if(strtolower($elem['ShippingDisplay'][1]) == "act"){
+  $ShippingIdDisplay = true;
+ }else{
+  $ShippingIdDisplay = false;
+ }  
+
+
+
+   
+
 ?>
 
 <?php include 'dasboard_navigation.php' ?>
@@ -95,6 +131,9 @@ $joomla(document).ready(function() {
     window.onpopstate = function () {
         history.go(1);
     };
+
+    DeclaredValDisplay = "<?php echo $DeclaredValDisplay; ?>";
+    ShippingIdDisplay = "<?php echo $ShippingIdDisplay; ?>";
 
     // $joomla('select[name=txtHistoryStatus]').change(function(){
     //     var resk=$joomla(this).val();
@@ -290,7 +329,15 @@ $joomla(document).on('click','.exp_item',function(e){
        var htmse='';
        var rs=$joomla(this).attr("data-id");
        rs = rs.replace(/\s/g,'');
-       htmse+='<tr class="child_row"><td colspan="10"><table class="table table-bordered"><tr class="'+rs+' wrhuse-grid"><th style="display:none"></th><th>Item Name</th><th>Item Quantity</th><th>Item Status</th><th>Expected Delivery Date</th><th>Update Invoice</th><th style="display:none"></th><th style="display:none"></th><th style="display:none"></th><th style="display:none"></th><th style="display:none"></th></tr>';
+       declaredVal = "";
+       shippingId = "";
+       if(DeclaredValDisplay){
+        declaredVal = "<th>Declared Value(EUROS)</th>";
+       }
+       if(ShippingIdDisplay){
+        shippingId = "<th>Shipping ID</th>";
+       }
+       htmse+='<tr class="child_row"><td colspan="11"><table class="table table-bordered"><tr class="'+rs+' wrhuse-grid"><th style="display:none"></th><th>Item Name</th><th>Item Quantity</th><th>Item Status</th><th>Expected Delivery Date</th><th>Update Invoice</th>'+declaredVal+shippingId+'<th style="display:none"></th><th style="display:none"></th><th style="display:none"></th></tr>';
        $joomla('#M_table tbody tr').each( function () {
            
          if($joomla(this).attr('id') == rs){
@@ -580,7 +627,8 @@ $joomla(document).on('change','select[name=M_table_length]',function(){
         </div>
     </div>
 </div>
-            
+   
+
         <div class="row">
           <div class="col-md-12">
               <div class="table-responsive">
@@ -589,6 +637,9 @@ $joomla(document).on('change','select[name=M_table_length]',function(){
                 <tr>
                   <th><?php echo 'Actions'; ?></th>
                   <th><?php echo $assArr['warehouse_Receipt'];?></th>
+                  <?php if($MerchantNameDisplay){ ?>
+                  <th><?php echo $assArr['merchants_Name'];?></th>
+                  <?php } ?>
                   <th><?php echo $assArr['creation_date'];?></th>
                   <th><?php echo $assArr['carrier'];?></th>
                   <th><?php echo $assArr['the_tracking_number'];?></th>
@@ -637,8 +688,11 @@ $joomla(document).on('change','select[name=M_table_length]',function(){
          $rep='<a href="'.$service_url.'/ASPX/Tx_Wh_Receipt.aspx?bid='.$res->BillFormNo.'&companyid='.$CompanyId.'" target="_blank">'.Jtext::_('COM_USERPROFILE_HISTORY_TABLE_WAREHOUSE_RECEIPT').'<a>';
         
          echo '<tr><td ><input type="button" class="btn btn-success exp_item" data-id="'.$res->BillFormNo.'" value="+"></td>
-         <td><a data-toggle="modal" data-backdrop="static" data-keyboard="false" class="getmlog whrse-link label-success" data-id="'.$res->BillFormNo.'" data-target="#logModal" title="momento">'.$res->BillFormNo.'</a></td>
-         <td>'.$res->CreatedDate.'</td>
+         <td><a data-toggle="modal" data-backdrop="static" data-keyboard="false" class="getmlog whrse-link label-success" data-id="'.$res->BillFormNo.'" data-target="#logModal" title="momento">'.$res->BillFormNo.'</a></td>';
+         if($MerchantNameDisplay){
+         echo '<td>'.$res->MerchantName.'</td>';
+         }
+         echo '<td>'.$res->CreatedDate.'</td>
          <td>'.$res->CarrierName.'</td>
          <td>'.$res->TrackingId.'</td>
          <td>'.$rep.'</td>';
@@ -656,7 +710,7 @@ $joomla(document).on('change','select[name=M_table_length]',function(){
         
        
         
-       foreach($res->ItemDetails as $rg){
+       foreach($res->ItemDetails as $rg){ 
            
           
             if($rg->ItemStatus=="Ship"){
@@ -689,9 +743,18 @@ $joomla(document).on('change','select[name=M_table_length]',function(){
                   }else{
                       echo '<td class="updateInvoice">-</td>';
                   }
+                  if($DeclaredValDisplay){
+                    echo '<td>'.$rg->TotalPrice.'</td>';
+                  }else{
+                    echo '<td style="display:none"></td>';
+                  }
+                  if($ShippingIdDisplay){
+                    echo '<td>'.$rg->Idinv.'</td>';
+                  }else{
+                    echo '<td style="display:none"></td>';
+                  }
+                 
                   echo '<td style="display:none"></td>
-                  <td style="display:none"></td>
-                  <td style="display:none"></td>
                   <td style="display:none"></td>
                   <td style="display:none"></td>
                   </tr>';
