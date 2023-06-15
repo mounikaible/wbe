@@ -1211,7 +1211,7 @@ $joomla(document).on('keydown','#orderdateTxt,#txtOrderDate',function(e) {
             </div>
             <?php }else{ echo '<input type="hidden" class="form-control" name="itemstatusTxt[]" id="itemstatusTxt" value="In Progress" >';  } ?>
         <div class="clearfix"></div>
-           
+
                 <!--order id , rma value-->
                 
             <?php } if(strtolower($elem['RMAValue'][1]) == strtolower("ACT")){    ?>
@@ -1248,8 +1248,25 @@ $joomla(document).on('keydown','#orderdateTxt,#txtOrderDate',function(e) {
             </div>
             
             <?php } ?>
+
+            <?php  if(1){  ?>
+
+            <!-- Package Field-->
+            <div class="col-sm-12 col-md-4">
+                <div class="form-group">
+                      <label><?php echo "Box (Do you need the original box? You might be able to save in fees without it. (box may apply volumetric weight) Free re-packaging)"; ?> <a href="https://youtu.be/xikvgWJRmXQ" target="_blank"><i class="fa fa-youtube" aria-hidden="true" style="font-size:24px;color:blue"></i></a> : </label>
+                      <br>
+                      <input type="radio" id="package_yes" value="Yes" name="package[]" >
+                      <?php echo "Yes";?>
+                      <input type="radio" id="package_no" checked value="No" name="package[]" >
+                      <?php echo "No";?>
+                      
+                </div>
+              </div>   
             
             <div class="clearfix" ></div>
+
+            <?php  }  ?>
 
             <div class="">
             <?php if(strtolower($elem['Length'][1]) == strtolower("ACT")){ ?>
