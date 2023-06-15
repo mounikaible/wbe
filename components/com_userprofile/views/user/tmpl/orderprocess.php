@@ -4320,8 +4320,21 @@ if($joomla(this).html() == '+'){
                            $idf++;
                            
                      }
-                       
-                     
+                       echo' </table></td><td style="display:none"></td><td style="display:none"></td>
+                        <td style="display:none"></td>
+                        <td style="display:none"></td>
+                        <td style="display:none"></td>
+                        <td style="display:none"></td>
+                        <td style="display:none"></td>
+                        <td style="display:none"></td>
+                        <td style="display:none"></td>
+                        <td style="display:none"></td>
+                        <td style="display:none"></td>';
+                         if($Gross_weight_display){
+                                  echo "<td style='display:none'></td>";
+                               }
+                               
+                        echo '</tr>';
                               $i++;
                          }
                          }else{
