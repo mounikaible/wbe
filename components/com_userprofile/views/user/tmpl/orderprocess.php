@@ -113,6 +113,13 @@ if(strtolower($elem['GrossWtDisplay'][1]) == "act"){
 }else{
    $Gross_weight_display = false;
 }
+
+// enable / disable grosswt column
+if(strtolower($elem['DeclaredValDisplay'][1]) == "act"){
+   $DeclaredValDisplay = true;
+}else{
+   $DeclaredValDisplay = false;
+}
    
    
 
@@ -3951,9 +3958,26 @@ if($joomla(this).html() == '+'){
                                         <td>'.$res->DimUnits.'</td>
                                         <td>'.$res->BusinessType.'</td>';	
                                         if($Gross_weight_display){	
-                                       echo '<th>'.$repack->GrossWeight.'</th>';	
+                                       echo '<td>'.$repack->GrossWeight.'</td>';	
                                        }	
-                                       echo'</tr>';	
+                                       echo'</tr>';
+                                       
+                                       $OrderIdHead = Null;
+                                 if($OrderId){
+                                    $OrderIdHead = '<th>Order Id</th>';
+                                 }
+                                 $RmaValHead = Null;
+                                 if($RmaVal){
+                                    $RmaValHead = '<th>RMA Value</th>';
+                                 }
+                                 $GrossWeightHead = Null;
+                                 if($Gross_weight_display){
+                                    $GrossWeightHead = '<th>Gross Weight (Pounds)</th>';
+                                 }
+                                 $DeclaredValHead = Null;
+                                 if($DeclaredValDisplay){
+                                    $DeclaredValHead = '<th>Declared Value (EUROS)</th>';
+                                 }
                                 	
                                        echo'<tr class="child_row"><td id="colspantd" colspan="12">	
                                        <table class="table table-bordered"> 	
@@ -3963,32 +3987,11 @@ if($joomla(this).html() == '+'){
                                         <th>'.$assArr['quantity'].'</th>	
                                         <th>'.$assArr['ship_quantity'].'</th>	
                                         <th>'.$assArr['tracking_ID'].'</th>	
-                                        <th>'.$assArr['merchants_Name'].'</th>';	
-                                        if($OrderId){	
-                                           echo '<th>Order Id</th>';	
-                                           }	
-                                        if(!$OrderId){	
-                                        echo '<th></th>';	
-                                        }	
-                                        if($RmaVal){	
-                                        echo '<th>RMA Value</th>';	
-                                           }	
-                                        if(!$RmaVal){	
-                                        echo '<th></th>';	
-                                        } 	
-                                        echo '<th>View / Update Invoice</th>	
-                                        <th></th>	
-                                        <th></th>';	
-                                        if($Gross_weight_display){	
-                                        echo '<th>Gross Weight</th>';	
-                                        }	
-                                        echo '</tr>';	
-          	
+                                        <th>'.$assArr['merchants_Name'].'</th>'.$OrderIdHead.$RmaValHead;
+                                       echo '<th>View / Update Invoice</th>'.$GrossWeightHead.$DeclaredValHead;
+                                       echo '<th></th><th></th></tr>';
                                         			
-                              	
                                         $idf=1;	
-                              	
-                             	
                               	
                                         foreach($res->ItemDetails as $rg){	
                                  
@@ -4010,10 +4013,31 @@ if($joomla(this).html() == '+'){
                                         $sim3=str_replace(":","#",$rg->ItemImage4);	
                                         $mgtd='<td class="action_btns"><a class="ship_img" data-idk="'.$rg->ItemIdk.'" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#" data-id="'.$rg->ItemImage1.'##'.$rg->ItemImage2.'##'.$rg->ItemImage3.'##'.$rg->ItemImage4.'" data-target="#view_image" ><i class="fa fa-eye"></i></a></td>';	
                                   }	
-                                $grosswtTd = NULL;	
-                             if(0){	
-                                 $grosswtTd = "<td>".$repack->GrossWeight."</td>";	
-                             }  	
+
+                                // gross wt display
+                                $grosswtTd = NULL;
+                                if($Gross_weight_display){
+                                   $grosswtTd = "<td>".$rg->GrossWeight."</td>";
+                                }  
+
+                                //  declared val display
+                                $declaredVal = NULL;
+                                if($DeclaredValDisplay){
+                                   $declaredVal = "<td>".$rg->TotalPrice."</td>";
+                                }  
+
+                                //  order id display
+                                $orderIdDis = NULL;
+                                if($OrderId){
+                                   $orderIdDis = "<td width='100px'>".$rg->OrderID."</td>";
+                                }  
+
+                                //  rma value display
+                                $rmaValDis = NULL;
+                                if($RmaVal){
+                                   $rmaValDis = "<td width='100px'>".$rg->RmaValue."</td>";
+                                }  
+
                              $readonltTxt = "";	
                              if($rg->InhouseRepacklbl !=''){	
                                 $readonltTxt = "readonly";	
@@ -4030,24 +4054,11 @@ if($joomla(this).html() == '+'){
                              <td width="100px">'.$rg->ItemQuantity.'</td>	
                              <td width="100px"><input type="hidden" name="ItemIdkTxt" value="'.$rg->ItemIdk.'"><input type="hidden" name="ItemQtyTxt" value="'.$rg->ItemQuantity.'"><input type="hidden" name="ItemQtyEdit" value="'.$rg->ItemQuantity.'"><input type="text" class="form-control" name="txtQty" value="'.$rg->ItemQuantity.'" ></td>
                              <td width="100px">'.$res->TrackingId.'</td>	
-                             <td width="100px">'.$res->MerchantName.'</td>';	
-                             if($OrderId){	
-                                echo '<td width="100px">'.$rg->OrderID.'</td>';	
-                                }	
-                             if(!$OrderId)	
-                             echo '<td width="100px"></td>';	
-                             if($RmaVal){	
-                                echo '<td width="100px">'.$rg->RmaValue.'</td>';	
-                             }	
-                             if(!$RmaVal){	
-                                echo '<td width="100px"></td>';	
-                             }	
-                               
-                             echo''.$mgtd.'	
-                             <td width="100px"></td>	
-                             <td width="100px"></td>'.$grosswtTd.'';	
-                               
-                             echo '</tr>';	
+                             <td width="100px">'.$res->MerchantName.'</td>'.$orderIdDis.$rmaValDis;
+                           echo''.$mgtd.$grosswtTd.$declaredVal.'
+                           <td width="100px"></td>
+                           <td width="100px"></td>';
+                           echo '</tr>';
   
                                           $p=$res->BillFormNo;	
                                        
@@ -4055,17 +4066,20 @@ if($joomla(this).html() == '+'){
                               $idf++;	
                                  
                           }	
-                          echo' </table></td><td style="display:none"></td><td style="display:none"></td>	
-                          <td style="display:none"></td>	
-                          <td style="display:none"></td>	
-                          <td style="display:none"></td>	
-                          <td style="display:none"></td>	
-                          <td style="display:none"></td>	
-                          <td style="display:none"></td>	
-                          <td style="display:none"></td>	
-                          <td style="display:none"></td>	
-                          <td style="display:none"></td>	
-                          </tr>';	
+                          echo' </table></td><td style="display:none"></td><td style="display:none"></td>
+                          <td style="display:none"></td>
+                          <td style="display:none"></td>
+                          <td style="display:none"></td>
+                          <td style="display:none"></td>
+                          <td style="display:none"></td>
+                          <td style="display:none"></td>
+                          <td style="display:none"></td>
+                          <td style="display:none"></td>
+                          <td style="display:none"></td>';
+                           if($Gross_weight_display){
+                                    echo "<td style='display:none'></td>";
+                                 }
+                          echo '</tr>';	
                              
                                         $i++;	
                                 }	
@@ -4198,6 +4212,24 @@ if($joomla(this).html() == '+'){
                               }
                               echo'</tr>';
 
+                              $OrderIdHead = Null;
+                              if($OrderId){
+                                 $OrderIdHead = '<th>Order Id</th>';
+                              }
+                              $RmaValHead = Null;
+                              if($RmaVal){
+                                 $RmaValHead = '<th>RMA Value</th>';
+                              }
+                             
+                              if($Gross_weight_display){
+                                 $GrossWeightHead = '<th>Gross Weight (Pounds)</th>';
+                              }
+                              $DeclaredValHead = Null;
+                              if($DeclaredValDisplay){
+                                 $DeclaredValHead = '<th>Declared Value (EUROS)</th>';
+                              }
+
+
                              echo'<tr class="child_row "><td id="colspantd" colspan="12">
                              <table class="table table-bordered"> 
                         	  <tr class="wrhuse-grid">
@@ -4206,26 +4238,9 @@ if($joomla(this).html() == '+'){
                               <th>'.$assArr['quantity'].'</th>
                               <th>'.$assArr['ship_quantity'].'</th>
                               <th>'.$assArr['tracking_ID'].'</th>
-                              <th>'.$assArr['merchants_Name'].'</th>';
-                              if($OrderId){
-                                 echo '<th>Order Id</th>';
-                                 }
-                              if(!$OrderId){
-                              echo '<th></th>';
-                              }
-                              if($RmaVal){
-                              echo '<th>RMA Value</th>';
-                                 }
-                              if(!$RmaVal){
-                              echo '<th></th>';
-                              } 
-                              echo '<th>View / Update Invoice</th>
-                              <th></th>
-                              <th></th>';
-                              if($Gross_weight_display){
-                              echo '<th>Gross Weight</th>';
-                              }
-                              echo '</tr>';
+                              <th>'.$assArr['merchants_Name'].'</th>'.$OrderIdHead.$RmaValHead;
+                              echo '<th>View / Update Invoice</th>'.$GrossWeightHead.$DeclaredValHead;
+                              echo '<th></th><th></th></tr>';
 
                                $idf=1;
 
@@ -4249,14 +4264,36 @@ if($joomla(this).html() == '+'){
                                           $sim3=str_replace(":","#",$rg->ItemImage4);
                                           $mgtd='<td class="action_btns"><a class="ship_img" data-idk="'.$rg->ItemIdk.'" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#" data-id="'.$rg->ItemImage1.'##'.$rg->ItemImage2.'##'.$rg->ItemImage3.'##'.$rg->ItemImage4.'" data-target="#view_image" ><i class="fa fa-eye"></i></a></td>';
                                     }
+                                    // gross wt display
                                   $grosswtTd = NULL;
-                               if($Gross_weight_display){
-                                   $grosswtTd = "<td>".$rg->GrossWeight."</td>";
-                               }  
-                               $readonltTxt = "";
-                               if($rg->InhouseRepacklbl !=''){
-                                  $readonltTxt = "readonly";
-                               }
+                                 if($Gross_weight_display){
+                                    $grosswtTd = "<td>".$rg->GrossWeight."</td>";
+                                 }  
+
+                                 //  declared val display
+                                 $declaredVal = NULL;
+                                 if($DeclaredValDisplay){
+                                    $declaredVal = "<td>".$rg->TotalPrice."</td>";
+                                 }  
+
+                                 //  order id display
+                                 $orderIdDis = NULL;
+                                 if($OrderId){
+                                    $orderIdDis = "<td width='100px'>".$rg->OrderID."</td>";
+                                 }  
+
+                                 //  rma value display
+                                 $rmaValDis = NULL;
+                                 if($RmaVal){
+                                    $rmaValDis = "<td width='100px'>".$rg->RmaValue."</td>";
+                                 }  
+
+
+
+                                 $readonltTxt = "";
+                                 if($rg->InhouseRepacklbl !=''){
+                                    $readonltTxt = "readonly";
+                                 }
 
                            echo'<tr>
                               
@@ -4272,23 +4309,10 @@ if($joomla(this).html() == '+'){
                               <td width="100px">'.$rg->ItemQuantity.'</td>
                               <td width="100px"><input type="hidden" name="ItemIdkTxt" value="'.$rg->ItemIdk.'"><input type="hidden" name="ItemQtyTxt" value="'.$rg->ItemQuantity.'"><input type="hidden" name="ItemQtyEdit" value="'.$rg->ItemQuantity.'"><input type="text" class="form-control" name="txtQty" value="'.$rg->ItemQuantity.'" ></td>
                               <td width="100px">'.$res->TrackingId.'</td>
-                              <td width="100px">'.$res->MerchantName.'</td>';
-                              if($OrderId){
-                                 echo '<td width="100px">'.$rg->OrderID.'</td>';
-                                 }
-                              if(!$OrderId)
-                              echo '<td width="100px"></td>';
-                              if($RmaVal){
-                                 echo '<td width="100px">'.$rg->RmaValue.'</td>';
-                              }
-                              if(!$RmaVal){
-                                 echo '<td width="100px"></td>';
-                              }
-                             
-                              echo''.$mgtd.'
+                              <td width="100px">'.$res->MerchantName.'</td>'.$orderIdDis.$rmaValDis;
+                              echo''.$mgtd.$grosswtTd.$declaredVal.'
                               <td width="100px"></td>
-                              <td width="100px"></td>'.$grosswtTd.'';
-                             
+                              <td width="100px"></td>';
                               echo '</tr>';
 
                             $p=$res->BillFormNo;
@@ -4296,21 +4320,8 @@ if($joomla(this).html() == '+'){
                            $idf++;
                            
                      }
-                       echo' </table></td><td style="display:none"></td><td style="display:none"></td>
-                        <td style="display:none"></td>
-                        <td style="display:none"></td>
-                        <td style="display:none"></td>
-                        <td style="display:none"></td>
-                        <td style="display:none"></td>
-                        <td style="display:none"></td>
-                        <td style="display:none"></td>
-                        <td style="display:none"></td>
-                        <td style="display:none"></td>';
-                         if($Gross_weight_display){
-                                  echo "<td style='display:none'></td>";
-                               }
-                               
-                        echo '</tr>';
+                       
+                     
                               $i++;
                          }
                          }else{

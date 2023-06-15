@@ -45,6 +45,35 @@ $lang=$session->get('lang_sel');
     $assArr[$response->id]  = $response->text;
     }
 
+    // dynamic elements
+
+    $res = Controlbox::dynamicElements('PendingShipments');
+   $elem=array();
+   foreach($res as $element){
+      $elem[$element->ElementId]=array($element->ElementDescription,$element->ElementStatus,$element->is_mandatory,$element->is_default,$element->ElementValue);
+   }
+
+    // var_dump($elem['Hold'][1]);
+    // exit;
+
+   // enable / hide shipping info
+
+   $shippingInfoStat = $elem['ShippingInfo'][1];
+
+   // enable / disable grosswt column
+if(strtolower($elem['GrossWtDisplay'][1]) == "act"){
+   $Gross_weight_display = true;
+}else{
+   $Gross_weight_display = false;
+}
+
+// enable / disable grosswt column
+if(strtolower($elem['DeclaredValDisplay'][1]) == "act"){
+   $DeclaredValDisplay = true;
+}else{
+   $DeclaredValDisplay = false;
+}
+
 ?>
   
   
@@ -3440,7 +3469,7 @@ if($joomla(this).html() == '+'){
                             $change_address_enable=$client['change_address_enable'];
                             // $prepaid_text=$client['Prepaid_text'];
                             // $Payment_gateway_dynamic_enable=$client['Payment_gateway_dynamic_enable']; 
-                            $Gross_weight_display=$client['Gross_weight_display'];
+                            //$Gross_weight_display=$client['Gross_weight_display'];
                             // $promocodes = $client['Promocodes'];
                             $OrderId = $client['OrderId'];
                             $RmaVal = $client['RmaVal'];
@@ -3478,236 +3507,6 @@ if($joomla(this).html() == '+'){
                     <strong></strong>
                 </div>
             </div>
-            <!--<div class="row">-->
-            <!--   <div class="col-sm-12">-->
-            <!--      <div class="rdo_cust">-->
-            <!--         <div class="rdo_rd1">-->
-            <!--            <?#php if($elem['Readytosend'][1] == "ACT"){  ?>-->
-            <!--            <input type="radio" name="shipment"  class="ishipment" value="1" checked>-->
-            <!--            <label><?#php echo $assArr['ready_to_send'];?></label>-->
-            <!--            <?#php } if($elem['Holdshipments'][1] == "ACT"){  ?>-->
-            <!--            <input type="radio" name="shipment"  class="ishipment" value="2">-->
-            <!--            <label><?#php echo $assArr['hold_shipments'];?></label>-->
-            <!--            <?#php } ?>-->
-            <!--         </div>-->
-                     
-            <!--      </div>-->
-            <!--   </div>-->
-            <!--</div>-->
-            
-        <!--    <div class="clearfix"></div>-->
-        <!--    <?#php  -->
-            
-        // <!--    Controlbox::getOrdersHoldListCsv($user);-->
-            
-         ?>
-            
-        <!--    <div class="row ishpments" style="display:none">-->
-                
-        <!--    <div class="">-->
-        <!--       <div class="col-sm-12 inventry-item">-->
-        <!--           <div class="col-sm-3">-->
-        <!--                <h3 class=""><strong><?#php echo Jtext::_('COM_USERPROFILE_SHIP_SUB_TITLE');?></strong></h3>-->
-        <!--             </div>-->
-                     
-        <!--<div class="col-sm-9 form-group text-right inventry-item-right">-->
-        <!--     <div class="action-icons pull-right btn-action-groupnew">-->
-        <!--        <a target="_blank" href="<?#php echo $backend_url; ?>/ASPX/Tx_inventoryReceipt.aspx?bid=<?php echo $user; ?>&companyid=<?php echo $CompanyId; ?>"  title="Inventory Report"  class="btnallaction csvDownload inventory_icon"></a>-->
-                
-        <!--         <input type="checkbox" name="expandAll" id="expandAll"><button class="btnallaction expand_all_btn expand_icon" data-toggle="tooltip" title="Expand All"></button>-->
-                <!--<input type="checkbox" name="expandAllHold" id="expandAllHold"><button class="btnallaction expand_all_btn_hold expand_icon" data-toggle="tooltip" title="Expand All"></button>-->
-        <!--    </div>-->
-        <!--</div>-->
-                    
-        <!--        </div>-->
-        <!--    </div>-->
-                
-        <!--       <div class="col-md-12">-->
-        <!--        <div class="row">-->
-                   
-        <!--        </div>-->
-        <!--        <div class="table-responsive">	-->
-        <!--             <table class="table table-bordered theme_table" id="u_table" data-page-length='10'>	-->
-        <!--                 <thead>	-->
-        <!--                   <tr> 	-->
-        <!--                   <th class="action_btns text-center"><input type="checkbox" name="selectAll" id="selectAll"> <?php echo $assArr['select_All'];?></th>	-->
-        <!--                     <th><?#php echo $assArr['warehouse_Receipt'];?>#</th>	-->
-        <!--                     <th><?#php echo $assArr['item_Description'];?></th>	-->
-        <!--                     <th><?#php echo $assArr['tracking_ID'];?></th>	-->
-        <!--                     <th><?#php echo $assArr['merchants_Name'];?></th>	-->
-        <!--                     <th><?#php echo $assArr['type_of_shipment'];?></th>	-->
-        <!--                     <th><?#php echo $assArr['source_Hub'];?></th>	-->
-        <!--                     <th><?#php echo $assArr['destination'];?></th>	-->
-        <!--                     <th><?#php echo $assArr['destination_Hub'];?></th>	-->
-        <!--                     <th><?#php echo $assArr['wt_Units'];?></th>	-->
-        <!--                     <th><?#php echo $assArr['measurement_Units'];?></th>	-->
-        <!--                     <th><?#php echo 'Business Type'; ?></th>	-->
-        <!--                     <?#php if($Gross_weight_display){ ?>	-->
-        <!--                     <th><?#php echo $assArr['gROSS_WT'];?></th>	-->
-        <!--                       <?#php } ?>	-->
-        <!--                   </tr>	-->
-        <!--                </thead>	-->
-        <!--                <tbody>	-->
-                            	
-        <!--                    <?#php	-->
-                           	
-        // <!--                      $ordersHoldView= UserprofileHelpersUserprofile::getOrdersHoldList($user);	-->
-                              	
-                            //   echo '<pre>';	
-                            //   var_dump($ordersHoldView);exit;	
-                            	
-        // <!--                     $i=0;	-->
-        // <!--                    foreach($ordersHoldView as $repack){	-->
-        // <!--                        if($repack->InhouseRepackLbl == ""){	-->
-        // <!--                            foreach($repack->WarehouseDetails as $res){	-->
-                                        
-        // <!--                                 $addHidden=UserprofileHelpersUserprofile::getBindShipingAddress($user,$res->BillFormNo);-->
-                                        
-        // <!--                               echo'<tr> 	-->
-        // <!--                               <td ><button class="exp_item btn btn-success" data-sno="item_wr_'.$i.'"  data-id="'.$res->BillFormNo.'">+</button><input type="checkbox" class="selinpt-chk check_all_items" data-id="'.$res->BillFormNo.'"></td>-->
-        // <!--                                <td id="txtbiladdress" data-address="'.$addHidden.'"><span  class="whrse-link label-success">'.$res->BillFormNo.'</span></td>-->
-        // <!--                                <td>'.$itemsListtArr[$i].'</td>	-->
-        // <!--                               <td>'.$res->TrackingId.'</td>	-->
-        // <!--                               <td>'.$res->MerchantName.'</td>	-->
-        // <!--                               <td>'.$repack->ShipmentType.'</td>	-->
-        // <!--                               <td>'.$repack->SourceHub.'</td>	-->
-        // <!--                               <td>'.$repack->DestinationCountryName.'</td>	-->
-        // <!--                               <td>'.$repack->DestinationHubName.'</td>	-->
-        // <!--                               <td>'.$res->WeightUnit.'</td>	-->
-        // <!--                               <td>'.$repack->MeasureUnits.'</td>	-->
-        // <!--                               <td>'.$repack->BusinessType.'</td>';	-->
-        // <!--                                if($Gross_weight_display){	-->
-        // <!--                               echo '<th>'.$repack->GrossWeight.'</th>';	-->
-        // <!--                               }	-->
-        // <!--                               echo'</tr>';	-->
-                                	
-        // <!--                               echo'<tr class="child_row"><td colspan="12">	-->
-        // <!--                               <table class="table table-bordered"> 	-->
-        // <!--                               <tr class="wrhuse-grid">	-->
-        // <!--                               <th colspan="2">'.$assArr['action'].'</th>	-->
-        // <!--                                <th>'.$assArr['item_Description'].'</th>	-->
-        // <!--                                <th>'.$assArr['quantity'].'</th>	-->
-        // <!--                                <th>'.$assArr['ship_quantity'].'</th>	-->
-        // <!--                                <th>'.$assArr['tracking_ID'].'</th>	-->
-        // <!--                                <th>'.$assArr['merchants_Name'].'</th>';	-->
-        // <!--                                if($OrderId){	-->
-        // <!--                                   echo '<th>Order Id</th>';	-->
-        // <!--                                   }	-->
-        // <!--                                if(!$OrderId){	-->
-        // <!--                                echo '<th></th>';	-->
-        // <!--                                }	-->
-        // <!--                                if($RmaVal){	-->
-        // <!--                                echo '<th>RMA Value</th>';	-->
-        // <!--                                   }	-->
-        // <!--                                if(!$RmaVal){	-->
-        // <!--                                echo '<th></th>';	-->
-        // <!--                                } 	-->
-        // <!--                                echo '<th>View / Update Invoice</th>	-->
-        // <!--                                <th></th>	-->
-        // <!--                                <th></th>';	-->
-        // <!--                                if($Gross_weight_display){	-->
-        // <!--                                echo '<th>Gross Weight</th>';	-->
-        // <!--                                }	-->
-        // <!--                                echo '</tr>';	-->
-          	
-                                        			
-                              	
-        // <!--                                $idf=1;	-->
-                              	
-                             	
-                              	
-        // <!--                                foreach($res->ItemDetails as $rg){	-->
-                                 
-        //                     //   var_dump($rg->ItemImage1);	
-        //                     //   exit;	
-                              
-        //                     if(1){ // $rg->ItemQuantity>0	
-        // <!--                        $volres=$rg->Height*$rg->Width*$rg->Length*UserprofileHelpersUserprofile::getShippmentDetailsValues($repack->MeasureUnits,$repack->shipment_type,$repack->ServiceType,$repack->Source,$repack->Dest_Cntry);	-->
-        // <!--                        if($repack->shipment_type=="AIR"){	-->
-        // <!--                          $volres=$rg->ItemQuantity*$volres;	-->
-        // <!--                        }	-->
-        // <!--                        if($rg->ItemImage1==""){	-->
-        // <!--                            $sim=1; 	-->
-        // <!--                            $mgtd='<td class="updateInvoice"><a class="ship_img" data-target="#view_image" data-idk="'.$rg->ItemIdk.'"  data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#" >Update Invoice</a></td>';	-->
-        // <!--                        }else{	-->
-        // <!--                                $sim=str_replace(":","#",$rg->ItemImage1);	-->
-        // <!--                                $sim1=str_replace(":","#",$rg->ItemImage2);	-->
-        // <!--                                $sim2=str_replace(":","#",$rg->ItemImage3);	-->
-        // <!--                                $sim3=str_replace(":","#",$rg->ItemImage4);	-->
-        // <!--                                $mgtd='<td class="action_btns"><a class="ship_img" data-idk="'.$rg->ItemIdk.'" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#" data-id="'.$rg->ItemImage1.'##'.$rg->ItemImage2.'##'.$rg->ItemImage3.'##'.$rg->ItemImage4.'" data-target="#view_image" ><i class="fa fa-eye"></i></a></td>';	-->
-        // <!--                          }	-->
-        // <!--                        $grosswtTd = NULL;	-->
-        // <!--                     if(0){	-->
-        // <!--                         $grosswtTd = "<td>".$repack->GrossWeight."</td>";	-->
-        // <!--                     }  	-->
-        // <!--                     $readonltTxt = "";	-->
-        // <!--                     if($rg->InhouseRepacklbl !=''){	-->
-        // <!--                        $readonltTxt = "readonly";	-->
-        // <!--                     }	-->
-                                
-                             // class="check-invisable"	
-        // <!--                     echo'<tr>	-->
-                             
-        // <!--                     <td colspan="2" class="action_btns">	-->
-        // <!--                     <input type="checkbox"  name="txtId" class="txtId selinpt-chksub" data-sno="item_wr_'.$idf.'"  value="'.$rg->ItemName.':'.$res->BillFormNo.':'.$rg->ItemQuantity.':'.$res->TrackingId.':'.$rg->ItemIdk.':'.$rg->cost.':'.$rg->cost.':item_wr_'.$idf.':'.$volres.':'.$repack->ServiceType.':'.$repack->Source.':'.$repack->Dest_Cntry.':'.$repack->MeasureUnits.':'.$rg->Length.':'.$rg->Width.':'.$rg->Height.':'.$rg->GrossWeight.':'.$repack->WeightUnit.':'.$sim.':'.$repack->ShipmentType.':'.$repack->SourceHub.':'.$repack->DestinationCountryName.':'.$repack->DestinationHubName.':'.$rg->Insurance.':'.$rg->ItemPrice.':'.$sim1.':'.$sim2.':'.$sim3.':'.$repack->BusinessType.':'.$rg->Volume.':'.$rg->VolumetricWeight.':'.$rg->InhouseRepacklbl.':'.$repack->ServiceId.'">	-->
-        // <!--                      <input type="button" name="ship" class="ship" data-sno="item_wr_'.$idf.'" data-id="'.$rg->ItemName.':'.$res->BillFormNo.':'.$rg->ItemQuantity.':'.$res->TrackingId.':'.$rg->ItemIdk.':'.$rg->cost.':'.$rg->cost.':item_wr_'.$idf.':'.$volres.':'.$repack->ServiceType.':'.$repack->Source.':'.$repack->Dest_Cntry.':'.$repack->MeasureUnits.':'.$rg->Length.':'.$rg->Width.':'.$rg->Height.':'.$rg->GrossWeight.':'.$repack->WeightUnit.':'.$sim.':'.$repack->ShipmentType.':'.$repack->SourceHub.':'.$repack->DestinationCountryName.':'.$repack->DestinationHubName.':'.$rg->Insurance.':'.$rg->ItemPrice.':'.$sim1.':'.$sim2.':'.$sim3.':'.$repack->BusinessType.':'.$rg->Volume.':'.$rg->VolumetricWeight.':'.$rg->InhouseRepacklbl.':'.$repack->ServiceId.'" data-target="#ord_ship" title="'.Jtext::_('COM_USERPROFILE_SHIP_HISTORY_STATUS_SHIP').'">';	-->
-        // <!--                    echo '</td>	-->
-        // <!--                     <td width="100px">'.$rg->ItemName.'</td>	-->
-        // <!--                     <td width="100px">'.$rg->ItemQuantity.'</td>	-->
-        // <!--                     <td width="100px"><input type="hidden" name="ItemIdkTxt" value="'.$rg->ItemIdk.'"><input type="hidden" name="ItemQtyTxt" value="'.$rg->ItemQuantity.'"><input type="hidden" name="ItemQtyEdit" value="'.$rg->ItemQuantity.'"><input type="text" class="form-control" name="txtQty" value="'.$rg->ItemQuantity.'" ></td>-->
-        // <!--                     <td width="100px">'.$res->TrackingId.'</td>	-->
-        // <!--                     <td width="100px">'.$res->MerchantName.'</td>';	-->
-        // <!--                     if($OrderId){	-->
-        // <!--                        echo '<td width="100px">'.$rg->OrderID.'</td>';	-->
-        // <!--                        }	-->
-        // <!--                     if(!$OrderId)	-->
-        // <!--                     echo '<td width="100px"></td>';	-->
-        // <!--                     if($RmaVal){	-->
-        // <!--                        echo '<td width="100px">'.$rg->RmaValue.'</td>';	-->
-        // <!--                     }	-->
-        // <!--                     if(!$RmaVal){	-->
-        // <!--                        echo '<td width="100px"></td>';	-->
-        // <!--                     }	-->
-                               
-        // <!--                     echo''.$mgtd.'	-->
-        // <!--                     <td width="100px"></td>	-->
-        // <!--                     <td width="100px"></td>'.$grosswtTd.'';	-->
-                               
-        // <!--                     echo '</tr>';	-->
-  
-        // <!--                                  $p=$res->BillFormNo;	-->
-                                       
-        // <!--                        }	-->
-        // <!--                      $idf++;	-->
-                                 
-                        // <!--  }	-->
-                        // <!--  echo' </table></td><td style="display:none"></td><td style="display:none"></td>	-->
-                        // <!--  <td style="display:none"></td>	-->
-                        // <!--  <td style="display:none"></td>	-->
-                        // <!--  <td style="display:none"></td>	-->
-                        // <!--  <td style="display:none"></td>	-->
-                        // <!--  <td style="display:none"></td>	-->
-                        // <!--  <td style="display:none"></td>	-->
-                        // <!--  <td style="display:none"></td>	-->
-                        // <!--  <td style="display:none"></td>	-->
-                        // <!--  <td style="display:none"></td>	-->
-                        // <!--  </tr>';	-->
-                             
-                        // <!--                $i++;	-->
-                        // <!--        }	-->
-                        // <!--    }	-->
-                              
-                        // <!--}	-->
-                             
-                         ?>
-                             
-        <!--            </tbody>	-->
-        <!--         </table>-->
-        <!--         </div>	-->
-        <!--       </div>	-->
-        <!--    </div>	-->
-        
-            
             <div class="clearfix"></div>
             <?php  
             
@@ -3773,13 +3572,16 @@ if($joomla(this).html() == '+'){
                                    $k=0;
                                    foreach($repack->WarehouseDetails as $res){
                                        
-                                                  $itemDesStrLoop = "";
-                                                  foreach($res->ItemDetails as $rg){
-                                                      $itemDesStrLoop .= str_replace(",","-",$rg->ItemName).",";
-                                                  }
-                                                   $itemDesStrLoop = rtrim($itemDesStrLoop,",");
-                                                   $itemsListtArr[$k] = $itemDesStrLoop;
-                                                   $k++;
+                                        $itemDesStrLoop = "";
+                                        $grossWtTot=0.00;
+                                        foreach($res->ItemDetails as $rg){
+                                            $itemDesStrLoop .= str_replace(",","-",$rg->ItemName).",";
+                                            $grossWtTot += (float)($rg->GrossWeight);
+                                        }
+                                        $itemDesStrLoop = rtrim($itemDesStrLoop,",");
+                                        $itemsListtArr[$k] = $itemDesStrLoop;
+                                        $grossWtArray[$k]=$grossWtTot;
+                                        $k++;
                                    }
                                   $i=0;
                                   foreach($repack->WarehouseDetails as $res){
@@ -3797,17 +3599,34 @@ if($joomla(this).html() == '+'){
                               <td>'.$itemsListtArr[$i].'</td>
                               <td>'.$res->TrackingId.'</td>
                               <td>'.$res->MerchantName.'</td>
-                              <td>'.$repack->ShipmentType.'</td>
-                              <td>'.$repack->SourceHub.'</td>
-                              <td>'.$repack->DestinationCountryName.'</td>
-                              <td>'.$repack->DestinationHubName.'</td>
+                              <td>'.$res->ShipmentType.'</td>
+                              <td>'.$res->SourceHub.'</td>
+                              <td>'.$res->DestinationCountryName.'</td>
+                              <td>'.$res->DestinationHubName.'</td>
                               <td>'.$res->WeightUnit.'</td>
-                              <td>'.$repack->MeasureUnits.'</td>
-                              <td>'.$repack->BusinessType.'</td>';
-                               if($Gross_weight_display){
-                              echo '<td>'.$repack->GrossWeight.'</td>';
+                              <td>'.$res->DimUnits.'</td>
+                              <td>'.$res->BusinessType.'</td>';
+                              if($Gross_weight_display){
+                               echo '<td>'.number_format((float)$grossWtArray[$i], 2, '.', '').'</td>';
                               }
                               echo'</tr>';
+
+                              $OrderIdHead = Null;
+                              if($OrderId){
+                                 $OrderIdHead = '<th>Order Id</th>';
+                              }
+                              $RmaValHead = Null;
+                              if($RmaVal){
+                                 $RmaValHead = '<th>RMA Value</th>';
+                              }
+                             
+                              if($Gross_weight_display){
+                                 $GrossWeightHead = '<th>Gross Weight (Pounds)</th>';
+                              }
+                              $DeclaredValHead = Null;
+                              if($DeclaredValDisplay){
+                                 $DeclaredValHead = '<th>Declared Value (EUROS)</th>';
+                              }
 
                              echo'<tr class="child_row "><td id="colspantd" colspan="12">
                              <table class="table table-bordered"> 
@@ -3817,26 +3636,9 @@ if($joomla(this).html() == '+'){
                               <th>'.$assArr['quantity'].'</th>
                               <th>'.$assArr['ship_quantity'].'</th>
                               <th>'.$assArr['tracking_ID'].'</th>
-                              <th>'.$assArr['merchants_Name'].'</th>';
-                              if($OrderId){
-                                 echo '<th>Order Id</th>';
-                                 }
-                              if(!$OrderId){
-                              echo '<th></th>';
-                              }
-                              if($RmaVal){
-                              echo '<th>RMA Value</th>';
-                                 }
-                              if(!$RmaVal){
-                              echo '<th></th>';
-                              } 
-                              echo '<th>View</th>
-                              <th></th>
-                              <th></th>';
-                              if($Gross_weight_display){
-                              echo '<th>Gross Weight</th>';
-                              }
-                              echo '</tr>';
+                              <th>'.$assArr['merchants_Name'].'</th>'.$OrderIdHead.$RmaValHead;
+                              echo '<th>View / Update Invoice</th>'.$GrossWeightHead.$DeclaredValHead;
+                              echo '<th></th><th></th></tr>';
 
                                $idf=1;
 
@@ -3860,10 +3662,30 @@ if($joomla(this).html() == '+'){
                                           $sim3=str_replace(":","#",$rg->ItemImage4);
                                           $mgtd='<td class="action_btns"><a class="ship_img" data-idk="'.$rg->ItemIdk.'" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#" data-id="'.$rg->ItemImage1.'##'.$rg->ItemImage2.'##'.$rg->ItemImage3.'##'.$rg->ItemImage4.'" data-target="#view_image" ><i class="fa fa-eye"></i></a></td>';
                                     }
+                                  // gross wt display
                                   $grosswtTd = NULL;
-                               if($Gross_weight_display){
-                                   $grosswtTd = "<td>".$repack->GrossWeight."</td>";
-                               }  
+                                 if($Gross_weight_display){
+                                    $grosswtTd = "<td>".$rg->GrossWeight."</td>";
+                                 }  
+
+                                 //  declared val display
+                                 $declaredVal = NULL;
+                                 if($DeclaredValDisplay){
+                                    $declaredVal = "<td>".$rg->TotalPrice."</td>";
+                                 }  
+
+                                 //  order id display
+                                 $orderIdDis = NULL;
+                                 if($OrderId){
+                                    $orderIdDis = "<td width='100px'>".$rg->OrderID."</td>";
+                                 }  
+
+                                 //  rma value display
+                                 $rmaValDis = NULL;
+                                 if($RmaVal){
+                                    $rmaValDis = "<td width='100px'>".$rg->RmaValue."</td>";
+                                 }  
+
                                $readonltTxt = "";
                                if($rg->InhouseRepacklbl !=''){
                                   $readonltTxt = "readonly";
@@ -3883,23 +3705,10 @@ if($joomla(this).html() == '+'){
                               <td width="100px">'.$rg->ItemQuantity.'</td>
                               <td width="100px"><input type="hidden" name="ItemIdkTxt" value="'.$rg->ItemIdk.'"><input type="hidden" name="ItemQtyTxt" value="'.$rg->ItemQuantity.'"><input type="hidden" name="ItemQtyEdit" value="'.$rg->ItemQuantity.'"><input type="text" class="form-control" name="txtQty" value="'.$rg->ItemQuantity.'" ></td>
                               <td width="100px">'.$res->TrackingId.'</td>
-                              <td width="100px">'.$res->MerchantName.'</td>';
-                              if($OrderId){
-                                 echo '<td width="100px">'.$rg->OrderID.'</td>';
-                                 }
-                              if(!$OrderId)
-                              echo '<td width="100px"></td>';
-                              if($RmaVal){
-                                 echo '<td width="100px">'.$rg->RmaValue.'</td>';
-                              }
-                              if(!$RmaVal){
-                                 echo '<td width="100px"></td>';
-                              }
-                             
-                              echo''.$mgtd.'
+                              <td width="100px">'.$res->MerchantName.'</td>'.$orderIdDis.$rmaValDis;
+                              echo''.$mgtd.$grosswtTd.$declaredVal.'
                               <td width="100px"></td>
-                              <td width="100px"></td>'.$grosswtTd.'';
-                             
+                              <td width="100px"></td>';
                               echo '</tr>';
 
                             $p=$res->BillFormNo;
@@ -3907,21 +3716,21 @@ if($joomla(this).html() == '+'){
                            $idf++;
                            
                      }
-                       echo' </table></td><td style="display:none"></td><td style="display:none"></td>
-                        <td style="display:none"></td>
-                        <td style="display:none"></td>
-                        <td style="display:none"></td>
-                        <td style="display:none"></td>
-                        <td style="display:none"></td>
-                        <td style="display:none"></td>
-                        <td style="display:none"></td>
-                        <td style="display:none"></td>
-                        <td style="display:none"></td>';
-                         if($Gross_weight_display){
-                                  echo "<td style='display:none'></td>";
-                               }
-                               
-                        echo '</tr>';
+                     echo' </table></td><td style="display:none"></td><td style="display:none"></td>
+                     <td style="display:none"></td>
+                     <td style="display:none"></td>
+                     <td style="display:none"></td>
+                     <td style="display:none"></td>
+                     <td style="display:none"></td>
+                     <td style="display:none"></td>
+                     <td style="display:none"></td>
+                     <td style="display:none"></td>
+                     <td style="display:none"></td>';
+                      if($Gross_weight_display){
+                               echo "<td style='display:none'></td>";
+                            }
+                            
+                     echo '</tr>';
                               $i++;
                          }
                          }else{

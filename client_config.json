@@ -36,8 +36,8 @@
     "Default_height_calc_readonly":"",
     "Enabled_languages":"en,es",
     "Promocodes":true,
-    "OrderId":true,
-    "RmaVal":true,
+    "OrderId":false,
+    "RmaVal":false,
     "grwtLimitLb":9
     },
     {
