@@ -188,8 +188,9 @@ if(strtolower($elem['DeclaredValDisplay'][1]) == "act"){
        $joomla('#dvPaymentInformation input[type=text]').on('keyup',function(){
         cardFormValidate();
     });
+
     
-    $joomla("#colspantd").attr("colspan",$joomla('.mainheader th').length);
+    $joomla("#colspantd1,#colspantd2,#colspantd3").addClass("colspan").attr("colspan",$joomla('.mainheader1 th').length);
     
     var AccountType = "<?php echo $AccountType; ?>";
     var ApiUrl = "<?php echo $ApiUrl; ?>";
@@ -3599,6 +3600,7 @@ $joomla('#j_table')
          $joomla(this).trigger("click");
          }
       });
+      $joomla("#colspantd1,#colspantd2,#colspantd3").addClass("colspan").attr("colspan",$joomla('.mainheader1 th').length);
 })
 .dataTable();
      $joomla('#j_table')
@@ -3613,11 +3615,14 @@ $joomla('#j_table')
      if($joomla('#expandAll').prop("checked") == true){
          $joomla('#expandAll').prop("checked",false);
      }
+
+     $joomla("#colspantd1,#colspantd2,#colspantd3").addClass("colspan").attr("colspan",$joomla('.mainheader1 th').length);
        
      })
      .dataTable();
  $joomla('#j_table')
  .on( 'search.dt', function () {
+   $joomla("#colspantd1,#colspantd2,#colspantd3").addClass("colspan").attr("colspan",$joomla('.mainheader1 th').length);
  })
  .dataTable();
 
@@ -3910,7 +3915,7 @@ if($joomla(this).html() == '+'){
                 <div class="table-responsive">	
                      <table class="table table-bordered theme_table" id="u_table" data-page-length='10'>	
                          <thead>	
-                           <tr class="mainheader"> 	
+                           <tr class="mainheader2"> 	
                            <th class="action_btns text-center"><input type="checkbox" name="selectAll" id="selectAll"> <?php echo $assArr['select_All'];?></th>	
                              <th><?php echo $assArr['warehouse_Receipt'];?>#</th>	
                              <th><?php echo $assArr['item_Description'];?></th>	
@@ -3979,7 +3984,7 @@ if($joomla(this).html() == '+'){
                                     $DeclaredValHead = '<th>Declared Value (EUROS)</th>';
                                  }
                                 	
-                                       echo'<tr class="child_row"><td id="colspantd" colspan="12">	
+                                       echo'<tr class="child_row"><td id="colspantd2" >	
                                        <table class="table table-bordered"> 	
                                        <tr class="wrhuse-grid">	
                                        <th colspan="2">'.$assArr['action'].'</th>	
@@ -4144,7 +4149,7 @@ if($joomla(this).html() == '+'){
                <div class="table-responsive">
                      <table class="table table-bordered theme_table" id="j_table" data-page-length='10'>
                         <thead>
-                           <tr class="mainheader"> 
+                           <tr class="mainheader1"> 
                            <th class="action_btns text-center"><input type="checkbox" name="selectAll" id="selectAll"> <?php echo $assArr['select_All'];?></th>
                              <th><?php echo $assArr['warehouse_Receipt'];?>#</th>
                              <th><?php echo $assArr['item_Description'];?></th>
@@ -4230,7 +4235,7 @@ if($joomla(this).html() == '+'){
                               }
 
 
-                             echo'<tr class="child_row "><td id="colspantd" colspan="12">
+                             echo'<tr class="child_row "><td id="colspantd1" >
                              <table class="table table-bordered"> 
                         	  <tr class="wrhuse-grid">
                              <th colspan="2">'.$assArr['action'].'</th>
@@ -4422,7 +4427,7 @@ if($joomla(this).html() == '+'){
                                  $DeclaredValHead = '<th>Declared Value (EUROS)</th>';
                               }
 
-                             echo'<tr class="child_row"><td id="colspantd" colspan="12">
+                             echo'<tr class="child_row"><td id="colspantd3" >
                              <table class="table table-bordered"> 
                         	  <tr class="wrhuse-grid">
                              <th colspan="2">'.$assArr['action'].'</th>
