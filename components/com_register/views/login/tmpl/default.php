@@ -83,9 +83,8 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
     font-size: 2em;
     user-select: none;
     cursor: pointer;
-    position: absolute;
-    top: 24px;
-    right: 10px;
+    float: right;
+    margin: -42px 10px;
     opacity:0.2;
 }
 .lognew_sec{

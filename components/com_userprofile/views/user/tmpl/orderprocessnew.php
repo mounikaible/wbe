@@ -3617,19 +3617,19 @@ if($joomla(this).html() == '+'){
 
                               $OrderIdHead = Null;
                               if($OrderId){
-                                 $OrderIdHead = '<th>Order Id</th>';
+                                 $OrderIdHead = '<th>'.$assArr["order_ID"].'</th>';
                               }
                               $RmaValHead = Null;
                               if($RmaVal){
-                                 $RmaValHead = '<th>RMA Value</th>';
+                                 $RmaValHead = '<th>'.$assArr["rMA_Value"].'</th>';
                               }
                              
                               if($Gross_weight_display){
-                                 $GrossWeightHead = '<th>Gross Weight (Pounds)</th>';
+                                 $GrossWeightHead = '<th>'.$assArr["gROSS_WT"].'</th>';
                               }
                               $DeclaredValHead = Null;
                               if($DeclaredValDisplay){
-                                 $DeclaredValHead = '<th>Declared Value (EUROS)</th>';
+                                 $DeclaredValHead = '<th>'.$assArr["Declared Value (USD)"].'</th>';
                               }
 
                              echo'<tr class="child_row "><td id="colspantd1" >
@@ -3807,19 +3807,19 @@ if($joomla(this).html() == '+'){
 
                              $OrderIdHead = Null;
                               if($OrderId){
-                                 $OrderIdHead = '<th>Order Id</th>';
+                                 $OrderIdHead = '<th>'.$assArr["order_ID"].'</th>';
                               }
                               $RmaValHead = Null;
                               if($RmaVal){
-                                 $RmaValHead = '<th>RMA Value</th>';
+                                 $RmaValHead = '<th>'.$assArr["rMA_Value"].'</th>';
                               }
                              
                               if($Gross_weight_display){
-                                 $GrossWeightHead = '<th>Gross Weight (Pounds)</th>';
+                                 $GrossWeightHead = '<th>'.$assArr["gROSS_WT"].'</th>';
                               }
                               $DeclaredValHead = Null;
                               if($DeclaredValDisplay){
-                                 $DeclaredValHead = '<th>Declared Value (EUROS)</th>';
+                                 $DeclaredValHead = '<th>'.$assArr["Declared Value (USD)"].'</th>';
                               }
 
                              echo'<tr class="child_row"><td id="colspantd2">
