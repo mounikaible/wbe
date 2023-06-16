@@ -679,8 +679,11 @@ $joomla(".expand_all").on('click',function(){
                       <div class="paymentmethodsDiv" >
                                 
                                 <?php 
+                                    $agnPaymentType = $session->get('payment_type'); 
+                                    $agnPaymentTypeArr = explode(",",$agnPaymentType);
+                                    
                                     $paymentmethodsStr = ''; 
-                                    $paymentmethodsStr.=Controlbox::getpaymentgateways('PPD');
+                                    $paymentmethodsStr.=Controlbox::getpaymentgateways('PPD',$agnPaymentTypeArr);
                                     echo $paymentmethodsStr;
                                 ?>
                                

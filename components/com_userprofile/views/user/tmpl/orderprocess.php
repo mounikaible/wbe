@@ -4219,19 +4219,19 @@ if($joomla(this).html() == '+'){
 
                               $OrderIdHead = Null;
                               if($OrderId){
-                                 $OrderIdHead = '<th>Order Id</th>';
+                                 $OrderIdHead = '<th>'.$assArr["order_ID"].'</th>';
                               }
                               $RmaValHead = Null;
                               if($RmaVal){
-                                 $RmaValHead = '<th>RMA Value</th>';
+                                 $RmaValHead = '<th>'.$assArr["rMA_Value"].'</th>';
                               }
                              
                               if($Gross_weight_display){
-                                 $GrossWeightHead = '<th>Gross Weight (Pounds)</th>';
+                                 $GrossWeightHead = '<th>'.$assArr["gROSS_WT"].'</th>';
                               }
                               $DeclaredValHead = Null;
                               if($DeclaredValDisplay){
-                                 $DeclaredValHead = '<th>Declared Value (EUROS)</th>';
+                                 $DeclaredValHead = '<th>'.$assArr["Declared Value (USD)"].'</th>';
                               }
 
 
@@ -4560,7 +4560,7 @@ if($joomla(this).html() == '+'){
                </div>
                <div class="row">
                      <div class="col-md-12 text-center btn-grp1">
-                     <input type="button" value="<?php echo Jtext::_('Ship');?>" class="btn btn-primary shipsubmit"  data-backdrop="static" data-keyboard="false">
+                     <input type="button" value="<?php echo $assArr['ship'];  ?>" class="btn btn-primary shipsubmit"  data-backdrop="static" data-keyboard="false">
                         <?php if(strtolower($access->RepackAccess) == "true") { if($elem['Repack'][1] == "ACT"){  ?>
                         <input type="button" name="repack_btn" id="repack_btn"   value="repack"  class="btn btn-success">
                         <?php } } if(strtolower($access->ConsolidationAccess) == "true") { if($elem['Consolidation'][1] == "ACT"){ ?>

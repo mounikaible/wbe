@@ -675,7 +675,7 @@ $joomla(function() {
      <div class="usr_settings">
         <div class="">
           <div class="panel panel-default">
-            <div class="panel-heading"> <?php echo Jtext::_('COM_USERPROFILE_SETTINGS');?> </div>
+          <div class="panel-heading"><?php echo $assArr['settings']; ?></div>
             <div class="panel-body">
               <div class="row">
                    <?php  if($dynpage["Calculator"][2] =="Calculator" && $dynpage["Calculator"][1]=="ACT"){ ?>

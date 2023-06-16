@@ -84,12 +84,12 @@ $joomla(document).ready(function() {
             <div class="main_heading"> <?php echo JText::_('COM_REGISTER_FORGOT_PASSWORD'); ?> </div>
             <div class="panel-body">
                 <div class="form-group">
-                  <label><?php echo JText::_('COM_REGISTER_USERNAME_LABEL'); ?><span class="error">*</span></label>
+                  <label><?php echo $assArr['username']; ?><span class="error">*</span></label>
                   <input type="text" class="form-control" name="unameTxt" id="unameTxt">
                 </div>
               <div class="form-group">
-                <button type="submit" class="btn btn-primary"><?php echo JText::_('COM_REGISTER_SUBMIT'); ?></button>
-                <a class="btn btn-danger pageloader_link" href="<?php echo JRoute::_('index.php?option=com_register&view=login'); ?>"><?php echo JText::_("COM_REGISTER_CANCEL"); ?></a>
+                <button type="submit" class="btn btn-primary"><?php echo $assArr['submit']; ?></button>
+                <a class="btn btn-danger pageloader_link" href="<?php echo JRoute::_('index.php?option=com_register&view=login'); ?>"><?php echo $assArr['cancel']; ?></a>
               </div>
             </div>
           </div>
