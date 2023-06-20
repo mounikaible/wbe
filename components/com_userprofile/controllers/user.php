@@ -288,7 +288,13 @@ class UserprofileControllerUser extends JControllerLegacy
         $AlternativeEmail = JRequest::getVar('aemailTxt', '', 'post');
         $AddressAccounts = JRequest::getVar('addressTxt', '', 'post');
         $address2Txt = JRequest::getVar('address2Txt', '', 'post');
-        
+        $emailNotifications = JRequest::getVar('emailNotifications', '', 'post');
+        if($emailNotifications == "on"){
+            $emailNotifications = TRUE;
+        }else{
+            $emailNotifications = FALSE;    
+        }
+
         $Country = JRequest::getVar('countryTxt', '', 'post');
         $State = JRequest::getVar('stateTxt', '', 'post');
         $cityTxtdiv = JRequest::getVar('cityTxtdiv', '', 'post');
@@ -339,7 +345,7 @@ class UserprofileControllerUser extends JControllerLegacy
         
         
         if($CustId!=""){
-           $status=Controlbox::changepersonalinformation($CustId,$firstName,$lastName,$DialCode,$PrimaryNumber, $AlternativeNumber,$Fax, $PrimaryEmail, $AlternativeEmail, $AddressAccounts, $Country, $State, $City,$PostalCode,$profilepicname,$imageByteStream,$fileName,$fileExt,$fileTxt,$DialCodeOther,$address2Txt);
+           $status=Controlbox::changepersonalinformation($CustId,$firstName,$lastName,$DialCode,$PrimaryNumber, $AlternativeNumber,$Fax, $PrimaryEmail, $AlternativeEmail, $AddressAccounts, $Country, $State, $City,$PostalCode,$profilepicname,$imageByteStream,$fileName,$fileExt,$fileTxt,$DialCodeOther,$address2Txt,$emailNotifications);
         }
         if($status==""){
             $app->enqueueMessage($status, 'notice');
@@ -1484,6 +1490,8 @@ function PPHttpPost($methodName, $nvpStr) {
               //$url=JURI::base().'media/com_userprofile/'.$dest1;
               $url=$dest1;
             } 
+
+            //uploadFileToFTP($src,$dest);
             //else 
             //   //Redirect and throw an error message
             // $app->enqueueMessage(JText::_('IMAGE_NOT_SUCCESSFULLY_UPLOADED'), 'error');

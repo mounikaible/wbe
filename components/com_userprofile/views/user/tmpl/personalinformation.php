@@ -91,10 +91,13 @@ $joomla(document).ready(function() {
 
    $joomla('.nav-tabs li a').click(function(){
      $joomla('.panel-body #formone').hide();
-     $joomla('.panel-body #formtwo').hide();
+     $joomla('#formtwo').hide();
      $joomla('.nav-tabs li a').removeClass('active');
-      if( $joomla(this).html()=="<?php echo Jtext::_('COM_USERPROFILE_PI_TITLE2');?>"){
-        $joomla('.panel-body #formtwo').show();
+     var title2Txt = "<?php echo Jtext::_('COM_USERPROFILE_PI_TITLE2'); ?>";
+
+    
+      if( $joomla(this).html() == title2Txt ){
+        $joomla('#formtwo').show();
         $joomla('.nav-tabs li:last a').addClass('active');
       }
       else{
@@ -108,7 +111,7 @@ $joomla(document).ready(function() {
     if(getC==2){
        $joomla('.nav-tabs li a').removeClass('active');
        $joomla('.nav-tabs li:last a').addClass('active');
-       $joomla('#formone').css('display','none');
+       $joomla('.panel-body #formone').css('display','none');
        $joomla('#formtwo').css('display','block');
     }
      
@@ -1113,7 +1116,7 @@ $joomla('#typeuserTxt').on('change',function(){
         <div class="col-sm-12 tab_view">
           <ul class="nav nav-tabs">
             <li> <a class="active docpage" href="#"><?php echo Jtext::_('COM_USERPROFILE_PI_TITLE1');?></a> </li>
-            <li> <a class="docpage" href="#"><?php echo Jtext::_('COM_USERPROFILE_PI_TITLE2');?></a> </li>
+            <li> <a class="docpage" href="#"><?php echo Jtext::_('COM_USERPROFILE_PI_TITLE2'); ?></a> </li>
           </ul>
         </div>
       </div>
@@ -1285,16 +1288,19 @@ $joomla('#typeuserTxt').on('change',function(){
                 <label><?php echo $assArr['alternative_email'];?></label>
                 <input type="text" class="form-control"  name="aemailTxt" id="aemailTxt" maxlength="50" value="<?php echo $UserView->AlternativeEmail;?>">
               </div>
+
+             
+
               <div class="form-group">
-                <label><?php echo 'Email Notifications : ';?></label>
-               <div class="onoffswitch">
-        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-        <label class="onoffswitch-label" for="myonoffswitch">
-            <span class="onoffswitch-inner"></span>
-            <span class="onoffswitch-switch"></span>
-        </label>
-    </div>   
-            </div>
+              <label><?php echo 'Email Notifications : ';?></label>
+              <div class="onoffswitch">
+              <input type="checkbox" name="emailNotifications" class="onoffswitch-checkbox" id="myonoffswitch" <?php if($UserView->email_notifications) { echo "checked"; } ?> >
+              <label class="onoffswitch-label" for="myonoffswitch">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+              </label>
+              </div>   
+            
              
                 <!-- <input type="radio"   name="emailNotif" id="emailNotifOn" value="ON" > ON &nbsp;
                 <input type="radio"   name="emailNotif" id="emailNotifOff" value="ON" > OFF -->
