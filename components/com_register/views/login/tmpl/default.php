@@ -51,26 +51,34 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
      // notifications 
      
               $categoryList = array();
+              $catOrderList = [];
               foreach($mainPageDetails as $data){
+                  
                   $categoryList[] = $data->CategoryName;
+                  $catOrderList[$data->categoryorder] = $data->CategoryName;
               }
               $categoryList = array_unique($categoryList);
+              ksort($catOrderList);
+             
               sort($categoryList);
               
               function getCategoryContent($mainPageDetails,$category){
                   
+                  $catContent = "";
                   
                     foreach($mainPageDetails as $data){
                           if($data->CategoryName == $category ){
                                 $str = '$id';
-                                echo '<div id="'.$data->$str.'" class="" id="notification"><h4>'.$data->Heading.'</h4>';
+                                $catContent .= '<div id="'.$data->$str.'" class="" id="notification"><h4>'.$data->Heading.'</h4>';
                            
                                 $doc = new DOMDocument();
                                 $doc->loadHTML($data->Content);
                                 $htmlString = $doc->saveHTML();
-                                echo '<p>'.$htmlString.'</p></div>';
+                                $catContent .= '<p>'.$htmlString.'</p></div>';
                             }
                       } 
+                      
+                      return $catContent;
                 }
 
 
@@ -156,54 +164,54 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
         </div>
          <div class="col-md-8 col-sm-12 ntfctin-blk notifiction-main-panel">
              
-             <?php  if(strtolower($domainName) == "kupiglobal"){  ?>
+             <?php  //if(strtolower($domainName) == "kupiglobal"){  ?>
              
                         <div class="col-sm-12 tab_view notifction-tab-view">
                               <ul class="nav nav-tabs">
-                                 <li class="active"> <a data-toggle="tab" href="#Notification">Notifications</a> </li>
-                                <li> <a class="" data-toggle="tab" href="#Legalinformation">Legal Information</a> </li>
-                                <li> <a class="" data-toggle="tab" href="#Aboutus">About Us</a> </li>
-                                <li> <a class="" data-toggle="tab" href="#Contactus">Contact Us</a> </li>
-                                <li> <a class="" data-toggle="tab" href="#Onlinestore">Online Stores</a> </li>
+                               
+                                <?php
+                                
+                                $i=0;
+                                foreach($catOrderList as $category){
+                                    if($i == 0){
+                                        $activeClass = "active";
+                                    }else{
+                                        $activeClass = "";
+                                    }
+                                        echo '<li class="'.$activeClass.'" > <a data-toggle="tab" href="#'.str_replace(" ","_",$category).'">'.$category.'</a></li>';
+                                    $i++;
+                                }
+                                
+                                ?>
                           </ul>
 
                           <div class="tab-content">
-                            <div id="Notification" class="tab-pane fade in active">
+                              
+                             <?php 
+                             
+                             $i=0;
+                             
+                            foreach($catOrderList as $category){ 
+                                    if($i == 0){
+                                        $activeClass = "active";
+                                    }else{
+                                        $activeClass = "";
+                                    } ?>
+                              
+                            <div id="<?php echo str_replace(" ","_",$category); ?>" class="tab-pane fade in <?php echo $activeClass; ?>">
                               <?php 
                               $cmgSoonImg = '<img src="'.JURI::base().'/images/cmg-soon-image.png" >';
-                              $newsContent = getCategoryContent($mainPageDetails,'NEWS');
-                              if($newsContent !=NULL){ echo $newsContent; }else{ echo $cmgSoonImg; }  
+                              $newsContent = getCategoryContent($mainPageDetails,$category);
+                              if($newsContent != NULL){ echo $newsContent; }else{ echo $cmgSoonImg; }  
                               ?>
                             </div>
-                            <div id="Legalinformation" class="tab-pane fade">
-                              <?php 
-                              $legalInfoContent = getCategoryContent($mainPageDetails,'LEGAL INFORMATION');
-                              if($legalInfoContent !=NULL){ echo $legalInfoContent; }else{ echo $cmgSoonImg; }   
-                              ?>
-                            </div>
-                            <div id="Aboutus" class="tab-pane fade">
-                              <?php 
-                              $aboutContent = getCategoryContent($mainPageDetails,'ABOUT US');
-                              if($aboutContent !=NULL){ echo $aboutContent; }else{ echo $cmgSoonImg; }   
-                              ?>
-                            </div>
-                            <div id="Contactus" class="tab-pane fade">
-                              <?php 
-                              $contactContent = getCategoryContent($mainPageDetails,'CONTACT US');
-                              if($aboutContent !=NULL){ echo $contactContent; }else{ echo $cmgSoonImg; }   
-                              ?>
-                            </div>
-                            <div id="Onlinestore" class="tab-pane fade">
                             
-                              <?php 
-                              $storesContent = getCategoryContent($mainPageDetails,'ONLINE STORES');
-                              if($aboutContent !=NULL){ echo $storesContent; }else{ echo $cmgSoonImg; }   
-                              ?>
-                            </div>
+                            <?php $i++; } ?>
+                            
                           </div>                             
                             </div>
                             
-                      <?php } ?>
+                      <?php //} ?>
              
                <div class="">
                <div class="main_panel login-frm notification_panel">
@@ -215,37 +223,37 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
                
                $config = JFactory::getConfig();
                
-                if(strtolower($domainName) != "kupiglobal"){
+                // if(strtolower($domainName) != "kupiglobal"){
                     
-                    echo '<div class="main_heading">'.$assArr['notifications'].'</div>'; 
-                    echo '<div class="panel-body" >';
+                //     echo '<div class="main_heading">'.$assArr['notifications'].'</div>'; 
+                //     echo '<div class="panel-body" >';
                   
-                        $nb_elem_per_page = 5;
-                        $page = isset($_GET['page'])?intval($_GET['page']):1;
-                        $number_of_pages = ceil(count($mainPageDetails)/$nb_elem_per_page);
+                //         $nb_elem_per_page = 5;
+                //         $page = isset($_GET['page'])?intval($_GET['page']):1;
+                //         $number_of_pages = ceil(count($mainPageDetails)/$nb_elem_per_page);
                         
-                                foreach(array_slice($mainPageDetails, ($page-1)*$nb_elem_per_page, $nb_elem_per_page) as $data){
-                                    $str = '$id';
-                                    if(strlen($data->Content) > 100){
-                                        $content = substr(strip_tags($data->Content),0,100);
-                                        $content .= '...<a href="index.php/en/component/register/notifications?Itemid=131#'.$data->$str.'" class="ntifiction-link">Read more</a>';
-                                    }else{
-                                        $content = strip_tags($data->Content);
-                                    }
-                                   echo '<div class="row ntifiction-info"><a href="index.php/en/component/register/notifications?Itemid=131#'.$data->$str.'" >'.$data->Heading.'</a><p>'.$content.'</p></div>';
+                //                 foreach(array_slice($mainPageDetails, ($page-1)*$nb_elem_per_page, $nb_elem_per_page) as $data){
+                //                     $str = '$id';
+                //                     if(strlen($data->Content) > 100){
+                //                         $content = substr(strip_tags($data->Content),0,100);
+                //                         $content .= '...<a href="index.php/en/component/register/notifications?Itemid=131#'.$data->$str.'" class="ntifiction-link">Read more</a>';
+                //                     }else{
+                //                         $content = strip_tags($data->Content);
+                //                     }
+                //                   echo '<div class="row ntifiction-info"><a href="index.php/en/component/register/notifications?Itemid=131#'.$data->$str.'" >'.$data->Heading.'</a><p>'.$content.'</p></div>';
                                 
-                               }
+                //               }
 
-                               if(!isset($mainPageDetails)){
-                                echo '<img src="'.JURI::base().'/images/cmg-soon-image.png" >';
-                             }
+                //               if(!isset($mainPageDetails)){
+                //                 echo '<img src="'.JURI::base().'/images/cmg-soon-image.png" >';
+                //              }
                        
-                    echo '</div>';   
+                //     echo '</div>';   
                        
                     ?>
                     
                
- <?php             }else{
+ <?php       //      }else{
             //       foreach($mainPageDetails as $data){
             //         $str = '$id';
             //       echo '<div id="'.$data->$str.'" class="" id="notification"><h4>'.$data->Heading.'</h4>';
@@ -256,7 +264,7 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
             //             echo '<p>'.$htmlString.'</p></div>';
                     
             //   }
-              }
+            //  }
               
              
                ?>

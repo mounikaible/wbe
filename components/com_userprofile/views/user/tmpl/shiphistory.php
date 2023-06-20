@@ -337,7 +337,7 @@ $joomla(document).on('click','.exp_item',function(e){
        if(ShippingIdDisplay){
         shippingId = "<th>Shipping ID</th>";
        }
-       htmse+='<tr class="child_row"><td colspan="11"><table class="table table-bordered"><tr class="'+rs+' wrhuse-grid"><th style="display:none"></th><th>Item Name</th><th>Item Quantity</th><th>Item Status</th><th>Expected Delivery Date</th><th>Update Invoice</th>'+declaredVal+shippingId+'<th style="display:none"></th><th style="display:none"></th><th style="display:none"></th></tr>';
+       htmse+='<tr class="child_row"><td colspan="12"><table class="table table-bordered"><tr class="'+rs+' wrhuse-grid"><th style="display:none"></th><th>Item Name</th><th>Item Quantity</th><th>Item Status</th><th>Update Invoice</th>'+declaredVal+shippingId+'<th style="display:none"></th><th style="display:none"></th><th style="display:none"></th></tr>';
        $joomla('#M_table tbody tr').each( function () {
            
          if($joomla(this).attr('id') == rs){
@@ -648,13 +648,11 @@ $joomla(document).on('change','select[name=M_table_length]',function(){
                   <th><?php echo $assArr['Transaction Number'];?></th>
                   <th><?php echo $assArr['Payment Gateway'];?></th>
                   <th><?php echo $assArr['Payment Method'];?></th>
+                  <th><?php echo 'Expected Delivery Date'; ?></th>
                 </tr>
               </thead>
               <tbody>
                   
-                  <!--<th><?php //echo $assArr['item_name'];?></th>-->
-                  <!--<th><?php //echo $assArr['quantity'];?></th>-->
-                  <!--<th><?php //echo $assArr['status'];?></th>-->
                   
 <?php
                 
@@ -684,6 +682,12 @@ $joomla(document).on('change','select[name=M_table_length]',function(){
         foreach($ordersHistoryView as $repack){
                                
                                     foreach($repack->WarehouseDetails as $res){
+
+                if($res->Expected_delivery =="1900-01-01T00:00:00" || $res->Expected_delivery == ""){
+                  $expDeliveryDate = '<center>-</center>';
+                }else{
+                  $expDeliveryDate = '<center>'.$res->Expected_delivery.'</center>';
+                }
                                         
          $rep='<a href="'.$service_url.'/ASPX/Tx_Wh_Receipt.aspx?bid='.$res->BillFormNo.'&companyid='.$CompanyId.'" target="_blank">'.Jtext::_('COM_USERPROFILE_HISTORY_TABLE_WAREHOUSE_RECEIPT').'<a>';
         
@@ -698,14 +702,15 @@ $joomla(document).on('change','select[name=M_table_length]',function(){
          <td>'.$rep.'</td>';
        
         if($res->CardNumber !=""){
-            echo'<td>XXXX-XXXX-XXXX-'.$res->CardNumber.'</td>';
+            echo '<td>XXXX-XXXX-XXXX-'.$res->CardNumber.'</td>';
         }else{
-            echo'<td><center>-<center></td>';
+            echo '<td><center>-</center></td>';
         }
         
          echo'<td>'.$res->TransactionId.'</td>
          <td>'.$res->PaymentGateway.'</td>
          <td>'.$res->PaymentType.'</td>
+         <td>'.$expDeliveryDate.'</td>
          </tr>';
         
        
@@ -733,8 +738,7 @@ $joomla(document).on('change','select[name=M_table_length]',function(){
                   echo '<tr  class="child_row"  id="'.$res->BillFormNo.'" style="display:none"><td style="display:none"></td>
                   <td>'.$rg->ItemName.'</td>
                   <td>'.$rg->ItemQuantity.'</td>
-                  <td>'.$rg->ItemStatus.'</td>
-                  <td> - </td>';
+                  <td>'.$rg->ItemStatus.'</td>';
                   
                   //var_dump($rg->Status);
                   
@@ -755,6 +759,8 @@ $joomla(document).on('change','select[name=M_table_length]',function(){
                   }
                  
                   echo '<td style="display:none"></td>
+                  <td style="display:none"></td>
+                  <td style="display:none"></td>
                   <td style="display:none"></td>
                   <td style="display:none"></td>
                   </tr>';
