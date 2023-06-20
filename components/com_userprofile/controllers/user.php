@@ -290,9 +290,9 @@ class UserprofileControllerUser extends JControllerLegacy
         $address2Txt = JRequest::getVar('address2Txt', '', 'post');
         $emailNotifications = JRequest::getVar('emailNotifications', '', 'post');
         if($emailNotifications == "on"){
-            $emailNotifications = TRUE;
+            $emailNotifications = "true";
         }else{
-            $emailNotifications = FALSE;    
+            $emailNotifications = "false";    
         }
 
         $Country = JRequest::getVar('countryTxt', '', 'post');
