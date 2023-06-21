@@ -1491,7 +1491,11 @@ function PPHttpPost($methodName, $nvpStr) {
               $url=$dest1;
             } 
 
-            //uploadFileToFTP($src,$dest);
+
+            $ftpsrc = $dest;
+            $directory = $TARGET;
+
+            $this->fileUploadToFTP($ftpsrc,$directory,$filename); // V2.7.4
             //else 
             //   //Redirect and throw an error message
             // $app->enqueueMessage(JText::_('IMAGE_NOT_SUCCESSFULLY_UPLOADED'), 'error');
@@ -1697,6 +1701,66 @@ function PPHttpPost($methodName, $nvpStr) {
         
        
 	}  
+
+    public function fileUploadToFTP($src,$dir,$file){
+
+        /* get config variable */
+        $config = JFactory::getConfig();
+        $ftp_host = $config->get('ftp_host');
+        $ftp_username = $config->get('ftp_username');
+        $ftp_password = $config->get('ftp_password');
+
+// ftp connection
+
+$conn_id = ftp_connect($ftp_host) or die("Couldn't connect to $ftp_host");  
+
+if (!ftp_connect($ftp_host))  
+{   
+echo "not connected";  
+}   
+else   
+{  
+echo "successful connected <br>";   
+}  
+
+// ftp login
+
+$login_result = ftp_login($conn_id,$ftp_username,$ftp_password);
+
+ftp_pasv($conn_id, true);
+
+if (!$login_result) {
+    
+   echo "Not connected";
+    
+}else{
+    echo "connection established <br>";
+}
+
+$resp = ftp_mkdir($conn_id, 'Attachments/'.$dir);
+if($resp){
+    $dest = 'Attachments/'.$dir.'/'.$file;
+}
+
+
+// upload file
+if (ftp_put($conn_id, $dest, $src, FTP_ASCII))
+  {
+  echo "Successfully uploaded $file.";
+  }
+else
+  {
+  echo "Error uploading $file.";
+  }
+
+  /* Debug */
+//   var_dump($resp);
+//   exit;
+
+// close connection
+ftp_close($ftp_conn);
+  
+}
 
 
 
