@@ -55,10 +55,10 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
               foreach($mainPageDetails as $data){
                   
                   $categoryList[] = $data->CategoryName;
-                  $catOrderList[$data->categoryorder] = $data->CategoryName;
+                  $catOrderList[$data->CategoryName] = $data->categoryorder;
               }
               $categoryList = array_unique($categoryList);
-              ksort($catOrderList);
+              asort($catOrderList);
              
               sort($categoryList);
               
@@ -172,14 +172,20 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
                                 <?php
                                 
                                 $i=0;
-                                foreach($catOrderList as $category){
-                                    if($i == 0){
-                                        $activeClass = "active";
-                                    }else{
-                                        $activeClass = "";
+                                foreach($catOrderList as $categoryName=>$categoryOrder){
+                                    if($i<5){
+                                        
+                                        if($i == 0){
+                                            $activeClass = "active";
+                                        }else{
+                                            $activeClass = "";
+                                        }
+                                            echo '<li class="'.$activeClass.'" > <a data-toggle="tab" href="#'.str_replace(" ","_",$categoryName).'">'.$categoryName.'</a></li>';
+                                            
                                     }
-                                        echo '<li class="'.$activeClass.'" > <a data-toggle="tab" href="#'.str_replace(" ","_",$category).'">'.$category.'</a></li>';
+                                            
                                     $i++;
+                                   
                                 }
                                 
                                 ?>
@@ -191,22 +197,22 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
                              
                              $i=0;
                              
-                            foreach($catOrderList as $category){ 
+                            foreach($catOrderList as $categoryName=>$categoryOrder){ 
                                     if($i == 0){
                                         $activeClass = "active";
                                     }else{
                                         $activeClass = "";
-                                    } ?>
+                                    } if($i<5){ ?>
                               
-                            <div id="<?php echo str_replace(" ","_",$category); ?>" class="tab-pane fade in <?php echo $activeClass; ?>">
+                            <div id="<?php echo str_replace(" ","_",$categoryName); ?>" class="tab-pane fade in <?php echo $activeClass; ?>">
                               <?php 
                               $cmgSoonImg = '<img src="'.JURI::base().'/images/cmg-soon-image.png" >';
-                              $newsContent = getCategoryContent($mainPageDetails,$category);
-                              if($newsContent != NULL){ echo $newsContent; }else{ echo $cmgSoonImg; }  
+                              $categoryContent = getCategoryContent($mainPageDetails,$categoryName);
+                              if($categoryContent != NULL){ echo $categoryContent; }else{ echo $cmgSoonImg; }  
                               ?>
                             </div>
                             
-                            <?php $i++; } ?>
+                            <?php } $i++;  } ?>
                             
                           </div>                             
                             </div>
