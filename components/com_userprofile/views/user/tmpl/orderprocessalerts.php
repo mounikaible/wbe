@@ -42,6 +42,8 @@ if(!$user){
    foreach($res as $element){
       $elem[$element->ElementId]=array($element->ElementDescription,$element->ElementStatus,$element->is_mandatory,$element->is_default,$element->ElementValue);
    }
+
+
    $globalMultWithQnt = $elem['MultiplyWithQuatyDecVal'][1];
    $menuAccessStr=Controlbox::getMenuAccess($user,$pass);
    $menuCustData = explode(":",$menuAccessStr);
@@ -495,6 +497,12 @@ $joomla(document).on('keydown','#orderdateTxt,#txtOrderDate',function(e) {
               $joomla('input[name=txtLength]').val(cospor[21]);
               $joomla('input[name=txtHeigth]').val(cospor[22]);
               $joomla('input[name=txtWidth]').val(cospor[23]);
+              
+              if(cospor[25] =='ZERO'){
+                $joomla('#edit_package_no').prop("checked",true);
+              }else{
+                  $joomla('#edit_package_yes').prop("checked",true);
+              }
               
                 if(cospor[3]){
                   
@@ -1573,6 +1581,27 @@ $joomla(document).on('keydown','#orderdateTxt,#txtOrderDate',function(e) {
             </div>
              <?php } ?>
           </div>
+
+          <?php  if(1){  ?>
+
+            <div class="clearfix" ></div>
+
+          <!-- Package Field-->
+          <div class="col-sm-12 col-md-12">
+              <div class="form-group">
+                    <label><?php echo "Box (Do you need the original box? You might be able to save in fees without it. (box may apply volumetric weight) Free re-packaging)"; ?> <a href="https://youtu.be/xikvgWJRmXQ" target="_blank"><i class="fa fa-youtube" aria-hidden="true" style="font-size:24px;color:blue"></i></a> : </label>
+                    <br>
+                    <input type="radio" id="edit_package_yes" value="Yes" name="editPackage" >
+                    <?php echo "Yes";?>
+                    <input type="radio" id="edit_package_no" checked value="No" name="editPackage" >
+                    <?php echo "No";?>
+                    
+              </div>
+            </div>   
+
+          <div class="clearfix" ></div>
+
+          <?php  }  ?>
           
           <!-- End -->
           

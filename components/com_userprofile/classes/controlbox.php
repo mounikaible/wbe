@@ -629,7 +629,9 @@ class Controlbox{
         $imageByteStream = array();
         $fileName = array();
         $fileExt = array();
+        $mulfilepath = array();
         $i=0;
+
         foreach($invData as $data){
                     $photodest = JPATH_SITE. "/media/com_userprofile/".$invData[$i];
                     $image = file_get_contents($photodest);
@@ -638,6 +640,7 @@ class Controlbox{
                     $itemImage[$i]=$fileData[1];
                     $fileName[$i]=pathinfo($fileData[1], PATHINFO_FILENAME );
                     $fileExt[$i] ='.'.pathinfo($fileData[1], PATHINFO_EXTENSION );
+                    $mulfilepath[$i] = $invData[$i];
             $i++;
         }
 
@@ -650,15 +653,15 @@ class Controlbox{
             "idk": "'.$itemIdk.'",    
             "listVM":[
              {
-            "ItemImage": "'.$itemImage[0].'",
-            "ItemImage1": "'.$itemImage[1].'",
-            "ItemImage2": "'.$itemImage[2].'",
-            "ItemImage3": "'.$itemImage[3].'",
+            "ItemImage": "'.$mulfilepath[0].'",
+            "ItemImage1": "'.$mulfilepath[1].'",
+            "ItemImage2": "'.$mulfilepath[2].'",
+            "ItemImage3": "'.$mulfilepath[3].'",
             "ItemImage4": "",
-            "ImageByteStream": "'.$imageByteStream[0].'" ,
-            "ImageByteStream1": "'.$imageByteStream[1].'" ,
-            "ImageByteStream2": "'.$imageByteStream[2].'" ,
-            "ImageByteStream3": "'.$imageByteStream[3].'" ,
+            "ImageByteStream": "" ,
+            "ImageByteStream1": "" ,
+            "ImageByteStream2": "" ,
+            "ImageByteStream3": "" ,
             "ImageByteStream4": "",
             "fileName": "'.$fileName[0].'",
             "fileName1": "'.$fileName[1].'",
@@ -686,10 +689,10 @@ class Controlbox{
 		$result=curl_exec($ch);
 		$msg=json_decode($result);
 		
-// 	    echo $url;
-// 		echo $req;
-// 		var_dump($msg);
-// 		exit;
+	    // echo $url;
+		// echo $req;
+		// var_dump($msg);
+		// exit;
 
         // var_dump($msg->Response.":".$msg->Description);
         // exit;
@@ -1087,7 +1090,7 @@ class Controlbox{
 		
 		$msg=json_decode($result);
         $msg2=$msg->Data;
-        return $msg2->ItemId.':'.$msg2->SupplierId.':'.$msg2->CarrierId.':'.$msg2->OrderDate.':'.$msg2->TrackingId.':'.$msg2->ItemName.':'.$msg2->ItemQuantity.':'.$msg2->ItemPrice.':'.$msg2->cost.':'.$msg2->itemstatus.':'.$msg2->fnsku.':'.$msg2->sku.':'.str_replace(":","##",$msg2->ItemImage).':'.$msg2->Dest_Cntry.':'.$msg2->Dest_Hub.':'.str_replace(":","##",$msg2->ItemImage1).':'.str_replace(":","##",$msg2->ItemImage2).':'.str_replace(":","##",$msg2->ItemImage3).':'.str_replace(":","##",$msg2->ItemImage4).':'.$msg2->OrderIdNew.':'.$msg2->RMAValue.':'.$msg2->length.':'.$msg2->height.':'.$msg2->width.':'.$msg2->type_busines;        
+        return $msg2->ItemId.':'.$msg2->SupplierId.':'.$msg2->CarrierId.':'.$msg2->OrderDate.':'.$msg2->TrackingId.':'.$msg2->ItemName.':'.$msg2->ItemQuantity.':'.$msg2->ItemPrice.':'.$msg2->cost.':'.$msg2->itemstatus.':'.$msg2->fnsku.':'.$msg2->sku.':'.str_replace(":","##",$msg2->ItemImage).':'.$msg2->Dest_Cntry.':'.$msg2->Dest_Hub.':'.str_replace(":","##",$msg2->ItemImage1).':'.str_replace(":","##",$msg2->ItemImage2).':'.str_replace(":","##",$msg2->ItemImage3).':'.str_replace(":","##",$msg2->ItemImage4).':'.$msg2->OrderIdNew.':'.$msg2->RMAValue.':'.$msg2->length.':'.$msg2->height.':'.$msg2->width.':'.$msg2->type_busines.':'.$msg2->PackageType;        
     }
 
 
@@ -2211,13 +2214,11 @@ if($priceStr != ""){
      *
      * @return  bool
      */
-    public static function updatePurchaseOrder($itemid,$customerid,$supplierid,$carrierid,$trackingid,$orderdate,$file,$imageByteStreamsingle,$itemname,$itemquantity,$price,$cost,$status,$countryTxt,$stateTxt,$filename,$filename1,$filename2,$filename3,$imageByteStream,$imageByteStream1,$imageByteStream2,$imageByteStream3,$txtOrderId,$txtRmaValue,$txtLength,$txtHeigth,$txtWidth,$inventoryTxt)
+    public static function updatePurchaseOrder($itemid,$customerid,$supplierid,$carrierid,$trackingid,$orderdate,$file,$imageByteStreamsingle,$itemname,$itemquantity,$price,$cost,$status,$countryTxt,$stateTxt,$filename,$filename1,$filename2,$filename3,$imageByteStream,$imageByteStream1,$imageByteStream2,$imageByteStream3,$txtOrderId,$txtRmaValue,$txtLength,$txtHeigth,$txtWidth,$inventoryTxt,$Package,$mulfilepath)
     {
         mb_internal_encoding('UTF-8');
         $itemimage = array();
-        
-        //var_dump($filename1);
-        
+
         // for($j=1; $j<=4; $j++){
         //         $fname = $filename.$j;
         //         $imgbs = $imageByteStream.$j;
@@ -2247,7 +2248,7 @@ if($priceStr != ""){
                     $itemimage3 = $filename3;
                     $filename3=pathinfo($itemimage3, PATHINFO_FILENAME );
                     $filext3 ='.'.pathinfo($itemimage3, PATHINFO_EXTENSION );
-                   
+
         
         // if($filename1 !=''){
         // $file1Det = explode(".",$filename1);
@@ -2284,13 +2285,13 @@ if($priceStr != ""){
         if($stateTxt==0){
             $stateTxt="";
         }
-        curl_setopt($ch, CURLOPT_POSTFIELDS,'{"ImageByteStream":"'.$imageByteStream.'","CompanyID":"'.$CompanyId.'","ItemId":"'.$itemid.'","CustomerId":"'.$customerid.'","SupplierId":"'.$supplierid.'","CarrierId":"'.$carrierid.'","TrackingId":"'.$trackingid.'","OrderDate":"'.$orderdate.'","ItemImage":"'.$itemimage.'","ItemImage1":"'.$itemimage1.'","ItemImage2":"'.$itemimage2.'","ItemImage3":"'.$itemimage3.'","ItemImage4":"'.$itemimage4.'","fileName":"'.$filename.'","fileExtension":"'.$filext.'","Dest_Cntry":"'.$countryTxt.'","Dest_Hub":"'.$stateTxt.'","ItemName":"'.$itemname.'","ItemQuantity":"'.$itemquantity.'","ItemPrice":"'.$price.'","Cost":"'.$cost.'","ItemStatus":"'.$status.'","ItemUrl":"Joomla","ActivationKey":"123456789","ImageByteStream1":"'.$imageByteStream1.'","ImageByteStream2":"'.$imageByteStream2.'","ImageByteStream3":"'.$imageByteStream3.'","ImageByteStream4":"'.$imageByteStream4.'","fileName1":"'.$filename1.'","fileName2":"'.$filename2.'","fileName3":"'.$filename3.'","fileName4":"'.$filename4.'","fileExtension1":"'.$filext1.'","fileExtension2":"'.$filext2.'","fileExtension3":"'.$filext3.'","fileExtension4":"'.$filext4.'","OrderIdNew":"'.$txtOrderId.'","RMAValue":"'.$txtRmaValue.'","length":"'.$txtLength.'","height":"'.$txtHeigth.'","width":"'.$txtWidth.'","type_busines": "'.$inventoryTxt.'"}');        
+        curl_setopt($ch, CURLOPT_POSTFIELDS,'{"ImageByteStream":"","CompanyID":"'.$CompanyId.'","ItemId":"'.$itemid.'","CustomerId":"'.$customerid.'","SupplierId":"'.$supplierid.'","CarrierId":"'.$carrierid.'","TrackingId":"'.$trackingid.'","OrderDate":"'.$orderdate.'","ItemImage":"'.$mulfilepath[0].'","ItemImage1":"'.$mulfilepath[1].'","ItemImage2":"'.$mulfilepath[2].'","ItemImage3":"'.$itemimage3.'","ItemImage4":"'.$mulfilepath[3].'","fileName":"'.$filename.'","fileExtension":"'.$filext.'","Dest_Cntry":"'.$countryTxt.'","Dest_Hub":"'.$stateTxt.'","ItemName":"'.$itemname.'","ItemQuantity":"'.$itemquantity.'","ItemPrice":"'.$price.'","Cost":"'.$cost.'","ItemStatus":"'.$status.'","ItemUrl":"Joomla","ActivationKey":"123456789","ImageByteStream1":"","ImageByteStream2":"","ImageByteStream3":"","ImageByteStream4":"","fileName1":"'.$filename1.'","fileName2":"'.$filename2.'","fileName3":"'.$filename3.'","fileName4":"'.$filename4.'","fileExtension1":"'.$filext1.'","fileExtension2":"'.$filext2.'","fileExtension3":"'.$filext3.'","fileExtension4":"'.$filext4.'","OrderIdNew":"'.$txtOrderId.'","RMAValue":"'.$txtRmaValue.'","length":"'.$txtLength.'","height":"'.$txtHeigth.'","width":"'.$txtWidth.'","type_busines": "'.$inventoryTxt.'","PackageType":"'.$Package.'"}');        
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		$result=curl_exec($ch);
 		
 		 /** Debug **/
         // echo $url;
-		// echo '{"ImageByteStream":"'.$imageByteStream.'","CompanyID":"'.$CompanyId.'","ItemId":"'.$itemid.'","CustomerId":"'.$customerid.'","SupplierId":"'.$supplierid.'","CarrierId":"'.$carrierid.'","TrackingId":"'.$trackingid.'","OrderDate":"'.$orderdate.'","ItemImage":"'.$itemimage.'","ItemImage1":"'.$itemimage1.'","ItemImage2":"'.$itemimage2.'","ItemImage3":"'.$itemimage3.'","ItemImage4":"'.$itemimage4.'","fileName":"'.$filename.'","fileExtension":"'.$filext.'","Dest_Cntry":"'.$countryTxt.'","Dest_Hub":"'.$stateTxt.'","ItemName":"'.$itemname.'","ItemQuantity":"'.$itemquantity.'","ItemPrice":"'.$price.'","Cost":"'.$cost.'","ItemStatus":"'.$status.'","ItemUrl":"Joomla","ActivationKey":"123456789","ImageByteStream1":"'.$imageByteStream1.'","ImageByteStream2":"'.$imageByteStream2.'","ImageByteStream3":"'.$imageByteStream3.'","ImageByteStream4":"'.$imageByteStream4.'","fileName1":"'.$filename1.'","fileName2":"'.$filename2.'","fileName3":"'.$filename3.'","fileName4":"'.$filename4.'","fileExtension1":"'.$filext1.'","fileExtension2":"'.$filext2.'","fileExtension3":"'.$filext3.'","fileExtension4":"'.$filext4.'","OrderIdNew":"'.$txtOrderId.'","RMAValue":"'.$txtRmaValue.'","length":"'.$txtLength.'","height":"'.$txtHeigth.'","width":"'.$txtWidth.'","type_busines": "'.$inventoryTxt.'"}';
+		// echo '{"ImageByteStream":"","CompanyID":"'.$CompanyId.'","ItemId":"'.$itemid.'","CustomerId":"'.$customerid.'","SupplierId":"'.$supplierid.'","CarrierId":"'.$carrierid.'","TrackingId":"'.$trackingid.'","OrderDate":"'.$orderdate.'","ItemImage":"'.$mulfilepath[0].'","ItemImage1":"'.$mulfilepath[1].'","ItemImage2":"'.$mulfilepath[2].'","ItemImage3":"'.$itemimage3.'","ItemImage4":"'.$mulfilepath[3].'","fileName":"'.$filename.'","fileExtension":"'.$filext.'","Dest_Cntry":"'.$countryTxt.'","Dest_Hub":"'.$stateTxt.'","ItemName":"'.$itemname.'","ItemQuantity":"'.$itemquantity.'","ItemPrice":"'.$price.'","Cost":"'.$cost.'","ItemStatus":"'.$status.'","ItemUrl":"Joomla","ActivationKey":"123456789","ImageByteStream1":"","ImageByteStream2":"","ImageByteStream3":"","ImageByteStream4":"","fileName1":"'.$filename1.'","fileName2":"'.$filename2.'","fileName3":"'.$filename3.'","fileName4":"'.$filename4.'","fileExtension1":"'.$filext1.'","fileExtension2":"'.$filext2.'","fileExtension3":"'.$filext3.'","fileExtension4":"'.$filext4.'","OrderIdNew":"'.$txtOrderId.'","RMAValue":"'.$txtRmaValue.'","length":"'.$txtLength.'","height":"'.$txtHeigth.'","width":"'.$txtWidth.'","type_busines": "'.$inventoryTxt.'","PackageType":"'.$Package.'"}';
 		// var_dump($result);exit;
 
         $msg=json_decode($result);
@@ -2942,20 +2943,22 @@ if($priceStr != ""){
      *
      * @return  bool
      */
-    public static function getaddshippment($CustId, $mnameTxt, $carrierTxt,$carriertrackingTxt,$orderdateTxt,$anameTxt,$quantityTxt,$declaredvalueTxt,$totalpriceTxt,$itemstatusTxt,$countryTxt,$stateTxt,$rmavalue,$orderidTxt,$business_type,$mulfilename,$mulimageByteStream,$lengthTxt,$heightTxt,$widthTxt)
+    public static function getaddshippment($CustId, $mnameTxt, $carrierTxt,$carriertrackingTxt,$orderdateTxt,$anameTxt,$quantityTxt,$declaredvalueTxt,$totalpriceTxt,$itemstatusTxt,$countryTxt,$stateTxt,$rmavalue,$orderidTxt,$business_type,$mulfilename,$mulimageByteStream,$lengthTxt,$heightTxt,$widthTxt,$mulfilepath,$package)
     {
         $hostnameStr = $_SERVER['HTTP_HOST'];
         $hostnameStr = str_replace("www.","",$hostnameStr);
         $hostnameArr = explode(".",$hostnameStr);
         $domainurl = $hostnameArr[1].".".$hostnameArr[2];
+
         
         $loop='';
         for($i=0;$i<count($anameTxt);$i++){
             
-            $imagebytestream=array();
+            //$imagebytestream=array(); // not sending image bytestream in 2.7.4V
             $itemimage=array();
             $filename=array();
             $filext=array();
+            $filepath = array();
                 
             
             for($j=0; $j<4; $j++){
@@ -2964,14 +2967,16 @@ if($priceStr != ""){
                     $itemimage[$j]=$mulfilename[$i][$j];
                     $filename[$j]=pathinfo($mulfilename[$i][$j], PATHINFO_FILENAME );
                     $filext[$j] ='.'.pathinfo($mulfilename[$i][$j], PATHINFO_EXTENSION );
-                    $imagebytestream[$j] = $mulimageByteStream[$i][$j];
+                    //$imagebytestream[$j] = $mulimageByteStream[$i][$j]; // not sending image bytestream in 2.7.4V
                     console.log($imagebytestream[$j]);
+                    $filepath[$j] = $mulfilepath[$i][$j];
+
                 }
                 
             }
+
             
-            
-            $loop.='{"ItemName":"'.base64_encode($anameTxt[$i]).'","ItemQuantity":"'.$quantityTxt[$i].'","ItemPrice":"'.$declaredvalueTxt[$i].'","TotalPrice":"'.$totalpriceTxt[$i].'","ItemStatus":"'.$itemstatusTxt[$i].'","OrderIdNew":"'.$orderidTxt[$i].'","RMAValue":"'.$rmavalue[$i].'","fileName":"'.$filename[0].'","fileExtension":"'.$filext[0].'","fileName1":"'.$filename[1].'","fileExtension1":"'.$filext[1].'","fileName2":"'.$filename[2].'","fileExtension2":"'.$filext[2].'","fileName3":"'.$filename[3].'","fileExtension3":"'.$filext[3].'","ImageByteStream":"'.$imagebytestream[0].'","ImageByteStream1":"'.$imagebytestream[1].'","ImageByteStream2":"'.$imagebytestream[2].'","ImageByteStream3":"'.$imagebytestream[3].'","ItemImage":"'.$itemimage[0].'","ItemImage1":"'.$itemimage[1].'","ItemImage2":"'.$itemimage[2].'","ItemImage3":"'.$itemimage[3].'","length":"'.$lengthTxt[$i].'","height":"'.$heightTxt[$i].'","width":"'.$widthTxt[$i].'"},';    
+            $loop.='{"ItemName":"'.base64_encode($anameTxt[$i]).'","ItemQuantity":"'.$quantityTxt[$i].'","ItemPrice":"'.$declaredvalueTxt[$i].'","TotalPrice":"'.$totalpriceTxt[$i].'","ItemStatus":"'.$itemstatusTxt[$i].'","OrderIdNew":"'.$orderidTxt[$i].'","RMAValue":"'.$rmavalue[$i].'","fileName":"'.$filename[0].'","fileExtension":"'.$filext[0].'","fileName1":"'.$filename[1].'","fileExtension1":"'.$filext[1].'","fileName2":"'.$filename[2].'","fileExtension2":"'.$filext[2].'","fileName3":"'.$filename[3].'","fileExtension3":"'.$filext[3].'","ImageByteStream":"'.$imagebytestream[0].'","ImageByteStream1":"'.$imagebytestream[1].'","ImageByteStream2":"'.$imagebytestream[2].'","ImageByteStream3":"'.$imagebytestream[3].'","ItemImage":"'.$filepath[0].'","ItemImage1":"'.$filepath[1].'","ItemImage2":"'.$filepath[2].'","ItemImage3":"'.$filepath[3].'","length":"'.$lengthTxt[$i].'","height":"'.$heightTxt[$i].'","width":"'.$widthTxt[$i].'","Package": "'.$package[$i].'"},';    
         
         }
         
@@ -3033,42 +3038,6 @@ if($priceStr != ""){
 
         return $msg->Response.":".$msg->Description;
     }
-
-
-    /**
-     * Gets the edit permission for an user
-     *
-     * @param   mixed  $item  The item
-     *
-     * @return  bool
-     */
-    public static function getaddshippment_($CustId, $mnameTxt, $carrierTxt,$carriertrackingTxt, $orderdateTxt, $addinvoiceTxt, $anameTxt, $quantityTxt,$declaredvalueTxt,$totalpriceTxt,$itemstatusTxt)
-    {
-        $loop='';
-        for($i=0;$i<count($anameTxt);$i++){
-            $loop.='{"ItemName":"'.$anameTxt[$i].'","ItemQuantity":"'.$quantityTxt[$i].'","ItemPrice":"'.$declaredvalueTxt[$i].'","TotalPrice":"'.$totalpriceTxt[$i].'","ItemStatus":"'.$itemstatusTxt[$i].'"},';    
-        }
-        mb_internal_encoding('UTF-8'); 
-        
-        $CompanyId = Controlbox::getCompanyId();
-        $content_params =JComponentHelper::getParams( 'com_userprofile' );
-        $url=$content_params->get( 'webservice' ).'/api/ShipmentsAPI/AddPurchaseOrder1';
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,'{"CompanyID":"'.$CompanyId.'","CustomerId":"'.$CustId.'","SupplierId":"'.$mnameTxt.'","CarrierId":"'.$carrierTxt.'","TrackingId":"'.$carriertrackingTxt.'", "OrderDate":"'.$orderdateTxt.'","ItemImage":"'.$addinvoiceTxt.'","ItemUrl":"frontend","ActivationKey":"123456789","liInventoryPurchasesVM":['.$loop.']}');
-        curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-		$result=curl_exec($ch);
-		
-// 		echo $url;
-// 		echo '{"CompanyID":"'.$CompanyId.'","CustomerId":"'.$CustId.'","SupplierId":"'.$mnameTxt.'","CarrierId":"'.$carrierTxt.'","TrackingId":"'.$carriertrackingTxt.'", "OrderDate":"'.$orderdateTxt.'","ItemImage":"'.$addinvoiceTxt.'","ItemUrl":"frontend","ActivationKey":"123456789","liInventoryPurchasesVM":['.$loop.']}';
-//         var_dump($result);exit;
-        
-        $msg=json_decode($result);
-        return $msg->Description;
-    }
-
 
     /**
      * Gets the edit permission for an user
