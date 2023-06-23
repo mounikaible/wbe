@@ -686,7 +686,8 @@ $joomla(document).on('change','select[name=M_table_length]',function(){
                 if($res->Expected_delivery =="1900-01-01T00:00:00" || $res->Expected_delivery == ""){
                   $expDeliveryDate = '<center>-</center>';
                 }else{
-                  $expDeliveryDate = '<center>'.$res->Expected_delivery.'</center>';
+                  $expDelivery = explode("T",$res->Expected_delivery);
+                  $expDeliveryDate = '<center>'.$expDelivery[0].'</center>';
                 }
                                         
          $rep='<a href="'.$service_url.'/ASPX/Tx_Wh_Receipt.aspx?bid='.$res->BillFormNo.'&companyid='.$CompanyId.'" target="_blank">'.Jtext::_('COM_USERPROFILE_HISTORY_TABLE_WAREHOUSE_RECEIPT').'<a>';
