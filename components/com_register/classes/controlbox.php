@@ -202,7 +202,7 @@ class Controlbox{
           "custImage": "'.$filepath.'",
           "fileName": "'.$nameStr.'",
           "fileExtension": "'.$extStr.'",
-          "custImageURL": "Joomla",
+          "custImageURL": "ftp",
           "ActivationKey": "123456789",
           "AgencyId": "'.$agentId.'",
           "captchaToken": "'.$recaptch.'",
