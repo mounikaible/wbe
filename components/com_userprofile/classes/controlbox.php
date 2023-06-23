@@ -3046,7 +3046,7 @@ if($priceStr != ""){
      *
      * @return  bool
      */
-    public static function addShopperassist($CustId, $txtMerchantName, $txtMerchantWebsite,$txtItemName, $txtItemModel, $txtItemRefference, $txtColor, $txtSize,$txtQuantity,$txtDvalue,$txtTprice,$txtItemurl,$txtItemdescription,$mulfilename,$mulimageByteStream)
+    public static function addShopperassist($CustId, $txtMerchantName, $txtMerchantWebsite,$txtItemName, $txtItemModel, $txtItemRefference, $txtColor, $txtSize,$txtQuantity,$txtDvalue,$txtTprice,$txtItemurl,$txtItemdescription,$mulfilename,$mulimageByteStream,$mulfilepath)
     {
        
        
@@ -3057,6 +3057,7 @@ if($priceStr != ""){
             $itemimage=array();
             $filename=array();
             $filext=array();
+            $filepath = array();
             
            for($j=0; $j<4; $j++){
                 if(isset($mulfilename[$i][$j])){
@@ -3064,12 +3065,12 @@ if($priceStr != ""){
                     $filename[$j]=pathinfo($mulfilename[$i][$j], PATHINFO_FILENAME );
                     $filext[$j] ='.'.pathinfo($mulfilename[$i][$j], PATHINFO_EXTENSION );
                     $imagebytestream[$j] = $mulimageByteStream[$i][$j];
-                   
+                    $filepath[$j] = $mulfilepath[$i][$j];
                     
                      }
              }
            
-             $loop.='{"ItemName":"'.$txtItemName[$i].'","ItemDesc":"'.$txtItemdescription[$i].'","ItemQuantity":"'.$txtQuantity[$i].'","ItemPrice":"'.$txtDvalue[$i].'","TotalPrice":"'.$txtTprice[$i].'","color":"'.$txtColor[$i].'","itemmodel":"'.$txtItemModel[$i].'","sku":"'.$txtItemRefference[$i].'","itemUrl":"'.$txtItemurl[$i].'","size":"'.$txtSize[$i].'","alertUrl":"ftp","ImageByteStream":"'.$imagebytestream[0].'","ImageByteStream1":"'.$imagebytestream[1].'","ImageByteStream2":"'.$imagebytestream[2].'","ImageByteStream3":"'.$imagebytestream[3].'","ImageByteStream4":"","ItemImage":"'.$itemimage[0].'","ItemImage1":"'.$itemimage[1].'","ItemImage2":"'.$itemimage[2].'","ItemImage3":"'.$itemimage[3].'","ItemImage4":"","fileName":"'.$filename[0].'","fileName1":"'.$filename[1].'","fileName2":"'.$filename[2].'","fileName3":"'.$filename[3].'","fileName4":"","fileExtension":"'.$filext[0].'","fileExtension1":"'.$filext[1].'","fileExtension2":"'.$filext[2].'","fileExtension3":"'.$filext[3].'","fileExtension4":""},';    
+             $loop.='{"ItemName":"'.$txtItemName[$i].'","ItemDesc":"'.$txtItemdescription[$i].'","ItemQuantity":"'.$txtQuantity[$i].'","ItemPrice":"'.$txtDvalue[$i].'","TotalPrice":"'.$txtTprice[$i].'","color":"'.$txtColor[$i].'","itemmodel":"'.$txtItemModel[$i].'","sku":"'.$txtItemRefference[$i].'","itemUrl":"'.$txtItemurl[$i].'","size":"'.$txtSize[$i].'","alertUrl":"ftp","ImageByteStream":"","ImageByteStream1":"","ImageByteStream2":"","ImageByteStream3":"","ImageByteStream4":"","ItemImage":"'.$filepath[0].'","ItemImage1":"'.$filepath[1].'","ItemImage2":"'.$filepath[2].'","ItemImage3":"'.$filepath[3].'","ItemImage4":"","fileName":"'.$filename[0].'","fileName1":"'.$filename[1].'","fileName2":"'.$filename[2].'","fileName3":"'.$filename[3].'","fileName4":"","fileExtension":"'.$filext[0].'","fileExtension1":"'.$filext[1].'","fileExtension2":"'.$filext[2].'","fileExtension3":"'.$filext[3].'","fileExtension4":""},';    
         
          }
              
@@ -3086,10 +3087,10 @@ if($priceStr != ""){
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		$result=curl_exec($ch);
 		
-// 		echo $url;
-// 		echo '{"CompanyID":"'.$CompanyId.'","CommandType":"InsertPurchase","CreatedBy":"'.$CustId.'","CustomerId":"'.$CustId.'","Merchant_Website":"'.$txtMerchantWebsite.'","PurchaseType":"Abe","SupplierId":"'.$txtMerchantName.'","OrderDate":"","Company":"","EditLevel":"","TrackingId":"","CarrierId":"","liInventoryPurchasesVM":['.$loop.']}';
-//         var_dump($result);
-//         exit;
+		// echo $url;
+		// echo '{"CompanyID":"'.$CompanyId.'","CommandType":"InsertPurchase","CreatedBy":"'.$CustId.'","CustomerId":"'.$CustId.'","Merchant_Website":"'.$txtMerchantWebsite.'","PurchaseType":"Abe","SupplierId":"'.$txtMerchantName.'","OrderDate":"","Company":"","EditLevel":"","TrackingId":"","CarrierId":"","liInventoryPurchasesVM":['.$loop.']}';
+        // var_dump($result);
+        // exit;
         
         $msg=json_decode($result);
         return $msg->Description;

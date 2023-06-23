@@ -1741,6 +1741,10 @@ function PPHttpPost($methodName, $nvpStr) {
 
     public function fileUploadToFTP($src,$dir,$file){
 
+        // var_dump($src);
+        // var_dump($dir);
+        // var_dump($file);exit;
+
         /* get config variable */
         $config = JFactory::getConfig();
         $ftp_host = $config->get('ftp_host');
@@ -1839,17 +1843,38 @@ ftp_close($ftp_conn);
             
             $mulimageByteStream[$j] = array();
             $mulfilename[$j] = array();
+            $mulfilepath[$j] = array();
             
             for($i=0; $i < count($mulfiles[$j]['name']) ; $i++){
+
+                
+                $TARGET=$this->GUIDv4();
+                $src = $_FILES[$fileNameStr]["tmp_name"][$i];
+                $dest1 = $TARGET.'/'.$mulfiles[$j]['name'][$i];
+                $dest = JPATH_SITE. "/media/com_userprofile/".$TARGET.'/'.$mulfiles[$j]['name'][$i];
+
+                if($mulfiles[$j]['name'][$i]!=""){
+                    jimport('joomla.filesystem.file');
+                    JFile::upload($src, $dest);
+                    $ftpsrc = $dest;
+                    $directory = $TARGET;
+                    $this->fileUploadToFTP($ftpsrc,$directory,$mulfiles[$j]['name'][$i]); // V2.7.4
+
+
                 array_push($mulfilename[$j],$mulfiles[$j]['name'][$i]);
                 $images_mul = file_get_contents($_FILES[$fileNameStr]["tmp_name"][$i]);
                 array_push($mulimageByteStream[$j],base64_encode($images_mul));
+                array_push($mulfilepath[$j],$dest1);
+
+                }
+                
             }
+
         }
         
         
     	if($CustId!=""){
-           $status=Controlbox::addShopperassist($CustId, $txtMerchantName, $txtMerchantWebsite,$txtItemName, $txtItemModel, $txtItemRefference, $txtColor, $txtSize,$txtQuantity,$txtDvalue,$totAmount,$txtItemurl,$txtItemdescription,$mulfilename,$mulimageByteStream);
+           $status=Controlbox::addShopperassist($CustId, $txtMerchantName, $txtMerchantWebsite,$txtItemName, $txtItemModel, $txtItemRefference, $txtColor, $txtSize,$txtQuantity,$txtDvalue,$totAmount,$txtItemurl,$txtItemdescription,$mulfilename,$mulimageByteStream,$mulfilepath);
         }
         if($status==""){
             $app->enqueueMessage(JText::_('WEBSERVICE_ISSUE'), 'error');
