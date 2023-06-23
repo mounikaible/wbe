@@ -3029,9 +3029,9 @@ if($priceStr != ""){
 		$result=curl_exec($ch);
 
 		 /** Debug **/
-		echo $url;
-		echo '{"CustomerId":"'.$CustId.'","CompanyID":"130","fileName":"'.$fileName.'","fileExtension":"'.$fileExt.'","ImageByteStream":"","ActivationKey":"123456789","CustImgUrl":"ftp","ItemImage":"'.$itemimage.'"}';
-		var_dump($result);exit;
+		// echo $url;
+		// echo '{"CustomerId":"'.$CustId.'","CompanyID":"130","fileName":"'.$fileName.'","fileExtension":"'.$fileExt.'","ImageByteStream":"","ActivationKey":"123456789","CustImgUrl":"ftp","ItemImage":"'.$itemimage.'"}';
+		// var_dump($result);exit;
 
         $msg=json_decode($result);
         // return $msg->Description;
