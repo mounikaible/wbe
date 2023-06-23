@@ -3024,14 +3024,14 @@ if($priceStr != ""){
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,'{"CustomerId":"'.$CustId.'","CompanyID":"'.$CompanyId.'","fileName":"'.$fileName.'","fileExtension":"'.$fileExt.'","ImageByteStream":"'.$imageByteStream.'","ActivationKey":"123456789","CustImgUrl":"ftp","ItemImage":"'.$itemimage.'"}');
+        curl_setopt($ch, CURLOPT_POSTFIELDS,'{"CustomerId":"'.$CustId.'","CompanyID":"'.$CompanyId.'","fileName":"'.$fileName.'","fileExtension":"'.$fileExt.'","ImageByteStream":"","ActivationKey":"123456789","CustImgUrl":"ftp","ItemImage":"'.$itemimage.'"}');
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		$result=curl_exec($ch);
 
 		 /** Debug **/
-// 		echo $url;
-// 		echo '{"CustomerId":"'.$CustId.'","CompanyID":"130","fileName":"'.$fileName.'","fileExtension":"'.$fileExt.'","ImageByteStream":"'.$imageByteStream.'","ActivationKey":"123456789","CustImgUrl":"ftp","ItemImage":"'.$itemimage.'"}';
-// 		var_dump($result);exit;
+		echo $url;
+		echo '{"CustomerId":"'.$CustId.'","CompanyID":"130","fileName":"'.$fileName.'","fileExtension":"'.$fileExt.'","ImageByteStream":"","ActivationKey":"123456789","CustImgUrl":"ftp","ItemImage":"'.$itemimage.'"}';
+		var_dump($result);exit;
 
         $msg=json_decode($result);
         // return $msg->Description;

@@ -3191,14 +3191,21 @@ ftp_close($ftp_conn);
         $image1 = file_get_contents($_FILES['file']["tmp_name"]);
         $imageByteStream = base64_encode($image1);
         $filename = JFile::makeSafe($_FILES['file']["name"]);
+        $TARGET=$this->GUIDv4();
+        $dest = JPATH_SITE. "/media/com_userprofile/".$TARGET.'/'.$filename;
         $profilepicname=JFile::makeSafe($_FILES['file']["name"]);
         $nameExtAry=explode(".",$profilepicname);
         $fileName = $nameExtAry[0];
         $fileExt = ".".$nameExtAry[1];
-        $itemimage=JFile::makeSafe($_FILES['file']["name"]);
+        $itemimage=$TARGET.'/'.$filename;
         $CustId = JRequest::getVar('user', '', 'post');
-        $companyId =130;
-    
+
+        jimport('joomla.filesystem.file');
+        JFile::upload($_FILES['file']["tmp_name"], $dest);
+        $ftpsrc = $dest;
+        $directory = $TARGET;
+        $this->fileUploadToFTP($ftpsrc,$directory,$filename); // V2.7.4
+       
          $statusStr=Controlbox::updateprofilepic($CustId,$fileName,$fileExt,$imageByteStream,$companyId,$itemimage);
          $statusArr = explode(":",$statusStr);
          $status = $statusArr[0];
