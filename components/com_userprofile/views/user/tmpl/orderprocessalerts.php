@@ -1257,7 +1257,7 @@ $joomla(document).on('keydown','#orderdateTxt,#txtOrderDate',function(e) {
             
             <?php } ?>
 
-            <?php  if(1){  ?>
+            <?php  if(strtolower($elem['Package'][1]) == "act"){  ?>
 
             <!-- Package Field-->
             <div class="col-sm-12 col-md-4">
@@ -1582,7 +1582,7 @@ $joomla(document).on('keydown','#orderdateTxt,#txtOrderDate',function(e) {
              <?php } ?>
           </div>
 
-          <?php  if(1){  ?>
+          <?php  if(strtolower($elem['Package'][1]) == "act"){  ?>
 
             <div class="clearfix" ></div>
 
