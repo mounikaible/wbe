@@ -58,7 +58,7 @@ if($_GET['r']==1){
       $elem[$element->ElementId]=array($element->ElementDescription,$element->ElementStatus,$element->is_mandatory,$element->is_default,$element->ElementValue);
    }
    
-  //var_dump($res);exit;
+  //var_dump($elem['EurostoUSDconversion'][1]);exit;
    
    // end
    
@@ -89,9 +89,10 @@ var $joomla = jQuery.noConflict();
 $joomla(document).ready(function() {
 
    curconversion = "<?php echo $curconversion;  ?>";
+   coversionpagesettings = "<?php echo $elem['EurostoUSDconversion'][1]; ?>";
    convtranskey = "<?php echo $convtranskey;  ?>";
    clientId = "<?php echo $ClientId; ?>";
-
+   
     history.pushState(null, null, location.href);
     window.onpopstate = function () {
         history.go(1);
@@ -616,7 +617,7 @@ for(k=0;k<filtereditmidks.length;k++){
         var final = total.toFixed(2);
         if(final>0){
                     $joomla(this).closest('.rows').find('input[name="txtTprice[]"]').val(final);
-          if(curconversion){
+          if(curconversion && coversionpagesettings.toLowerCase() == "act"){
             currencyConversionFun(final);
           }else{
             $joomla(".page_loader").hide();
@@ -637,7 +638,7 @@ for(k=0;k<filtereditmidks.length;k++){
           
         if(final>0){
               var finalPrice = $joomla(this).closest('.rows').find('input[name="txtTprice[]"]').val(final);
-              if(curconversion){
+              if(curconversion && coversionpagesettings.toLowerCase() == "act"){
                 currencyConversionFun(final);
               }else{
                 $joomla(".page_loader").hide();
@@ -911,8 +912,8 @@ $joomla(document).on('change','.mulinvoices,input[type="file"]', function(){
             </div>
             <?php } ?>
 
-            <?php if($curconversion){ ?>
-
+            <?php if($curconversion && strtolower($elem['EurostoUSDconversion'][1]) == "act"){ ?>
+                  
             <div class="col-sm-12 col-md-3">
               <div class="form-group">
                 <label> <?php echo $assArr['Declared Value (EUROS)'] ;?><span class="error">*</span></label>

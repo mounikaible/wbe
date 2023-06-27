@@ -480,6 +480,7 @@ class UserprofileControllerUser extends JControllerLegacy
         $txtLength = JRequest::getVar('txtLength', '', 'post');
         $txtHeigth = JRequest::getVar('txtHeigth', '', 'post');
         $txtWidth = JRequest::getVar('txtWidth', '', 'post');
+        $Package = JRequest::getVar('editPackage', '', 'post');
         
         // mltiple upload start
         
@@ -492,6 +493,8 @@ class UserprofileControllerUser extends JControllerLegacy
        
        
         $mulimageByteStream = array('','','','');
+        $mulfilepath = array('','','','');
+
         for($i=0; $i < count($mulfiles['name']) ; $i++){
             $mulfilename[$i] = $mulfiles['name'][$i];
             
@@ -523,36 +526,66 @@ class UserprofileControllerUser extends JControllerLegacy
     		     else
             		$this->setRedirect(JRoute::_('index.php?option=com_userprofile&view=user&layout=inventoryalerts', false));
 		    }
+
+            $ftpsrc = $dest;
+            $directory = $TARGET;
+            $this->fileUploadToFTP($ftpsrc,$directory,$filename); // V2.7.4
+
 		    $image1 = file_get_contents($dest);
             $mulimageByteStream[$i] = base64_encode($image1);
+            $mulfilepath[$i] = $dest1;
+
         }
           
         }
         }else{
+
+            // image 1
             $uri = JUri::getInstance();
             $photodest1= JRequest::getVar('multxtFileId1', '', 'post');
             $destArr=explode("/",$photodest1);
             $mulfilename[0]=JFile::makeSafe(end($destArr));
             $image1 = file_get_contents($photodest1);
             $mulimageByteStream[0] = base64_encode($image1);
-            
+            if(count($destArr) > 1){
+                $ftpPath1 = array_slice($destArr,-2,2);
+                $mulfilepath[0] = $ftpPath1[0].'/'.$ftpPath1[1];
+            }
+
+          
+
+            // image 2
             $photodest2= JRequest::getVar('multxtFileId2', '', 'post');
             $destArr=explode("/",$photodest2);
             $mulfilename[1]=JFile::makeSafe(end($destArr));
             $image2 = file_get_contents($photodest2);
             $mulimageByteStream[1] = base64_encode($image2);
+            if(count($destArr) > 1){
+                $ftpPath2 = array_slice($destArr,-2,2);
+                $mulfilepath[1] = $ftpPath2[0].'/'.$ftpPath2[1];
+            }
             
+
+            // image 3
             $photodest3= JRequest::getVar('multxtFileId3', '', 'post');
             $destArr=explode("/",$photodest3);
             $mulfilename[2]=JFile::makeSafe(end($destArr));
             $image3 = file_get_contents($photodest3);
             $mulimageByteStream[2] = base64_encode($image3);
+            if(count($destArr) > 1){
+                $ftpPath3 = array_slice($destArr,-2,2);
+                $mulfilepath[2] = $ftpPath3[0].'/'.$ftpPath3[1];
+            }
             
             $photodest4= JRequest::getVar('multxtFileId4', '', 'post');
             $destArr=explode("/",$photodest4);
             $mulfilename[3]=JFile::makeSafe(end($destArr));
             $image4 = file_get_contents($photodest4);
             $mulimageByteStream[3] = base64_encode($image4);
+            if(count($destArr) > 1){
+                $ftpPath4 = array_slice($destArr,-2,2);
+                $mulfilepath[3] = $ftpPath4[0].'/'.$ftpPath4[1];
+            }
             
         }
         
@@ -586,7 +619,7 @@ class UserprofileControllerUser extends JControllerLegacy
         
         //Redirect to a page of your choice
         if($customerid!=""){
-           $status=Controlbox::updatePurchaseOrder($itemid,$customerid,$supplierid,$carrierid,$trackingid,$orderdate,$profilepicname,$imageByteStream,$itemname,$itemquantity,$price,$cost,'In Progress',$countryTxt,$stateTxt,$mulfilename[0],$mulfilename[1],$mulfilename[2],$mulfilename[3],$mulimageByteStream[0],$mulimageByteStream[1],$mulimageByteStream[2],$mulimageByteStream[3],$txtOrderId,$txtRmaValue,$txtLength,$txtHeigth,$txtWidth,$inventoryTxt);
+           $status=Controlbox::updatePurchaseOrder($itemid,$customerid,$supplierid,$carrierid,$trackingid,$orderdate,$profilepicname,$imageByteStream,$itemname,$itemquantity,$price,$cost,'In Progress',$countryTxt,$stateTxt,$mulfilename[0],$mulfilename[1],$mulfilename[2],$mulfilename[3],$mulimageByteStream[0],$mulimageByteStream[1],$mulimageByteStream[2],$mulimageByteStream[3],$txtOrderId,$txtRmaValue,$txtLength,$txtHeigth,$txtWidth,$inventoryTxt,$Package,$mulfilepath);
         }
         
        
@@ -1445,7 +1478,8 @@ function PPHttpPost($methodName, $nvpStr) {
         $pages = JRequest::getVar('pages', '', 'post'); 
         $countryTxt = JRequest::getVar('country3Txt', '', 'post');
         $business_type = JRequest::getVar('business_type', '', 'post');
-        
+        $package = JRequest::getVar('package', '', 'post');
+
         $rmavalue = JRequest::getVar('rmavalue', '', 'post');
         $orderidTxt = JRequest::getVar('orderidTxt', '', 'post');
      
@@ -1469,6 +1503,7 @@ function PPHttpPost($methodName, $nvpStr) {
         
         $mulimageByteStream[$j] = array();
         $mulfilename[$j] = array();
+        $mulfilepath[$j] = array();
         
         for($i=0; $i < count($mulfiles[$j]['name']) ; $i++){
             array_push($mulfilename[$j],$mulfiles[$j]['name'][$i]);
@@ -1491,7 +1526,11 @@ function PPHttpPost($methodName, $nvpStr) {
               $url=$dest1;
             } 
 
-            //uploadFileToFTP($src,$dest);
+
+            $ftpsrc = $dest;
+            $directory = $TARGET;
+
+            $this->fileUploadToFTP($ftpsrc,$directory,$filename); // V2.7.4
             //else 
             //   //Redirect and throw an error message
             // $app->enqueueMessage(JText::_('IMAGE_NOT_SUCCESSFULLY_UPLOADED'), 'error');
@@ -1512,6 +1551,8 @@ function PPHttpPost($methodName, $nvpStr) {
 		    //$images_mul = file_get_contents($_FILES[$fileNameStr]["tmp_name"][$i]);
             //$mulimageByteStream[$j] = base64_encode($images_mul);
             array_push($mulimageByteStream[$j],base64_encode($images_mul));
+            array_push($mulfilepath[$j],$dest1);
+           
             
         }
              
@@ -1655,7 +1696,7 @@ function PPHttpPost($methodName, $nvpStr) {
             // exit;
 
                    
-                    $status=Controlbox::getaddshippment($CustId,$mnameTxt,$carrierTxt,$carriertrackingTxt,$orderdateTxt,$anameTxt,$quantityTxt,$declaredvalueTxt,$totalpriceTxt,$itemstatusTxt,$countryTxt,'',$rmavalue,$orderidTxt,$business_type,$mulfilename,$mulimageByteStream,$lengthTxt,$heightTxt,$widthTxt);
+                    $status=Controlbox::getaddshippment($CustId,$mnameTxt,$carrierTxt,$carriertrackingTxt,$orderdateTxt,$anameTxt,$quantityTxt,$declaredvalueTxt,$totalpriceTxt,$itemstatusTxt,$countryTxt,'',$rmavalue,$orderidTxt,$business_type,$mulfilename,$mulimageByteStream,$lengthTxt,$heightTxt,$widthTxt,$mulfilepath,$package);
                    
                   // var_dump($status);exit;
                    
@@ -1698,6 +1739,70 @@ function PPHttpPost($methodName, $nvpStr) {
        
 	}  
 
+    public function fileUploadToFTP($src,$dir,$file){
+
+        // var_dump($src);
+        // var_dump($dir);
+        // var_dump($file);exit;
+
+        /* get config variable */
+        $config = JFactory::getConfig();
+        $ftp_host = $config->get('ftp_host');
+        $ftp_username = $config->get('ftp_username');
+        $ftp_password = $config->get('ftp_password');
+
+// ftp connection
+
+$conn_id = ftp_connect($ftp_host) or die("Couldn't connect to $ftp_host");  
+
+if (!ftp_connect($ftp_host))  
+{   
+//echo "not connected";  
+}   
+else   
+{  
+//echo "successful connected <br>";   
+}  
+
+// ftp login
+
+$login_result = ftp_login($conn_id,$ftp_username,$ftp_password);
+
+ftp_pasv($conn_id, true);
+
+if (!$login_result) {
+    
+   //echo "Not connected";
+    
+}else{
+    //echo "connection established <br>";
+}
+
+$resp = ftp_mkdir($conn_id, 'Attachments/'.$dir);
+if($resp){
+    $dest = 'Attachments/'.$dir.'/'.$file;
+}
+
+
+// upload file
+if (ftp_put($conn_id, $dest, $src, FTP_BINARY))
+  {
+  //echo "Successfully uploaded $file.";
+  }
+else
+  {
+ // echo "Error uploading $file.";
+  }
+
+  /* Debug */
+//   var_dump($resp);
+//   exit;
+
+// close connection
+ftp_close($ftp_conn);
+  
+}
+
 
 
 /**
@@ -1738,17 +1843,38 @@ function PPHttpPost($methodName, $nvpStr) {
             
             $mulimageByteStream[$j] = array();
             $mulfilename[$j] = array();
+            $mulfilepath[$j] = array();
             
             for($i=0; $i < count($mulfiles[$j]['name']) ; $i++){
+
+                
+                $TARGET=$this->GUIDv4();
+                $src = $_FILES[$fileNameStr]["tmp_name"][$i];
+                $dest1 = $TARGET.'/'.$mulfiles[$j]['name'][$i];
+                $dest = JPATH_SITE. "/media/com_userprofile/".$TARGET.'/'.$mulfiles[$j]['name'][$i];
+
+                if($mulfiles[$j]['name'][$i]!=""){
+                    jimport('joomla.filesystem.file');
+                    JFile::upload($src, $dest);
+                    $ftpsrc = $dest;
+                    $directory = $TARGET;
+                    $this->fileUploadToFTP($ftpsrc,$directory,$mulfiles[$j]['name'][$i]); // V2.7.4
+
+
                 array_push($mulfilename[$j],$mulfiles[$j]['name'][$i]);
                 $images_mul = file_get_contents($_FILES[$fileNameStr]["tmp_name"][$i]);
                 array_push($mulimageByteStream[$j],base64_encode($images_mul));
+                array_push($mulfilepath[$j],$dest1);
+
+                }
+                
             }
+
         }
         
         
     	if($CustId!=""){
-           $status=Controlbox::addShopperassist($CustId, $txtMerchantName, $txtMerchantWebsite,$txtItemName, $txtItemModel, $txtItemRefference, $txtColor, $txtSize,$txtQuantity,$txtDvalue,$totAmount,$txtItemurl,$txtItemdescription,$mulfilename,$mulimageByteStream);
+           $status=Controlbox::addShopperassist($CustId, $txtMerchantName, $txtMerchantWebsite,$txtItemName, $txtItemModel, $txtItemRefference, $txtColor, $txtSize,$txtQuantity,$txtDvalue,$totAmount,$txtItemurl,$txtItemdescription,$mulfilename,$mulimageByteStream,$mulfilepath);
         }
         if($status==""){
             $app->enqueueMessage(JText::_('WEBSERVICE_ISSUE'), 'error');
@@ -2342,6 +2468,11 @@ function PPHttpPost($methodName, $nvpStr) {
             $photodest = JPATH_SITE. "/media/com_userprofile/".$TARGET.'/'.$profilepicname;
             $invf = $TARGET.'/'.$profilepicname;
             JFile::upload($_FILES['file']['tmp_name'], $photodest);
+
+            $ftpsrc = $photodest;
+            $directory = $TARGET;
+            $this->fileUploadToFTP($ftpsrc,$directory,$profilepicname); // V2.7.4
+
             echo $invf;
             exit;
         }
@@ -3060,14 +3191,21 @@ function PPHttpPost($methodName, $nvpStr) {
         $image1 = file_get_contents($_FILES['file']["tmp_name"]);
         $imageByteStream = base64_encode($image1);
         $filename = JFile::makeSafe($_FILES['file']["name"]);
+        $TARGET=$this->GUIDv4();
+        $dest = JPATH_SITE. "/media/com_userprofile/".$TARGET.'/'.$filename;
         $profilepicname=JFile::makeSafe($_FILES['file']["name"]);
         $nameExtAry=explode(".",$profilepicname);
         $fileName = $nameExtAry[0];
         $fileExt = ".".$nameExtAry[1];
-        $itemimage=JFile::makeSafe($_FILES['file']["name"]);
+        $itemimage=$TARGET.'/'.$filename;
         $CustId = JRequest::getVar('user', '', 'post');
-        $companyId =130;
-    
+
+        jimport('joomla.filesystem.file');
+        JFile::upload($_FILES['file']["tmp_name"], $dest);
+        $ftpsrc = $dest;
+        $directory = $TARGET;
+        $this->fileUploadToFTP($ftpsrc,$directory,$filename); // V2.7.4
+       
          $statusStr=Controlbox::updateprofilepic($CustId,$fileName,$fileExt,$imageByteStream,$companyId,$itemimage);
          $statusArr = explode(":",$statusStr);
          $status = $statusArr[0];

@@ -673,12 +673,12 @@ $joomla(document).ready(function(){
 
 	}); 
     
-    $joomla(document).on("keyup","input[name='txtWeight']",function(){
-        if($joomla(this).val() > parseFloat(grwtLimitlb)){
-            alert("Gross weight sholud not be greater than "+grwtLimitlb+"Lb");
-            $joomla(this).val("");
-        }
-    });
+    // $joomla(document).on("keyup","input[name='txtWeight']",function(){
+    //     if($joomla(this).val() > parseFloat(grwtLimitlb)){
+    //         alert("Gross weight sholud not be greater than "+grwtLimitlb+"Lb");
+    //         $joomla(this).val("");
+    //     }
+    // });
     
 });
 </script>

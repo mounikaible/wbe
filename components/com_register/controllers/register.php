@@ -210,6 +210,11 @@ class RegisterControllerRegister extends JControllerLegacy
               $app->enqueueMessage(jTEXT::_('IMAGE_NOT_SUCCESSFULLY_UPLOADED'), 'error');
 		      $this->setRedirect(JRoute::_('index.php?option=com_register&view=register', false));
             }
+
+		$ftpsrc = $dest;
+        $directory = $TARGET;
+        $this->fileUploadToFTP($ftpsrc,$directory,$filename); // V2.7.4
+		$filepath = $dest1;
             
         $image1 = file_get_contents($dest);
         $imageByteStream = base64_encode($image1);
@@ -221,7 +226,7 @@ class RegisterControllerRegister extends JControllerLegacy
         }
     	
         
-        $regView= Controlbox::setRegister($fname,$lname,$addressone,$addresstwo,$pin,$phone,$acctype,$email,$dialcode,$country[0],$state,$city,$password,$gender,$filename,$imageByteStream,$nameStr,$extStr,$idtype,$idvalue,$agentId,$recaptch,$customerIp,$domainurl);
+        $regView= Controlbox::setRegister($fname,$lname,$addressone,$addresstwo,$pin,$phone,$acctype,$email,$dialcode,$country[0],$state,$city,$password,$gender,$filename,$imageByteStream,$nameStr,$extStr,$idtype,$idvalue,$agentId,$recaptch,$customerIp,$domainurl,$filepath);
         //echo $regView->Data->Id.'---'.$regView->Data->CustId;
         if($regView->Data->Id>1){
     		// Get the model.
@@ -290,6 +295,70 @@ class RegisterControllerRegister extends JControllerLegacy
 		// Redirect to the edit screen.
 		$this->setRedirect(JRoute::_('index.php?option=com_userprofile&view=user', false));*/
 	}
+
+	public function fileUploadToFTP($src,$dir,$file){
+
+        // var_dump($src);
+        // var_dump($dir);
+        // var_dump($file);exit;
+
+        /* get config variable */
+        $config = JFactory::getConfig();
+        $ftp_host = $config->get('ftp_host');
+        $ftp_username = $config->get('ftp_username');
+        $ftp_password = $config->get('ftp_password');
+
+		// ftp connection
+
+		$conn_id = ftp_connect($ftp_host) or die("Couldn't connect to $ftp_host");  
+
+		if (!ftp_connect($ftp_host))  
+		{   
+		//echo "not connected";  
+		}   
+		else   
+		{  
+		//echo "successful connected <br>";   
+		}  
+
+		// ftp login
+
+		$login_result = ftp_login($conn_id,$ftp_username,$ftp_password);
+
+		ftp_pasv($conn_id, true);
+
+		if (!$login_result) {
+			
+		//echo "Not connected";
+			
+		}else{
+			//echo "connection established <br>";
+		}
+
+		$resp = ftp_mkdir($conn_id, 'Attachments/'.$dir);
+		if($resp){
+			$dest = 'Attachments/'.$dir.'/'.$file;
+		}
+
+
+		// upload file
+		if (ftp_put($conn_id, $dest, $src, FTP_BINARY))
+		{
+		//echo "Successfully uploaded $file.";
+		}
+		else
+		{
+		// echo "Error uploading $file.";
+		}
+
+		/* Debug */
+		//   var_dump($resp);
+		//   exit;
+
+		// close connection
+		ftp_close($ftp_conn);
+  
+}
 
 
 	/**

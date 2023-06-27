@@ -154,7 +154,7 @@ class Controlbox{
             return $res->Response;
     }
     
-     public static function setRegister($fname,$lname,$addressone,$addresstwo,$pin,$phone,$acctype,$email,$dialcode,$country,$state,$city,$password,$gender,$ur,$imageByteStream,$nameStr,$extStr,$idtype,$idvalue,$agentId,$recaptch,$customerIp,$domainurl)
+     public static function setRegister($fname,$lname,$addressone,$addresstwo,$pin,$phone,$acctype,$email,$dialcode,$country,$state,$city,$password,$gender,$ur,$imageByteStream,$nameStr,$extStr,$idtype,$idvalue,$agentId,$recaptch,$customerIp,$domainurl,$filepath)
     {
         
         $session = JFactory::getSession();
@@ -199,10 +199,10 @@ class Controlbox{
           "Gender": "'.$gender.'",
           "identityType": "'.$idtype.'",
           "identityValue": "'.$idvalue.'",
-          "custImage": "'.$ur.'",
+          "custImage": "'.$filepath.'",
           "fileName": "'.$nameStr.'",
           "fileExtension": "'.$extStr.'",
-          "custImageURL": "Joomla",
+          "custImageURL": "ftp",
           "ActivationKey": "123456789",
           "AgencyId": "'.$agentId.'",
           "captchaToken": "'.$recaptch.'",
@@ -231,9 +231,11 @@ class Controlbox{
 
     $response = curl_exec($curl);
     curl_close($curl);
+
     // var_dump($req);
     // var_dump($response);exit;
     // exit;
+
     $session->set('agentId', $agentId);
     $msg=json_decode($response);
         
