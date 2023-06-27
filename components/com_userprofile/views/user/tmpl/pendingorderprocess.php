@@ -19,13 +19,22 @@ if(!$user){
 
 
 // get labels
-$lang=$session->get('lang_sel');
+
+    $lang=$session->get('lang_sel');
     $res=Controlbox::getlabels($lang);
     $assArr = [];
     
     foreach($res->data as $response){
     $assArr[$response->id]  = $response->text;
     }
+    
+// dynamic elements
+   
+   $res = Controlbox::dynamicElements('PreAlerts');
+   $elem=array();
+   foreach($res as $element){
+      $elem[$element->ElementId]=array($element->ElementDescription,$element->ElementStatus,$element->is_mandatory,$element->is_default,$element->ElementValue);
+   }
 
 ?>
 
@@ -1261,8 +1270,11 @@ function isNumber(evt) {
                   <th><?php echo $assArr['quantity'];?></th>
                   <th><?php echo $assArr['tracking'];?>#</th>
                   <th><?php echo $assArr['Declared Value (USD)'];?></th>
+                  <?php if(strtolower($elem['OrderID'][1]) == "act"){ ?>
                   <th><?php echo $assArr['order_ID'];?></th>
+                  <?php } if(strtolower($elem['RMAValue'][1]) == "act"){ ?>
                   <th><?php echo $assArr['rMA_Value'];?></th>
+                  <?php } ?>
                   <th><?php echo $assArr['status'];?></th>
                 </tr>
               </thead>
@@ -1271,6 +1283,18 @@ function isNumber(evt) {
     $ordersView= UserprofileHelpersUserprofile::getInvertoryPurchasesList($user);
      $i=1;
     foreach($ordersView as $rg){
+        
+        $orderId = "";
+        $rmaVal = "";
+        
+            if(strtolower($elem['OrderID'][1]) == "act"){ 
+                $orderId = '<td>'.$rg->OrderIdNew.'</td>';
+            }
+            if(strtolower($elem['RMAValue'][1]) == "act"){ 
+                $rmaVal = '<td>'.$rg->RMAValue.'</td>';
+            }
+        
+        
         if($rg->itemstatus=="In Progress"){
            $status=Jtext::_('COM_USERPROFILE_SHIP_HISTORY_STATUS_IN_PROGRESS');
          }else if($rg->itemstatus=="Hold"){
@@ -1278,7 +1302,9 @@ function isNumber(evt) {
          }else{
              $status = $rg->itemstatus;
          }
-      echo '<tr><td>'.$i.'</td><td>'.$rg->SupplierId.'</td><td>'.$rg->ItemName.'</td><td>'.$rg->OrderDate.'</td><td>'.$rg->ItemQuantity.'</td><td>'.$rg->TrackingId.'</td><td>'.$rg->cost.'</td><td>'.$rg->OrderIdNew.'</td><td>'.$rg->RMAValue.'</td><td>'.$status.'</td></tr>';
+         
+         
+      echo '<tr><td>'.$i.'</td><td>'.$rg->SupplierId.'</td><td>'.$rg->ItemName.'</td><td>'.$rg->OrderDate.'</td><td>'.$rg->ItemQuantity.'</td><td>'.$rg->TrackingId.'</td><td>'.$rg->cost.'</td>'.$orderId.$rmaVal.'<td>'.$status.'</td></tr>';
      $i++;
     }
 ?>
