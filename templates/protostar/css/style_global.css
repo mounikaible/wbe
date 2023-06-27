@@ -233,7 +233,9 @@ h1.breadcrumb_title{font-size : 24px !important;}.cls-add-ico .btn-danger {font-
 .cls-add-ico .btn-danger {font-size: 20px !important;}
 .cls-add-ico .btn {min-width: 40px;height: 40px;line-height: 10px;border-radius: 4PX;font-size: 30px;}
 /* Project Request Form After Login page css end */
-
+.dt-buttons .fa.fa-file-text-o.btn.btn-default {background-image: url(/wbe/images/csv_ico.png)!important;background: #fff;margin: 0 1px;background-repeat: no-repeat;background-size: 28px !important;  width: 35px;height: 30px;background-position: center center;padding: 19px 22px;}
+.dt-buttons .fa.fa-file-text-o.btn.btn-default:hover {color: #333;background-color: #e6e6e6;border-color: #adadad;}
+.fa-file-text-o:before {content: "" !important;}
 /* Project Request Form Before Loginpage css Start */
 .cls-addcol label {min-height: 40px;}
 .cls-add-ico {margin-top: 44px;}
