@@ -278,6 +278,29 @@ $joomla(function() {
 </style>
 
 <div class="container">
+
+
+<!-- Notification Modal popup start -->
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notificationModalLabel">Notifications</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Notification Content
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+          <!--Notification Modal popup end-->
+
   <div class="main_panel dash_panel">
     <div class="main_heading"><?php echo Jtext::_('COM_USERPROFILE_DASHBOARD_TITLE');?></div>
 <div class="panel-body">
@@ -305,7 +328,6 @@ $joomla(function() {
               </div>
             </div>
           </div>
-          
           <!--Modal popup end-->
 		   <!--Profilepic start-->
 		  <div class="col-md-12 col-sm-5 profile_sectn">
@@ -766,8 +788,24 @@ $joomla(function() {
   <input type="hidden" name="user" value="<?php echo $user;?>" />
 </form>
 
-<script>-->
+
+
+<script>
 $joomla(document).ready(function(e){
+
+  /* Notification Modal Popup */
+
+    if(localStorage.getItem('popState') != 'shown'){
+        $joomla("#notificationModal").modal("show");
+        localStorage.setItem('popState','shown');
+    }
+    $joomla('.user-prfile ul li:last-child a').click(function(e) 
+    {
+      localStorage.setItem('popState','');
+    });
+
+    
+
 $joomla("#file").change(function(e) {
 
 var file = this.files[0];

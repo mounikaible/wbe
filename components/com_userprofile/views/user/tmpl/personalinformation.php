@@ -1208,9 +1208,12 @@ $joomla('#typeuserTxt').on('change',function(){
                 		               $dialCodeName = $data->CountryDailCodes;
                 		           }
 		                        }
-		                        
+
+                            var_dump($UserView->DailCode);
 		                       
 					       foreach($arrdialcode->Data as $rg){
+
+                 
 					           
 					           if($UserView->DailCode==$rg->DailCode){
 					               
@@ -1221,8 +1224,10 @@ $joomla('#typeuserTxt').on('change',function(){
 					           {
 					               $dialcodesel="";
 					           }
-					           if($rg->Description)
-                              $dialcode.= '<option value="'.$rg->DailCode.'" '.$dialcodesel. '>'.$rg->Description.'</option>';
+					                    if($rg->Description){
+                                  $dialcode.= '<option value="'.$rg->DailCode.'" '.$dialcodesel. '>'.$rg->Description.'</option>';
+                              }
+                              
                             
                            }
              
@@ -1245,7 +1250,7 @@ $joomla('#typeuserTxt').on('change',function(){
 					       $dialcodeViews= UserprofileHelpersUserprofile::getDialCodeList($user);
 					       $arrdialcodes = json_decode($dialcodeViews); 
                            $dialcodes='';
-					       foreach($arrdialcodes->Data as $rg){
+					      foreach($arrdialcodes->Data as $rg){
 					           if($UserView->DialCodeOther==$rg->DailCode){
 					               $dialcodesels="selected";
 					           }
@@ -1253,9 +1258,12 @@ $joomla('#typeuserTxt').on('change',function(){
 					           {
 					               $dialcodesels="";
 					           }
-					           if($rg->Description)
-                              $dialcodes.= '<option value="'.$rg->DailCode.'" '.$dialcodesels. '>'.$rg->Description.'</option>';
-                           }
+
+                    if($rg->Description){
+                      $dialcodes.= '<option value="'.$rg->DailCode.'" '.$dialcodesels. '>'.$rg->Description.'</option>';
+                    }
+                              
+                }
              
     					?>
                     <select class="form-control" name="dialcodealtTxt" id="dialcodealtTxt">
