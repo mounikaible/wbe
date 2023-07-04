@@ -6207,6 +6207,36 @@ if($priceStr != ""){
   return $wrhsDetCont;
 
     }
+
+    //notification list
+
+     /**
+     * Gets the edit permission for an user
+     *
+     * @param   mixed  $item  The item
+     *
+     * @return  bool
+     */
+    public static function getmainpagedetails()
+    {
+        mb_internal_encoding('UTF-8');
+        $CompanyId = Controlbox::getCompanyId();
+        $content_params =JComponentHelper::getParams('com_userprofile');
+        $url=$content_params->get( 'webservice' ).'/api/DashBoardAPI/getmainpagedetails?CompanyID='.$CompanyId.'&Activationkey=123456789';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+        $result=curl_exec($ch);
+        $msg=json_decode($result);
+        
+        /** Debug **/
+        // echo $url;
+        // var_dump($msg);
+        // exit;
+        
+        return $msg->Data;
+    }    
     
     public static function getCouponCodes($user,$amount,$volmetStr,$volStr,$qtyStr,$wtStr,$shippingCost,$couponCode){
         

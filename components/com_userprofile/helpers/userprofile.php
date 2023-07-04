@@ -1095,6 +1095,18 @@ class UserprofileHelpersUserprofile
         return Controlbox::getlabels($lang);
     }    
 
+    
+      /**
+     * Gets the edit permission for an user
+     *
+     * @param   mixed  $item  The item
+     *
+     * @return  bool
+     */
+    public static function getmainpagedetails()
+    {
+        return Controlbox::getmainpagedetails();
+    }      
 
 
          

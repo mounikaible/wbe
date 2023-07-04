@@ -16,6 +16,8 @@ $document->setTitle("Dashboard in Boxon Pobox Software");
 $session = JFactory::getSession();
 $langSel=$session->get('lang_sel');
 $domainList=Controlbox::getDomainList();
+$mainPageDetails = UserprofileHelpersUserprofile::getmainpagedetails();
+// var_dump($mainPageDetails);exit;
 
 //  Default Page
 
@@ -112,6 +114,38 @@ if(strpos($_SERVER['REQUEST_URI'], '/index.php/') !== false){
     $langplace = $strplace + 11;
     $language = substr($_SERVER['REQUEST_URI'],$langplace,2);
 }
+
+// $categoryList = array();
+// $catOrderList = [];
+// foreach($mainPageDetails as $data){
+    
+//     $categoryList[] = $data->CategoryName;
+//     $catOrderList[$data->CategoryName] = $data->categoryorder;
+// }
+// $categoryList = array_unique($categoryList);
+// asort($catOrderList);
+
+// sort($categoryList);
+
+function getCategoryContent($mainPageDetails,$category){
+    
+    $catContent = "";
+    
+      foreach($mainPageDetails as $data){
+            if($data->CategoryName == $category ){
+                  $str = '$id';
+                  $catContent .= '<div id="'.$data->$str.'" class="" id="notification"><h4>'.$data->Heading.'</h4>';
+             
+                  $doc = new DOMDocument();
+                  $doc->loadHTML($data->Content);
+                  $htmlString = $doc->saveHTML();
+                  $catContent .= '<p>'.$htmlString.'</p></div>';
+              }
+        } 
+        
+        return $catContent;
+  }
+
     
 ?>
 <?php include 'dasboard_navigation.php'; ?>
@@ -278,8 +312,6 @@ $joomla(function() {
 </style>
 
 <div class="container">
-
-
 <!-- Notification Modal popup start -->
 <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -288,8 +320,14 @@ $joomla(function() {
         <input type="button" data-dismiss="modal" value="x" class="btn-close1 updat_txt">
         <h4 class="modal-title"><strong>Notifications</strong></h4>
       </div>
+     
       <div class="modal-body">
-        Notification Content
+        <?php 
+        $categoryContent = getCategoryContent($mainPageDetails,'Client Notifications');
+        // var_dump($categoryContent);exit;
+          echo  $categoryContent;
+        ?>
+     
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
