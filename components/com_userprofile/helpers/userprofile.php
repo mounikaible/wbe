@@ -1103,9 +1103,9 @@ class UserprofileHelpersUserprofile
      *
      * @return  bool
      */
-    public static function getmainpagedetails()
+    public static function getmainpagedetails($categoryCode)
     {
-        return Controlbox::getmainpagedetails();
+        return Controlbox::getmainpagedetails($categoryCode);
     }      
 
 

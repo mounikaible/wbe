@@ -6217,12 +6217,12 @@ if($priceStr != ""){
      *
      * @return  bool
      */
-    public static function getmainpagedetails()
+    public static function getmainpagedetails($categoryCode)
     {
         mb_internal_encoding('UTF-8');
         $CompanyId = Controlbox::getCompanyId();
         $content_params =JComponentHelper::getParams('com_userprofile');
-        $url=$content_params->get( 'webservice' ).'/api/DashBoardAPI/getmainpagedetails?CompanyID='.$CompanyId.'&Activationkey=123456789';
+        $url=$content_params->get( 'webservice' ).'/api/DashBoardAPI/getmainpagedetails?CompanyID='.$CompanyId.'&Activationkey=123456789&CategoryCode='.$categoryCode;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

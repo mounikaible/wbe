@@ -16,7 +16,9 @@ $document->setTitle("Dashboard in Boxon Pobox Software");
 $session = JFactory::getSession();
 $langSel=$session->get('lang_sel');
 $domainList=Controlbox::getDomainList();
-$mainPageDetails = UserprofileHelpersUserprofile::getmainpagedetails();
+$mainPageDetails = UserprofileHelpersUserprofile::getmainpagedetails('ClientNotifications');
+// var_dump($mainPageDetails);exit;
+// $categorycode=$catCode['Client Notifications']
 // var_dump($mainPageDetails);exit;
 
 //  Default Page
@@ -311,9 +313,15 @@ $joomla(function() {
 
 </style>
 
+<?php $categoryContent = getCategoryContent($mainPageDetails,'Client Notifications'); ?>
+
 <div class="container">
 <!-- Notification Modal popup start -->
-<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+
+
+<?php if($categoryContent!=null ){ ?>
+  
+  <div class="modal fade"  id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">   
@@ -323,10 +331,9 @@ $joomla(function() {
      
       <div class="modal-body">
         <?php 
-        $categoryContent = getCategoryContent($mainPageDetails,'Client Notifications');
-        // var_dump($categoryContent);exit;
-          echo  $categoryContent;
-        ?>
+      // var_dump($categoryContent);exit;
+        echo  $categoryContent;
+       ?>
      
       </div>
       <div class="modal-footer">
@@ -335,7 +342,10 @@ $joomla(function() {
     </div>
   </div>
 </div>
-          <!--Notification Modal popup end-->
+  
+<?php } ?>
+
+ <!--Notification Modal popup end-->
 
   <div class="main_panel dash_panel">
     <div class="main_heading"><?php echo Jtext::_('COM_USERPROFILE_DASHBOARD_TITLE');?></div>
@@ -864,5 +874,6 @@ $joomla(this).val('');
 });
 
 });
+
 
 </script>
