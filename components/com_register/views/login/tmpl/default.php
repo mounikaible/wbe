@@ -174,7 +174,7 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
                                 $i=0;
                                 if(count($catOrderList) > 0){
                                     foreach($catOrderList as $categoryName=>$categoryOrder){
-                                      if($i<5){
+                                      if($i<5 && $categoryName != 'Client Notifications'){
                                           
                                           if($i == 0){
                                               $activeClass = "active";
@@ -202,11 +202,12 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
                              $i=0;
                             if(count($catOrderList) > 0){
                             foreach($catOrderList as $categoryName=>$categoryOrder){ 
+                              
                                     if($i == 0){
                                         $activeClass = "active";
                                     }else{
                                         $activeClass = "";
-                                    } if($i<5){ ?>
+                                    } if($i<5 && $categoryName != 'Client Notifications'){ ?>
                               
                             <div id="<?php echo str_replace(" ","_",$categoryName); ?>" class="tab-pane fade in <?php echo $activeClass; ?>">
                               <?php 
