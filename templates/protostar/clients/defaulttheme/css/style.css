@@ -56,7 +56,7 @@ span.num_count:after {border-top: 6px solid transparent; border-bottom: 10px sol
 /* Dashboard Navigation */
 
 /* Dashboard Tab View */
-.tab_view ul.nav.nav-tabs li a {color: #212121; border-bottom: 2px solid #212121;}
+.tab_view ul.nav.nav-tabs li a { border-bottom: 2px solid #212121;}
 .tab_view ul.nav.nav-tabs li a.active {color:#23bbed; border-color:#23bbed; }
 .tab_view ul.nav.nav-tabs li a:hover, .tab_view ul.nav.nav-tabs li a:focus { background: transparent; color:#23bbed; border-color:#23bbed; }
 /* Dashboard Tab View */

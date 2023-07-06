@@ -54,7 +54,7 @@ span.num_count:after {border-top: 6px solid transparent; border-bottom: 10px sol
 .dashboard_nav .navbar .navbar-toggle .icon-bar { background: #fff; }
 /* Dashboard Navigation */
 /* Dashboard Tab View */
-.tab_view ul.nav.nav-tabs li a {color: #212121; border-bottom: 2px solid #212121;}
+.tab_view ul.nav.nav-tabs li a { border-bottom: 2px solid #212121;}
 .tab_view ul.nav.nav-tabs li a.active {color:#23bbed; border-color:#23bbed; }
 .tab_view ul.nav.nav-tabs li a:hover, .tab_view ul.nav.nav-tabs li a:focus { background: transparent; color:#23bbed; border-color:#23bbed; }
 /* Dashboard Tab View */
@@ -155,8 +155,6 @@ header .theme_nav{padding: 10px 0;}
 /*calculator page  css 22-11-2022 end*/
 .page_content {margin: 106px 0 0 0;}
 /* Notification Tab View start */
-.notifction-tab-view ul.nav.nav-tabs li a {color: #fffefe;border-bottom: 0;background: #27b8eb !important;border-start-end-radius: 15px;border-start-start-radius: 15px;cursor: pointer;}
-.notifction-tab-view ul li.active a {border-start-end-radius: 15px;border-start-start-radius: 15px;background: #fff !important}
 .notifction-tab-view ul.nav.nav-tabs li .active a {color: #27b8eb !important;border-color: transparent;background: #f9f5f2 !important;}
 .notifction-tab-view ul.nav.nav-tabs li a:hover, .notifction-tab-view ul.nav.nav-tabs li a:focus {color:  #27b8eb !important;border-color: transparent;background: #f9f5f2 !important;}
 /* Notification Tab View end */
