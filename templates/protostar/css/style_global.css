@@ -591,6 +591,9 @@ transition: background-color 0s 100000000s,opacity .3s cubic-bezier(.25,.46,.45,
     cursor: pointer;
     border-bottom: 0 !important;
 }
+.notifction-tab-view ul.nav.nav-tabs li a:hover, .notifction-tab-view ul.nav.nav-tabs li a:hover{
+    background-color:#fff !important;
+}
 .notifction-tab-view ul li.active a {
     border-start-end-radius: 15px;
     border-start-start-radius: 15px;
