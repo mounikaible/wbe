@@ -172,9 +172,15 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
                                 <?php
                                 
                                 $i=0;
-                                if(count($catOrderList) > 0){
+                                $ClientNotAct=FALSE;
+                                if(count($catOrderList)==1 && $catOrderList['Client Notifications']!= ''){
+                                  $ClientNotAct=TRUE;
+                                }
+                        //var_dump($catOrderList);exit;
+
+                                if(count($catOrderList) > 0 && !$ClientNotAct){
                                     foreach($catOrderList as $categoryName=>$categoryOrder){
-                                      if($i<5 && $categoryName != 'Client Notifications'){
+                                      if($i<5 && strtolower($categoryName) != strtolower('Client Notifications')){
                                           
                                           if($i == 0){
                                               $activeClass = "active";
@@ -200,6 +206,7 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
                              <?php 
                              $cmgSoonImg = '<img src="'.JURI::base().'/images/cmg-soon-image.png" >';
                              $i=0;
+                            //  var_dump(count($catOrderList));exit;
                             if(count($catOrderList) > 0){
                             foreach($catOrderList as $categoryName=>$categoryOrder){ 
                               
@@ -207,7 +214,9 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
                                         $activeClass = "active";
                                     }else{
                                         $activeClass = "";
-                                    } if($i<5 && $categoryName != 'Client Notifications'){ ?>
+                                    } 
+                                    
+                                    if($i<5 && strtolower($categoryName) != strtolower('Client Notifications')){ ?>
                               
                             <div id="<?php echo str_replace(" ","_",$categoryName); ?>" class="tab-pane fade in <?php echo $activeClass; ?>">
                               <?php 
@@ -216,7 +225,7 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
                               ?>
                             </div>
                             
-                            <?php } $i++;  } }else { echo $cmgSoonImg;  } ?>
+                            <?php }else{ echo $cmgSoonImg; } $i++;  } }else { echo $cmgSoonImg;  } ?>
                             
                           </div>                             
                             </div>

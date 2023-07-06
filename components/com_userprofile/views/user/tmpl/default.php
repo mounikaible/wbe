@@ -19,7 +19,8 @@ $domainList=Controlbox::getDomainList();
 $mainPageDetails = UserprofileHelpersUserprofile::getmainpagedetails('ClientNotifications');
 // var_dump($mainPageDetails);exit;
 // $categorycode=$catCode['Client Notifications']
-// var_dump($mainPageDetails);exit;
+
+//var_dump($mainPageDetails);exit;
 
 //  Default Page
 
@@ -134,7 +135,7 @@ function getCategoryContent($mainPageDetails,$category){
     $catContent = "";
     
       foreach($mainPageDetails as $data){
-            if($data->CategoryName == $category ){
+            if(strtolower($data->CategoryName) == strtolower($category) ){
                   $str = '$id';
                   $catContent .= '<div id="'.$data->$str.'" class="" id="notification"><h4>'.$data->Heading.'</h4>';
              
