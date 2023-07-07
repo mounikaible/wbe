@@ -582,6 +582,24 @@ transition: background-color 0s 100000000s,opacity .3s cubic-bezier(.25,.46,.45,
 
 /* Notification Tab View start */
 .notifction-tab-view ul li:before{display: none;}
+.notifction-tab-view ul.nav.nav-tabs li a {
+    color: #fff;
+    border-bottom: 0;
+   background: #4f5a61;
+    border-start-end-radius: 15px;
+    border-start-start-radius: 15px;
+    cursor: pointer;
+    border-bottom: 0 !important;
+}
+.notifction-tab-view ul.nav.nav-tabs li a:hover, .notifction-tab-view ul.nav.nav-tabs li a:hover{
+    background-color:#fff !important;
+}
+.notifction-tab-view ul li.active a {
+    border-start-end-radius: 15px;
+    border-start-start-radius: 15px;
+    background: #fff !important;
+    color: #23bbed !important;
+}
 .notifction-tab-view ul.nav.nav-tabs li a{padding: 10px 5px;}
 .notifction-tab-view ul li {list-style-type: none;padding: 0;margin: 0 4px 0 0;font-style: italic;font-weight: bold;}
 .notifction-tab-view ul.nav.nav-tabs li {float: left;display: inline-block;}
@@ -590,6 +608,7 @@ transition: background-color 0s 100000000s,opacity .3s cubic-bezier(.25,.46,.45,
 .notifction-tab-view .tab-content{padding: 28px 18px;height: auto;background-color: rgb(255 255 255) !important;margin-top: 0px;}
 .notifction-tab-view img {width: 100% !important;height: auto !important;}
 .notifction-tab-view .tab-content>.active {display: inline-block;width: 100%;}
+
 /* Notification Tab View end */
 /*Inventory alert page  css 22-11-2022 start*/
 .tp-rdobtn input[type="radio"]{margin-top:2px;}

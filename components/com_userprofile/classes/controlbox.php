@@ -1610,7 +1610,7 @@ if($priceStr != ""){
         
         $req='{"CompanyID":"'.$CompanyId.'","paymentOption":{"_amt":"'.$amtStr.'","_cardno":"'.$cardnumberStr.'","_ccno":"'.$txtccnumberStr.'","_index":"1","_month":"'.$MonthDropDownListStr.'","_nameoncard":"'.$txtNameonCardStr.'","_year":"'.$YearDropDownListStr.'"},"billFormIdsList":['.$wrhsloop.'],"idks":"'.$invidkStr.'","qtys":"'.$qtyStr.'","billFormIds":"'.$wherhourecStr.',","ShippingCost":"'.$amtStr.'","ConsigneeId":"'.$consignidStr.'","Comments":"'.$specialinstructionStr.'","PaymentType":"'.$cc.'","CustId":"'.$CustId.'","id_serv":"'.$shipservtStr.'","paymentgateway":"'.$pg.'","TransactionID":"'.$tid.'","UploadedFile":"'.$invf.'","fileName":"'.$nameStr.'","fileExtension":"'.$extStr.'","InHouseNo":"'.$inhouse.'","InhouseId":"'.$inhouseid.'","EachItemName":"'.$articleStr.'","EachItemQty":"'.$qtyStr.'","TotalitemsPrice":"'.$priceStr.'","id_rate_type":"'.$ratetype.'","Conveniencefees":"'.$Conveniencefees.'","InsuranceCost":"'.$insuranceCost.'","domainname":"'.$domainname.'","domainurl":"'.$domainurl.'","PromoCouponDiscountAmt":"'.$couponDiscAmt .'","PromoCouponCode":"'.$couponCodeStr.'","Addoninvoiceno":"'.$invoice.'"}';
     
-        //var_dump($req);exit;
+        // var_dump($req);exit;
         
 		mb_internal_encoding('UTF-8');
         $content_params =JComponentHelper::getParams( 'com_userprofile' );
@@ -1627,10 +1627,10 @@ if($priceStr != ""){
 		$result=curl_exec($ch);
 		$msg=json_decode($result);
 		
-    //  echo $url."<br>";
-    //  echo $req."<br>";
-    //  var_dump($result);
-    //  exit;
+        //  echo $url."<br>";
+        //  echo $req."<br>";
+        //  var_dump($result);
+        //  exit;
 	 
         
         
@@ -6207,6 +6207,36 @@ if($priceStr != ""){
   return $wrhsDetCont;
 
     }
+
+    //notification list
+
+     /**
+     * Gets the edit permission for an user
+     *
+     * @param   mixed  $item  The item
+     *
+     * @return  bool
+     */
+    public static function getmainpagedetails($categoryCode)
+    {
+        mb_internal_encoding('UTF-8');
+        $CompanyId = Controlbox::getCompanyId();
+        $content_params =JComponentHelper::getParams('com_userprofile');
+        $url=$content_params->get( 'webservice' ).'/api/DashBoardAPI/getmainpagedetails?CompanyID='.$CompanyId.'&Activationkey=123456789&CategoryCode=';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+        $result=curl_exec($ch);
+        $msg=json_decode($result);
+        
+        /** Debug **/
+        // echo $url;
+        // var_dump($msg);
+        // exit;
+        
+        return $msg->Data;
+    }    
     
     public static function getCouponCodes($user,$amount,$volmetStr,$volStr,$qtyStr,$wtStr,$shippingCost,$couponCode){
         

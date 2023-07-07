@@ -665,7 +665,7 @@ class Controlbox{
         mb_internal_encoding('UTF-8');
         $CompanyId = Controlbox::getCompanyId();
         $content_params =JComponentHelper::getParams( 'com_register' );
-        $url=$content_params->get( 'webservice' ).'/api/DashBoardAPI/getmainpagedetails?CompanyID='.$CompanyId.'&Activationkey=123456789';
+        $url=$content_params->get( 'webservice' ).'/api/DashBoardAPI/getmainpagedetails?CompanyID='.$CompanyId.'&Activationkey=123456789&CategoryCode=';
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
