@@ -179,14 +179,18 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
                         //var_dump($catOrderList);exit;
 
                                 if(count($catOrderList) > 0 && !$ClientNotAct){
+                                    $j=0;
                                     foreach($catOrderList as $categoryName=>$categoryOrder){
+                                        
                                       if($i<5 && strtolower($categoryName) != strtolower('Client Notifications')){
                                           
-                                          if($i == 0){
+                                          if($j == 0){
                                               $activeClass = "active";
                                           }else{
                                               $activeClass = "";
                                           }
+                                          
+                                          $j++;
                                               echo '<li class="'.$activeClass.'" > <a data-toggle="tab" href="#'.str_replace(" ","_",$categoryName).'">'.$categoryName.'</a></li>';
                                               
                                       }
@@ -208,24 +212,36 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
                              $i=0;
                             //  var_dump(count($catOrderList));exit;
                             if(count($catOrderList) > 0){
+                                 $j=0;
                             foreach($catOrderList as $categoryName=>$categoryOrder){ 
                               
-                                    if($i == 0){
+                                   
+                                   
+                                    if($i<5 && strtolower($categoryName) != strtolower('Client Notifications')){  
+                                        
+                                        
+                                    if($j == 0){
                                         $activeClass = "active";
                                     }else{
                                         $activeClass = "";
                                     } 
                                     
-                                    if($i<5 && strtolower($categoryName) != strtolower('Client Notifications')){ ?>
+                                    $j++;
+                                    
+                                    ?>
+                                    
+                                    
                               
                             <div id="<?php echo str_replace(" ","_",$categoryName); ?>" class="tab-pane fade in <?php echo $activeClass; ?>">
                               <?php 
                               $categoryContent = getCategoryContent($mainPageDetails,$categoryName);
-                              if($categoryContent != NULL){ echo $categoryContent; }else{ echo $cmgSoonImg; }  
+                              if($categoryContent != NULL){ echo $categoryContent; }else{  echo $cmgSoonImg;
+                              }  
                               ?>
                             </div>
                             
-                            <?php }else{ echo $cmgSoonImg; } $i++;  } }else { echo $cmgSoonImg;  } ?>
+                            <?php }else{  //echo $cmgSoonImg; 
+                            } $i++;  } }else { echo $cmgSoonImg;  } ?>
                             
                           </div>                             
                             </div>
