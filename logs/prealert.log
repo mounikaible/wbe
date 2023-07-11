@@ -1,0 +1,6 @@
+ -- Start -- 
+ Customer ID : ICID-1445
+ Company ID :130
+ Request : {"CompanyID":"130","CustomerId":"ICID-1445","SupplierId":"test","CarrierId":"test","TrackingId":"tyta444", "OrderDate":"07/11/2023","Dest_Cntry":"AF","Dest_Hub":"","ItemUrl":"ftp","ActivationKey":"123456789","liInventoryPurchasesVM":[{"ItemName":"dGVzdA==","ItemQuantity":"6","ItemPrice":"7","TotalPrice":"7","ItemStatus":"In Progress","OrderIdNew":"","RMAValue":"","fileName":"fav-icon","fileExtension":".png","fileName1":"","fileExtension1":"","fileName2":"","fileExtension2":"","fileName3":"","fileExtension3":"","ImageByteStream":"","ImageByteStream1":"","ImageByteStream2":"","ImageByteStream3":"","ItemImage":"f19cb1ed-ffce-4a6a-9800-39712c3ad991/fav-icon.png","ItemImage1":"","ItemImage2":"","ItemImage3":"","length":"3","height":"5","width":"4","Package": "No"},],"domainurl":"localhost.com","type_busines":""}
+ Response : {"$id":"1","Response":"1","Description":"Pre alerts added successfully","Data":null}
+ -- End -- 
