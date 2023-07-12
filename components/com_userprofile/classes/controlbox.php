@@ -1626,7 +1626,10 @@ if($priceStr != ""){
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		$result=curl_exec($ch);
 		$msg=json_decode($result);
-		
+
+        $payments_log = "logs/payments.log";
+        file_put_contents($payments_log,"\n -- Start -- \n Customer ID : ".$CustId."\n Company ID :".$CompanyId."\n Request : ".$req."\n Response : ".$result."\n -- End -- \n",FILE_APPEND);	
+        
         //  echo $url."<br>";
         //  echo $req."<br>";
         //  var_dump($result);
@@ -1652,10 +1655,10 @@ if($priceStr != ""){
                     $content_params =JComponentHelper::getParams( 'com_userprofile' );
                     $url=$content_params->get( 'webservice' ).'/api/ShipmentsAPI/insertBillFormAddiServices';
                     
-                    //         echo $url;
-                    //  		$req='{"InhouseNo":"'.$msg->InhouseNo.'","CustId":"'.$CustId.'","BillFormNo":"'.$billformwrstr.'","id_add_serv":"'.$addSerStr.'","id_add_serv_new":"'.$extAddSer.'","item_qty":"'.$qntnew.'","Cost":"'.$addSerCostStr.'","Length":"'.$lengthStrSum.'","Width":"'.$widthStrSum.'","Height":"'.$heightStrSum.'","GrossWeight":"'.$grosswtStrSum.'","Volume":"'.$volumeStrSum.'","VolumetricWeight":"'.$volumetwtStrSum.'","DeclaredValue":"'.$totalDecVal.'","ShipmentCost":"'.$shipmentCost.'","CompanyID":"'.$CompanyId.'"}';
-                    //  	    echo $url."##".$req;
-                    // 	    exit;
+                    $req='{"InhouseNo":"'.$msg->InhouseNo.'","CustId":"'.$CustId.'","BillFormNo":"'.$billformwrstr.'","id_add_serv":"'.$addSerStr.'","id_add_serv_new":"'.$extAddSer.'","item_qty":"'.$qntnew.'","Cost":"'.$addSerCostStr.'","Length":"'.$lengthStrSum.'","Width":"'.$widthStrSum.'","Height":"'.$heightStrSum.'","GrossWeight":"'.$grosswtStrSum.'","Volume":"'.$volumeStrSum.'","VolumetricWeight":"'.$volumetwtStrSum.'","DeclaredValue":"'.$totalDecVal.'","ShipmentCost":"'.$shipmentCost.'","CompanyID":"'.$CompanyId.'"}';
+                    $biiform_log = "logs/billform.log";
+                    file_put_contents($biiform_log,$CustId."\n".$CompanyId."\n".$req."\n".$url."\n",FILE_APPEND);
+                    //var_dump($req);exit;
                         
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_URL, $url);
@@ -2977,7 +2980,7 @@ if($priceStr != ""){
 		$result=curl_exec($ch);
 		
 		$prealert_log = "logs/prealert.log";
-        file_put_contents($prealert_log," -- Start -- \n Customer ID : ".$CustId."\n Company ID :".$CompanyId."\n Request : ".$req."\n Response : ".$result."\n -- End -- \n",FILE_APPEND);
+        file_put_contents($prealert_log,"\n -- Start -- \n Customer ID : ".$CustId."\n Company ID :".$CompanyId."\n Request : ".$req."\n Response : ".$result."\n -- End -- \n",FILE_APPEND);
 		
 		/** Debug **/
         // 		echo $url;
