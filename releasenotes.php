@@ -32,8 +32,32 @@
             <div class="main_heading">RELEASE NOTES</div> 
             	<div class="panel-body">
                 <div class="terms midblk-in">
+            <h3><strong>Version 2.7.4.1&nbsp; Release Date: 12<sup>th</sup>July 2023</strong></h3>
+                <ul>
+                    <li>New Feature : Popup Notifications After Login</li>
+                </ul>
+            <h3><strong>Version 2.7.4&nbsp; Release Date: 27<sup>th</sup>June 2023</strong></h3>
+                <ul>
+                <li>Expected Delivery Date for Shipment (Shipment History)</li>
+                <li>Email Notifications On-OFF(Personal Information)</li>
+                <li>EUROS to USD Price Conversion (Shopper Assist)</li>
+                <li>Hide/Show adding multiple items (Shopper Assist)</li> 
+                <li>Check boxs to ship multiple items (Shopper Assist)</li> 
+                <li>Standard service type (Shopper Assist)</li>
+                <li>Total Gross Weight Limit Alert  (Ready to Ship, calculator)</li>
+                <li>Gross Weight Column Display  (Ready to Ship)</li>
+                <li>Gross Weight Column Display  (Ready to Ship)</li>
+                <li>Dynamic Notification Labels  (login)</li>
+                <li>Notification Tabs (login)</li>
+                <li>File Uploading in FTP</li>
+                </ul>
+            <h3>
+            <h3><strong>Version 2.7.2&nbsp; Release Date: 3<sup>rd</sup>May 2023</strong></h3>
+                <ul>
+                <li>Help Desk Introduced with Functionality Walkthrough Videos.</li>
+                </ul>
              <h3>
-                <strong>Version 2.7.1&nbsp; Release Date: 15<sup>th</sup>MARCH 2023</strong>
+                <strong>Version 2.7.1&nbsp; Release Date: 6<sup>th</sup>April 2023</strong>
             </h3>
             <ul>
                 <li>Update invoice in shipment history page.</li>

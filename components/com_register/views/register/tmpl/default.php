@@ -816,7 +816,7 @@ if(agency_country){
        
        foreach($arr->Data as $rg){
          $agentId='';
-         if($rg->CountryCode == "AG"){
+         if($rg->CountryCode == "IN"){
           $agentId = $agentIdAG;
          }  
         $countries.= '<option data-id="'.$agentId.'"  value="'.$rg->CountryCode.':'.preg_replace('/[^0-9]/', '', $rg->CountryDailCodes).'">'.$rg->CountryDesc.'</option>';
