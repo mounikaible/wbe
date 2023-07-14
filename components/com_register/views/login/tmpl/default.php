@@ -211,7 +211,7 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
                              $cmgSoonImg = '<img src="'.JURI::base().'/images/cmg-soon-image.png" >';
                              $i=0;
                             //  var_dump(count($catOrderList));exit;
-                            if(count($catOrderList) > 0){
+                            if(count($catOrderList) > 0 && !$ClientNotAct){
                                  $j=0;
                             foreach($catOrderList as $categoryName=>$categoryOrder){ 
                               
