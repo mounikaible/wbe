@@ -1628,7 +1628,7 @@ if($priceStr != ""){
 		$msg=json_decode($result);
 		
 		$payments_log = "logs/payments.log";
-        file_put_contents($payments_log,"\n -- Start -- \n Customer ID : ".$CustId."\n Company ID :".$CompanyId."\n Request : ".$req."\n Response : ".$result."\n -- End -- \n",FILE_APPEND);
+        file_put_contents($payments_log,"\n -- Start -- \n Customer ID : ".$CustId."\n Company ID :".$CompanyId."\n Request : \n".$req."\n Response : \n".$result."\n -- End -- \n",FILE_APPEND);
 		
 		
         //  echo $url."<br>";
@@ -2353,8 +2353,8 @@ if($priceStr != ""){
         
         /** Debug **/
         
-         	 $ratetype_log = "logs/ratetype.txt";
-             file_put_contents($ratetype_log,$CustId."\n".$CompanyId."\n".$url."\n".$result."\n",FILE_APPEND);
+         	 $ratetype_log = "logs/ratetype.log";
+             file_put_contents($ratetype_log,"\n -- Start -- \n Customer ID : ".$CustId."\n Company ID : ".$CompanyId."\n Request URL : \n".$url."\n Response : \n".$result."\n -- End --\n",FILE_APPEND);
         
         // echo $url;
         // echo $result;exit;
@@ -2987,7 +2987,7 @@ if($priceStr != ""){
 		$result=curl_exec($ch);
 		
 		$prealert_log = "logs/prealert.log";
-        file_put_contents($prealert_log,"\n -- Start -- \n Customer ID : ".$CustId."\n Company ID :".$CompanyId."\n Request : ".$req."\n Response : ".$result."\n -- End -- \n",FILE_APPEND);
+        file_put_contents($prealert_log,"\n -- Start -- \n Customer ID : ".$CustId."\n Company ID :".$CompanyId."\n Request : \n".$req."\n Response : \n".$result."\n -- End -- \n",FILE_APPEND);
 		
 		/** Debug **/
 // 		echo $url;
