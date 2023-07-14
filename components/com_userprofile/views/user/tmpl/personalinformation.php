@@ -55,17 +55,30 @@ $imgpt=explode('/com_userprofile/',$UserView->imagePath);
 ?>
 <?php include 'dasboard_navigation.php' ?>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
-
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <script type="text/javascript">
 var $joomla = jQuery.noConflict(); 
+
+$joomla(function() {
+    $joomla("body").delegate("#dob", "focusin", function(){
+        $joomla(this).datepicker();
+    });
+});
+
 $joomla(document).ready(function() {
         history.pushState(null, null, location.href);
     window.onpopstate = function () {
         history.go(1);
     };
    
-  
+$joomla(document).on('keydown','#dob',function(e) {
+    console.log(e.keyCode);
+        if(e.keyCode > 46 && e.keyCode < 58 || e.keyCode > 93 && e.keyCode <106 || e.keyCode == 111 ){
+            e.preventDefault();
+        }
+});
     
 
 
@@ -1209,7 +1222,6 @@ $joomla('#typeuserTxt').on('change',function(){
                 		           }
 		                        }
 
-                            var_dump($UserView->DailCode);
 		                       
 					       foreach($arrdialcode->Data as $rg){
 
@@ -1281,6 +1293,18 @@ $joomla('#typeuserTxt').on('change',function(){
                 <label><?php echo $assArr['fax']; ?></label>
                 <input type="text" class="form-control"   name="faxTxt" id="faxTxt" value="<?php echo $UserView->Fax;?>" minlength="10" maxlength="20">
               </div>
+
+              <div class="form-group">
+                <label><?php echo 'Email Notifications : ';?></label>
+                <div class="onoffswitch">
+                <input type="checkbox" name="emailNotifications" class="onoffswitch-checkbox" id="myonoffswitch" <?php if($UserView->email_notifications) { echo "checked"; } ?> >
+                <label class="onoffswitch-label" for="myonoffswitch">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+                </label>
+                </div>   
+              </div>
+
             </div>
             <div class="col-sm-12 col-md-6">
               <div class="form-group">
@@ -1297,17 +1321,20 @@ $joomla('#typeuserTxt').on('change',function(){
                 <input type="text" class="form-control"  name="aemailTxt" id="aemailTxt" maxlength="50" value="<?php echo $UserView->AlternativeEmail;?>">
               </div>
 
-             
-
               <div class="form-group">
-              <label><?php echo 'Email Notifications : ';?></label>
-              <div class="onoffswitch">
-              <input type="checkbox" name="emailNotifications" class="onoffswitch-checkbox" id="myonoffswitch" <?php if($UserView->email_notifications) { echo "checked"; } ?> >
-              <label class="onoffswitch-label" for="myonoffswitch">
-              <span class="onoffswitch-inner"></span>
-              <span class="onoffswitch-switch"></span>
-              </label>
-              </div>   
+                <label><?php echo 'Date of birth';?></label>
+                <input type="text" class="form-control"  name="dob" id="dob" value="">
+              </div>
+
+              <!-- <div class="form-group">
+                <label><?php //echo 'Email Notifications : ';?></label>
+                <div class="onoffswitch">
+                <input type="checkbox" name="emailNotifications" class="onoffswitch-checkbox" id="myonoffswitch" <?php if($UserView->email_notifications) { echo "checked"; } ?> >
+                <label class="onoffswitch-label" for="myonoffswitch">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+                </label>
+              </div>    -->
             
              
                 <!-- <input type="radio"   name="emailNotif" id="emailNotifOn" value="ON" > ON &nbsp;
