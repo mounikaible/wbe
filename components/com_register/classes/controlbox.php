@@ -232,6 +232,9 @@ class Controlbox{
     $response = curl_exec($curl);
     curl_close($curl);
 
+    // $register_log = "logs/register.log";
+    // file_put_contents($register_log,"\n -- Start -- \n Company ID :".$CompanyId."\n Request : \n".$req."\n Response : \n".$response."\n -- End -- \n",FILE_APPEND);
+
     // var_dump($req);
     // var_dump($response);exit;
     // exit;

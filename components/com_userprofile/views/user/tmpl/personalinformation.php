@@ -58,6 +58,7 @@ $imgpt=explode('/com_userprofile/',$UserView->imagePath);
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+
 <script type="text/javascript">
 var $joomla = jQuery.noConflict(); 
 
@@ -65,6 +66,14 @@ $joomla(function() {
     $joomla("body").delegate("#dob", "focusin", function(){
         $joomla(this).datepicker();
     });
+
+    $joomla(document).on('keydown','#dob',function(e) {
+    console.log(e.keyCode);
+        if(e.keyCode > 46 && e.keyCode < 58 || e.keyCode > 93 && e.keyCode <106 || e.keyCode == 111 || e.keyCode == 8 ){
+            e.preventDefault();
+        }
+    });
+
 });
 
 $joomla(document).ready(function() {
@@ -73,12 +82,7 @@ $joomla(document).ready(function() {
         history.go(1);
     };
    
-$joomla(document).on('keydown','#dob',function(e) {
-    console.log(e.keyCode);
-        if(e.keyCode > 46 && e.keyCode < 58 || e.keyCode > 93 && e.keyCode <106 || e.keyCode == 111 ){
-            e.preventDefault();
-        }
-});
+  
     
 
 
@@ -1222,7 +1226,7 @@ $joomla('#typeuserTxt').on('change',function(){
                 		           }
 		                        }
 
-		                       
+                            
 					       foreach($arrdialcode->Data as $rg){
 
                  
@@ -1296,13 +1300,13 @@ $joomla('#typeuserTxt').on('change',function(){
 
               <div class="form-group">
                 <label><?php echo 'Email Notifications : ';?></label>
-                <div class="onoffswitch">
-                <input type="checkbox" name="emailNotifications" class="onoffswitch-checkbox" id="myonoffswitch" <?php if($UserView->email_notifications) { echo "checked"; } ?> >
-                <label class="onoffswitch-label" for="myonoffswitch">
-                <span class="onoffswitch-inner"></span>
-                <span class="onoffswitch-switch"></span>
-                </label>
-                </div>   
+                  <div class="onoffswitch">
+                  <input type="checkbox" name="emailNotifications" class="onoffswitch-checkbox" id="myonoffswitch" <?php if($UserView->email_notifications) { echo "checked"; } ?> >
+                    <label class="onoffswitch-label" for="myonoffswitch">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                    </label>
+                  </div>
               </div>
 
             </div>
@@ -1322,24 +1326,26 @@ $joomla('#typeuserTxt').on('change',function(){
               </div>
 
               <div class="form-group">
-                <label><?php echo 'Date of birth';?></label>
-                <input type="text" class="form-control"  name="dob" id="dob" value="">
+                    <label><?php echo 'Date of birth';?></label>
+                    <input type="text" class="form-control"  name="dob" id="dob" value="">
               </div>
 
               <!-- <div class="form-group">
                 <label><?php //echo 'Email Notifications : ';?></label>
-                <div class="onoffswitch">
-                <input type="checkbox" name="emailNotifications" class="onoffswitch-checkbox" id="myonoffswitch" <?php if($UserView->email_notifications) { echo "checked"; } ?> >
-                <label class="onoffswitch-label" for="myonoffswitch">
-                <span class="onoffswitch-inner"></span>
-                <span class="onoffswitch-switch"></span>
-                </label>
-              </div>    -->
+                  <div class="onoffswitch">
+                  <input type="checkbox" name="emailNotifications" class="onoffswitch-checkbox" id="myonoffswitch" <?php if($UserView->email_notifications) { echo "checked"; } ?> >
+                    <label class="onoffswitch-label" for="myonoffswitch">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                    </label>
+                  </div>
+              </div> -->
             
              
                 <!-- <input type="radio"   name="emailNotif" id="emailNotifOn" value="ON" > ON &nbsp;
                 <input type="radio"   name="emailNotif" id="emailNotifOff" value="ON" > OFF -->
-              </div>
+              
+              
             </div>
           </div>
           <div class="row">
