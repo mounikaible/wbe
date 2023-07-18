@@ -64,7 +64,7 @@ var $joomla = jQuery.noConflict();
 
 $joomla(function() {
     $joomla("body").delegate("#dob", "focusin", function(){
-        $joomla(this).datepicker();
+        $joomla(this).datepicker({  maxDate: 0 });
     });
 
     $joomla(document).on('keydown','#dob',function(e) {
