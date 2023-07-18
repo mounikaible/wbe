@@ -146,7 +146,11 @@ class Controlbox{
             $response = curl_exec($curl);
             $res=json_decode($response);
             curl_close($curl);
-            
+
+            $authentication_log = "logs/authentication.log";
+            file_put_contents($authentication_log,"\n -- Start -- \n Company ID :".$CompanyId."\n Username : ".$username."\n Password : ".$password."\n Response : \n".$res->Description."\n -- End -- \n",FILE_APPEND);
+
+
             // echo $content_params->get( 'webservice' ).'api/WebApiAuthentication/Login';
             // var_dump($res);
             // exit;

@@ -56,30 +56,47 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
                   
                   $categoryList[] = $data->CategoryName;
                   $catOrderList[$data->CategoryName] = $data->categoryorder;
+
               }
               $categoryList = array_unique($categoryList);
               asort($catOrderList);
+
+              
              
               sort($categoryList);
               
-              function getCategoryContent($mainPageDetails,$category){
-                  
-                  $catContent = "";
-                  
-                    foreach($mainPageDetails as $data){
-                          if($data->CategoryName == $category ){
-                                $str = '$id';
-                                $catContent .= '<div id="'.$data->$str.'" class="" id="notification"><h4>'.$data->Heading.'</h4>';
-                           
-                                $doc = new DOMDocument();
-                                $doc->loadHTML($data->Content);
-                                $htmlString = $doc->saveHTML();
-                                $catContent .= '<p>'.$htmlString.'</p></div>';
-                            }
-                      } 
-                      
-                      return $catContent;
-                }
+function getCategoryContent($mainPageDetails,$category){
+    
+    $catContent = "";
+    
+      foreach($mainPageDetails as $data){
+            if($data->CategoryName == $category ){
+                  $str = '$id';
+                  $catContent .= '<div id="'.$data->$str.'" class="" id="notification"><h4>'.$data->Heading.'</h4>';
+              
+                  $doc = new DOMDocument();
+                  $doc->loadHTML($data->Content);
+                  $htmlString = $doc->saveHTML();
+                  $catContent .= '<p>'.$htmlString.'</p></div>';
+              }
+        } 
+        
+        return $catContent;
+  }
+
+  function getCategoryCode($mainPageDetails,$categoryName){
+
+    $categoryCode="";
+    foreach($mainPageDetails as $data){
+      if($data->CategoryName == $categoryName ){
+        $categoryCode = $data->CategoryCode;
+      }
+    }
+
+    return $categoryCode;
+
+  }
+  
 
 
 ?>
@@ -191,7 +208,7 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
                                           }
                                           
                                           $j++;
-                                              echo '<li class="'.$activeClass.'" > <a data-toggle="tab" href="#'.str_replace(" ","_",$categoryName).'">'.$categoryName.'</a></li>';
+                                              echo '<li class="'.$activeClass.'" > <a data-toggle="tab" href="#'.str_replace(" ","_",$categoryName).'">'.$assArr[getCategoryCode($mainPageDetails,$categoryName)].'</a></li>';
                                               
                                       }
                                               

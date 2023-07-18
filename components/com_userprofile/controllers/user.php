@@ -289,6 +289,7 @@ class UserprofileControllerUser extends JControllerLegacy
         $AddressAccounts = JRequest::getVar('addressTxt', '', 'post');
         $address2Txt = JRequest::getVar('address2Txt', '', 'post');
         $emailNotifications = JRequest::getVar('emailNotifications', '', 'post');
+        $dob = JRequest::getVar('dob', '', 'post');
         if($emailNotifications == "on"){
             $emailNotifications = "true";
         }else{
@@ -345,7 +346,7 @@ class UserprofileControllerUser extends JControllerLegacy
         
         
         if($CustId!=""){
-           $status=Controlbox::changepersonalinformation($CustId,$firstName,$lastName,$DialCode,$PrimaryNumber, $AlternativeNumber,$Fax, $PrimaryEmail, $AlternativeEmail, $AddressAccounts, $Country, $State, $City,$PostalCode,$profilepicname,$imageByteStream,$fileName,$fileExt,$fileTxt,$DialCodeOther,$address2Txt,$emailNotifications);
+           $status=Controlbox::changepersonalinformation($CustId,$firstName,$lastName,$DialCode,$PrimaryNumber, $AlternativeNumber,$Fax, $PrimaryEmail, $AlternativeEmail, $AddressAccounts, $Country, $State, $City,$PostalCode,$profilepicname,$imageByteStream,$fileName,$fileExt,$fileTxt,$DialCodeOther,$address2Txt,$emailNotifications,$dob);
         }
         if($status==""){
             $app->enqueueMessage($status, 'notice');

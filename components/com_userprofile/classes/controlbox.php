@@ -2785,7 +2785,7 @@ if($priceStr != ""){
      *
      * @return  bool
      */
-    public static function changepersonalinformation($CustId,$firstName,$lastName,$DailCode,$PrimaryNumber, $AlternativeNumber,$Fax, $PrimaryEmail, $AlternativeEmail, $AddressAccounts, $Country, $State, $City,$PostalCode,$profilepic,$imageByteStream,$fileName,$fileExt,$fileTxt,$DialCodeOther,$address2Txt,$emailNotifications)
+    public static function changepersonalinformation($CustId,$firstName,$lastName,$DailCode,$PrimaryNumber, $AlternativeNumber,$Fax, $PrimaryEmail, $AlternativeEmail, $AddressAccounts, $Country, $State, $City,$PostalCode,$profilepic,$imageByteStream,$fileName,$fileExt,$fileTxt,$DialCodeOther,$address2Txt,$emailNotifications,$dob)
     {
         
         mb_internal_encoding('UTF-8');
@@ -2796,24 +2796,15 @@ if($priceStr != ""){
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-        if($profilepic==1){
-            
-           /** Debug **/
-           //echo '{"ImageByteStream":"","CompanyID":"'.$CompanyId.'","AdditionalFname":"'.$firstName.'","AdditionalLname":"'.$lastName.'","CustId":"'.$CustId.'","PrimaryNumber":"'.$PrimaryNumber.'","AlternativeNumber":"'.$AlternativeNumber.'","Fax":"'.$Fax.'","DailCode":"'.$DailCode.'","PrimaryEmail":"'.$PrimaryEmail.'","AlternativeEmail":"'.$AlternativeEmail.'","AddressAccounts":"'.$AddressAccounts.'","addr_2_name":"'.$address2Txt.'","Country":"'.$Country.'","State":"'.$State.'","City":"'.$City.'","PostalCode":"'.$PostalCode.'","custImage":"'.$fileTxt.'","fileName":"'.$fileName.'", "fileExtension":"'.$fileExt.'","DialCodeOther":"'.$DialCodeOther.'","custImageURL":"Joomla", "ActivationKey":"123456789","email_notifications":"'.$emailNotifications.'"}';
-            
-           curl_setopt($ch, CURLOPT_POSTFIELDS,'{"ImageByteStream":"","CompanyID":"'.$CompanyId.'","AdditionalFname":"'.$firstName.'","AdditionalLname":"'.$lastName.'","CustId":"'.$CustId.'","PrimaryNumber":"'.$PrimaryNumber.'","AlternativeNumber":"'.$AlternativeNumber.'","Fax":"'.$Fax.'","DailCode":"'.$DailCode.'","PrimaryEmail":"'.$PrimaryEmail.'","AlternativeEmail":"'.$AlternativeEmail.'","AddressAccounts":"'.$AddressAccounts.'","addr_2_name":"'.$address2Txt.'","Country":"'.$Country.'","State":"'.$State.'","City":"'.$City.'","PostalCode":"'.$PostalCode.'","custImage":"'.$fileTxt.'","fileName":"'.$fileName.'", "fileExtension":"'.$fileExt.'","DialCodeOther":"'.$DialCodeOther.'","custImageURL":"Joomla", "ActivationKey":"123456789","email_notifications":"'.$emailNotifications.'"}');
-        }else{
-            /** Debug **/
-            //echo '{"ImageByteStream":"","CompanyID":"'.$CompanyId.'","CustId":"'.$CustId.'","AdditionalFname":"'.$firstName.'","AdditionalLname":"'.$lastName.'","PrimaryNumber":"'.$PrimaryNumber.'","AlternativeNumber":"'.$AlternativeNumber.'","Fax":"'.$Fax.'","DailCode":"'.$DailCode.'","PrimaryEmail":"'.$PrimaryEmail.'","AlternativeEmail":"'.$AlternativeEmail.'","AddressAccounts":"'.$AddressAccounts.'","addr_2_name":"'.$address2Txt.'","Country":"'.$Country.'","State":"'.$State.'","City":"'.$City.'","PostalCode":"'.$PostalCode.'", "custImage":"'.$profilepic.'","fileName":"'.$fileName.'", "fileExtension":"'.$fileExt.'","DialCodeOther":"'.$DialCodeOther.'","custImageURL":"Joomla", "ActivationKey":"123456789","email_notifications":"'.$emailNotifications.'"}';
-            
-            curl_setopt($ch, CURLOPT_POSTFIELDS,'{"ImageByteStream":"","CompanyID":"'.$CompanyId.'","CustId":"'.$CustId.'","AdditionalFname":"'.$firstName.'","AdditionalLname":"'.$lastName.'","PrimaryNumber":"'.$PrimaryNumber.'","AlternativeNumber":"'.$AlternativeNumber.'","Fax":"'.$Fax.'","DailCode":"'.$DailCode.'","PrimaryEmail":"'.$PrimaryEmail.'","AlternativeEmail":"'.$AlternativeEmail.'","AddressAccounts":"'.$AddressAccounts.'","addr_2_name":"'.$address2Txt.'","Country":"'.$Country.'","State":"'.$State.'","City":"'.$City.'","PostalCode":"'.$PostalCode.'", "custImage":"'.$profilepic.'","fileName":"'.$fileName.'", "fileExtension":"'.$fileExt.'","DialCodeOther":"'.$DialCodeOther.'","custImageURL":"Joomla", "ActivationKey":"123456789","email_notifications":"'.$emailNotifications.'"}');
-        }
+        curl_setopt($ch, CURLOPT_POSTFIELDS,'{"ImageByteStream":"","CompanyID":"'.$CompanyId.'","CustId":"'.$CustId.'","AdditionalFname":"'.$firstName.'","AdditionalLname":"'.$lastName.'","PrimaryNumber":"'.$PrimaryNumber.'","AlternativeNumber":"'.$AlternativeNumber.'","Fax":"'.$Fax.'","DailCode":"'.$DailCode.'","PrimaryEmail":"'.$PrimaryEmail.'","AlternativeEmail":"'.$AlternativeEmail.'","AddressAccounts":"'.$AddressAccounts.'","addr_2_name":"'.$address2Txt.'","Country":"'.$Country.'","State":"'.$State.'","City":"'.$City.'","PostalCode":"'.$PostalCode.'", "custImage":"","fileName":"", "fileExtension":"","DialCodeOther":"'.$DialCodeOther.'","custImageURL":"", "ActivationKey":"123456789","email_notifications":"'.$emailNotifications.'","dob_cust":"'.$dob.'"}');
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		$result=curl_exec($ch);
 		
 		/** Debug **/
-//  		echo $url;
-// 		var_dump($result);exit;
+       
+        // echo '{"ImageByteStream":"","CompanyID":"'.$CompanyId.'","CustId":"'.$CustId.'","AdditionalFname":"'.$firstName.'","AdditionalLname":"'.$lastName.'","PrimaryNumber":"'.$PrimaryNumber.'","AlternativeNumber":"'.$AlternativeNumber.'","Fax":"'.$Fax.'","DailCode":"'.$DailCode.'","PrimaryEmail":"'.$PrimaryEmail.'","AlternativeEmail":"'.$AlternativeEmail.'","AddressAccounts":"'.$AddressAccounts.'","addr_2_name":"'.$address2Txt.'","Country":"'.$Country.'","State":"'.$State.'","City":"'.$City.'","PostalCode":"'.$PostalCode.'", "custImage":"","fileName":"", "fileExtension":"","DialCodeOther":"'.$DialCodeOther.'","custImageURL":"", "ActivationKey":"123456789","email_notifications":"'.$emailNotifications.'","dob_cust":"'.$dob.'"}';
+        // echo $url;
+ 		// var_dump($result);exit;
 		
         $msg=json_decode($result);
         return $msg->Description;

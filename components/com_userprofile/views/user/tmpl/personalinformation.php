@@ -1325,27 +1325,19 @@ $joomla('#typeuserTxt').on('change',function(){
                 <input type="text" class="form-control"  name="aemailTxt" id="aemailTxt" maxlength="50" value="<?php echo $UserView->AlternativeEmail;?>">
               </div>
 
+                  <?php
+
+                    $custdob = $UserView->dob_cust;
+                    $dobdate = strtotime($custdob);
+                    $dob = date('m/d/Y', $dobdate);
+
+                  ?>
+
               <div class="form-group">
                     <label><?php echo 'Date of birth';?></label>
-                    <input type="text" class="form-control"  name="dob" id="dob" value="">
+                    <input type="text" class="form-control"  name="dob" id="dob" value="<?php echo $dob; ?>">
               </div>
-
-              <!-- <div class="form-group">
-                <label><?php //echo 'Email Notifications : ';?></label>
-                  <div class="onoffswitch">
-                  <input type="checkbox" name="emailNotifications" class="onoffswitch-checkbox" id="myonoffswitch" <?php if($UserView->email_notifications) { echo "checked"; } ?> >
-                    <label class="onoffswitch-label" for="myonoffswitch">
-                    <span class="onoffswitch-inner"></span>
-                    <span class="onoffswitch-switch"></span>
-                    </label>
-                  </div>
-              </div> -->
-            
-             
-                <!-- <input type="radio"   name="emailNotif" id="emailNotifOn" value="ON" > ON &nbsp;
-                <input type="radio"   name="emailNotif" id="emailNotifOff" value="ON" > OFF -->
-              
-              
+               <!-- <input type="radio"   name="emailNotif" id="emailNotifOff" value="ON" > OFF -->
             </div>
           </div>
           <div class="row">
