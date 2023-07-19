@@ -64,7 +64,22 @@ var $joomla = jQuery.noConflict();
 
 $joomla(function() {
     $joomla("body").delegate("#dob", "focusin", function(){
-        $joomla(this).datepicker({  maxDate: 0 });
+        $joomla(this).datepicker({  
+          maxDate: 0,
+          changeYear: true, 
+          onSelect: function (date, datepicker) {
+                    if (date != "") {
+                      dob = new Date(date);
+                      var today = new Date();
+                      var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+                      if(age < 18){
+                       $joomla("#dob").val("");
+                       alert("You must be 18 years old or above.");
+                      }
+                      
+                    }
+                }
+        });
     });
 
     $joomla(document).on('keydown','#dob',function(e) {
@@ -73,6 +88,17 @@ $joomla(function() {
             e.preventDefault();
         }
     });
+
+    // $joomla(document).on('focusout','#dob',function(e) {
+    //       dob = new Date($joomla(this).val());
+    //       var today = new Date();
+    //       var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+    //       if(age > 18){
+    //        $joomla(this).val("");
+    //       }
+    //       alert("You must be 18 years old or above.");
+          
+    // });
 
 });
 

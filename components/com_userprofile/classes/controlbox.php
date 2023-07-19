@@ -2151,10 +2151,10 @@ if($priceStr != ""){
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		$result=curl_exec($ch);
 		
-//         echo $url;
-//         echo '{"CompanyID":"'.$CompanyId.'","objCardDetails":{"_amt":"'.$amtStr.'","_cardno":"'.$cardnumberStr.'","_ccno":"'.$txtccnumberStr.'","_index":1,"_month":"'.$MonthDropDownListStr.'","_nameoncard":"'.$txtNameonCardStr.'","_year":"'.$YearDropDownListStr.'"},"Comments":"'.$txtSpecialInStr.'","CreatedBy":"portal","CustomerId":"'.$CustId.'","LocalShipCost":"'.$txtShippChargesStr.'","LocalTax":"'.$txtTaxesStr.'","PurchseType":"0","Status":"yes","paymenttype":"'.$txtPaymentMethod.'","paymentgateway":"'.$paymentgateway.'","TransactionID":"'.$tid.'","CorrelationID":"'.$corid.'","ACK":"'.$ack.'","domainurl":"'.$domainurl.'","domainname":"'.$domainname.'","liInventoryPurchasesVM": ['.$liInventoryPurchasesVM.']}';
-//  		var_dump($result);
-//         exit;
+        // echo $url;
+        // echo '{"CompanyID":"'.$CompanyId.'","objCardDetails":{"_amt":"'.$amtStr.'","_cardno":"'.$cardnumberStr.'","_ccno":"'.$txtccnumberStr.'","_index":1,"_month":"'.$MonthDropDownListStr.'","_nameoncard":"'.$txtNameonCardStr.'","_year":"'.$YearDropDownListStr.'"},"Comments":"'.$txtSpecialInStr.'","CreatedBy":"portal","CustomerId":"'.$CustId.'","LocalShipCost":"'.$txtShippChargesStr.'","LocalTax":"'.$txtTaxesStr.'","PurchseType":"0","Status":"yes","paymenttype":"'.$txtPaymentMethod.'","paymentgateway":"'.$paymentgateway.'","TransactionID":"'.$tid.'","CorrelationID":"'.$corid.'","ACK":"'.$ack.'","domainurl":"'.$domainurl.'","domainname":"'.$domainname.'","liInventoryPurchasesVM": ['.$liInventoryPurchasesVM.']}';
+        // var_dump($result);
+        // exit;
        
 		
         $msg=json_decode($result);
