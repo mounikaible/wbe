@@ -65,7 +65,8 @@ var $joomla = jQuery.noConflict();
 $joomla(function() {
     $joomla("body").delegate("#dob", "focusin", function(){
         $joomla(this).datepicker({  
-          maxDate: 0,
+          changeMonth: true,
+          yearRange: "1930:2030",
           changeYear: true, 
           onSelect: function (date, datepicker) {
                     if (date != "") {

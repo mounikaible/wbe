@@ -16,7 +16,7 @@ $document->setTitle("Dashboard in Boxon Pobox Software");
 $session = JFactory::getSession();
 $langSel=$session->get('lang_sel');
 $domainList=Controlbox::getDomainList();
-$mainPageDetails = UserprofileHelpersUserprofile::getmainpagedetails('ClientNotifications');
+$mainPageDetails = UserprofileHelpersUserprofile::getmainpagedetails('CLIENTNOTIFICATIONS');
 // var_dump($mainPageDetails);exit;
 // $categorycode=$catCode['Client Notifications']
 
@@ -130,12 +130,12 @@ if(strpos($_SERVER['REQUEST_URI'], '/index.php/') !== false){
 
 // sort($categoryList);
 
-function getCategoryContent($mainPageDetails,$category){
+function getCategoryContent($mainPageDetails){
     
     $catContent = "";
     
       foreach($mainPageDetails as $data){
-            if(strtolower($data->CategoryName) == strtolower($category) ){
+            //if(strtolower($data->CategoryName) == strtolower($category) ){
                   $str = '$id';
                   $catContent .= '<div id="'.$data->$str.'" class="" id="notification"><h4>'.$data->Heading.'</h4>';
              
@@ -143,7 +143,7 @@ function getCategoryContent($mainPageDetails,$category){
                   $doc->loadHTML($data->Content);
                   $htmlString = $doc->saveHTML();
                   $catContent .= '<p>'.$htmlString.'</p></div>';
-              }
+              //}
         } 
         
         return $catContent;
@@ -314,7 +314,7 @@ $joomla(function() {
 
 </style>
 
-<?php $categoryContent = getCategoryContent($mainPageDetails,'Client Notifications'); ?>
+<?php $categoryContent = getCategoryContent($mainPageDetails); ?>
 
 <div class="container">
 <!-- Notification Modal popup start -->

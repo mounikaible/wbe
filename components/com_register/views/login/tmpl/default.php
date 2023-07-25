@@ -53,16 +53,14 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
               $categoryList = array();
               $catOrderList = [];
               foreach($mainPageDetails as $data){
-                  
+                if(strtolower($data->CategoryCode) != "clientnotifications"){
                   $categoryList[] = $data->CategoryName;
                   $catOrderList[$data->CategoryName] = $data->categoryorder;
+                }
 
               }
               $categoryList = array_unique($categoryList);
               asort($catOrderList);
-
-              
-             
               sort($categoryList);
               
 function getCategoryContent($mainPageDetails,$category){
@@ -189,32 +187,27 @@ function getCategoryContent($mainPageDetails,$category){
                                 <?php
                                 
                                 $i=0;
-                                $ClientNotAct=FALSE;
-                                if(count($catOrderList)==1 && $catOrderList['Client Notifications']!= ''){
-                                  $ClientNotAct=TRUE;
-                                }
+                              
                         //var_dump($catOrderList);exit;
 
-                                if(count($catOrderList) > 0 && !$ClientNotAct){
-                                    $j=0;
+                                if(count($catOrderList) > 0 ){
+                                   
                                     foreach($catOrderList as $categoryName=>$categoryOrder){
                                         
-                                      if($i<5 && strtolower($categoryName) != strtolower('Client Notifications')){
+                                      if($i<5){
                                           
-                                          if($j == 0){
+                                          if($i == 0){
                                               $activeClass = "active";
                                           }else{
                                               $activeClass = "";
                                           }
-                                          
-                                          $j++;
-                                              echo '<li class="'.$activeClass.'" > <a data-toggle="tab" href="#'.str_replace(" ","_",$categoryName).'">'.$assArr[getCategoryCode($mainPageDetails,$categoryName)].'</a></li>';
+                                        
+                                        echo '<li class="'.$activeClass.'" > <a data-toggle="tab" href="#'.str_replace(" ","_",$categoryName).'">'.$assArr[getCategoryCode($mainPageDetails,$categoryName)].'</a></li>';
                                               
                                       }
                                               
                                       $i++;
-                                    
-                                  }
+                                    }
                                 }else{
                                   echo '<li class="active" > <a data-toggle="tab" href="#defTab" >Notifications</a></li>';
                                 }
@@ -228,22 +221,20 @@ function getCategoryContent($mainPageDetails,$category){
                              $cmgSoonImg = '<img src="'.JURI::base().'/images/cmg-soon-image.png" >';
                              $i=0;
                             //  var_dump(count($catOrderList));exit;
-                            if(count($catOrderList) > 0 && !$ClientNotAct){
-                                 $j=0;
+                            if(count($catOrderList) > 0 ){
+                                 
                             foreach($catOrderList as $categoryName=>$categoryOrder){ 
-                              
-                                   
-                                   
-                                    if($i<5 && strtolower($categoryName) != strtolower('Client Notifications')){  
+                            
+                                    if($i<5){  
                                         
                                         
-                                    if($j == 0){
+                                    if($i == 0){
                                         $activeClass = "active";
                                     }else{
                                         $activeClass = "";
                                     } 
                                     
-                                    $j++;
+                                    
                                     
                                     ?>
                                     
@@ -257,8 +248,7 @@ function getCategoryContent($mainPageDetails,$category){
                               ?>
                             </div>
                             
-                            <?php }else{  //echo $cmgSoonImg; 
-                            } $i++;  } }else { echo $cmgSoonImg;  } ?>
+                            <?php } $i++;  } }else { echo $cmgSoonImg;  } ?>
                             
                           </div>                             
                             </div>
