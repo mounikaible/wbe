@@ -62,7 +62,7 @@
    
    
 // echo '<pre>';   
-// var_dump($elem['AGENCYCOUNTRY'][1]);exit;
+//var_dump($elem['ACCOUNTTYPE'][4]);exit;
 
 
 
@@ -275,6 +275,7 @@ if(agency_country){
            e.preventDefault();
            this.blur();
            window.focus();
+            
         }else{
             $joomla(this).not("#countryTxt").unbind('mousedown');
         }
@@ -286,19 +287,47 @@ if(agency_country){
            window.focus();
     });
     
+    var accountTypeDefaultComp = accountTypeDef = "<?php echo $accountTypeDef['COMP']; ?>";
+    // alert(accountTypeDefaultComp);
+   	
+   	if(accountTypeDef){
+   	    $joomla('#accounttypeTxt').val("COMP");
+   	    $joomla('#accounttypeTxt').trigger("change");
+   	}
+   	
+   	var accountTypeDefaultCust = accountTypeDef = "<?php echo $accountTypeDef['CUST']; ?>";
+   	// alert(accountTypeDefaultCust);
+   	
+    if(accountTypeDef){
+   	    $joomla('#accounttypeTxt').val("CUST");
+   	    $joomla('#accounttypeTxt').trigger("change");
+   	}
+    
      $joomla("#reg_country").on('change',function(){
          if($joomla(this).val() != ""){
+             	 
              setregCountry = 1;
+             $joomla("label.error").show();
             var element = $joomla(this).find('option:selected'); 
            var agentId = element.attr("data-id");
             $joomla("#agentId").val(agentId);
+         
             $joomla("#countryTxt").attr("tabindex", -1);
             $joomla("#countryTxt").val($joomla(this).val()).change();
-            $joomla("#accounttypeTxt").val("CUST").change();
+           
+            if(accountTypeDefaultComp){
+                $joomla("#accounttypeTxt").val("COMP").change();
+            }
+            if(accountTypeDefaultCust){
+                $joomla("#accounttypeTxt").val("CUST").change();
+            }
+             //$joomla("#emailTxt").val('');
+            // $joomla("#passwordTxt").val('');
             $joomla('input').prop('readonly', false);
             $joomla('button').prop('disabled', false);
             $joomla('select').not("#reg_country,#countryTxt").css("background-color","#fff");
          }else{
+            $joomla("label.error").hide();
             $joomla("#countryTxt").val("").change();
             $joomla("#accounttypeTxt").val("").change();
             $joomla('input').prop('readonly', true);
@@ -306,6 +335,7 @@ if(agency_country){
             $joomla('select').not("#reg_country").css("background-color","#eee");
              setregCountry = 0;
          }
+           
         
        
     });
@@ -529,7 +559,7 @@ if(agency_country){
    	    $joomla('#lnameTxt').parent('div').html('<input type="text" class="form-control" name="lnameTxt" id="lnameTxt" maxlength="25" value="<?=$elem['LASTNAME'][4]?>" <?php if($elem['LASTNAME'][3]){ ?> readonly <?php } ?> <?php if($elem['LASTNAME'][2]){ ?> required <?php } ?> >');
    	    if($joomla(this).val()=="CUST"){
             if(agency_country){
-               $joomla('input').prop('readonly', true);
+               $joomla('input').prop('readonly', false);
             }
             
 
@@ -559,19 +589,7 @@ if(agency_country){
            }
    	});
    	
-   	var accountTypeDef = "<?php echo $accountTypeDef['COMP']; ?>";
    	
-   	if(accountTypeDef){
-   	    $joomla('#accounttypeTxt').val("COMP");
-   	    $joomla('#accounttypeTxt').trigger("change");
-   	}
-   	
-   	var accountTypeDef = "<?php echo $accountTypeDef['CUST']; ?>";
-   	
-   	if(accountTypeDef){
-   	    $joomla('#accounttypeTxt').val("CUST");
-   	    $joomla('#accounttypeTxt').trigger("change");
-   	}
    	
    	   var domainName = '<?php echo strtolower($domainName);  ?>';
        
@@ -678,35 +696,54 @@ if(agency_country){
    	    
    	}
    	
-   	$joomla("input[name='emailTxt']").blur(function(){
-   	    if($joomla(this).val() !=''){
-   	    $joomla.ajax({
-   	            url: "<?php echo JURI::base(); ?>index.php?option=com_register&task=register.get_ajax_data&emailTxt="+$joomla("#emailTxt").val() +"&emailflag=1&clientid=<?php echo $companyId; ?>&jpath=<?php echo urlencode  (JPATH_SITE); ?>&pseudoParam="+new Date().getTime(),
-                  type: "get",
-                  dataType: 'text',
-                  beforeSend: function() {
-                    $joomla('.page_loader').show();
-                    },
-                  success: function(data) {
-                      res = data.split(":");
-                      if(res[0]==1){
-                                $joomla('.page_loader').hide();
-                              // $joomla('#emailTxt-error').hide();
-                                return true;
-                      }else{
-                          
-                                if(res[1] == "do_not_mail Email"){
-                                    res[1] = "Invalid Email"
-                                }
-                                
-                                alert("Error : "  + res[1] + ' ! Please try again with a valid Email Id.');
-                                $joomla("#emailTxt").val("");
-                                $joomla('.page_loader').hide();
-                                return false;
-                      }
-                  }
-   	        });
+   	
+   	
+   	$joomla(document).on("input[name='emailTxt']","keyup",function(e){
+   	   e.preventDefault();
+   	    if($joomla(this).attr("readonly") == "readonly"){
+   	        $joomla("label.error").hide();
+   	    }else{
+   	        $joomla("label.error").show();
    	    }
+   	});
+   	
+   	$joomla("input[name='emailTxt']").blur(function(){
+   	            if($joomla("#emailTxt").attr("readonly") == "readonly"){
+             	     $joomla("label.error").hide();
+             	 }else{
+             	     if($joomla(this).val() !=''){
+                       	    $joomla.ajax({
+                       	            url: "<?php echo JURI::base(); ?>index.php?option=com_register&task=register.get_ajax_data&emailTxt="+$joomla("#emailTxt").val() +"&emailflag=1&clientid=<?php echo $companyId; ?>&jpath=<?php echo urlencode  (JPATH_SITE); ?>&pseudoParam="+new Date().getTime(),
+                                      type: "get",
+                                      dataType: 'text',
+                                      beforeSend: function() {
+                                        $joomla('.page_loader').show();
+                                        },
+                                      success: function(data) {
+                                          res = data.split(":");
+                                          if(res[0]==1){
+                                                    $joomla('.page_loader').hide();
+                                                  // $joomla('#emailTxt-error').hide();
+                                                    return true;
+                                          }else{
+                                              
+                                                    if(res[1] == "do_not_mail Email"){
+                                                        res[1] = "Invalid Email"
+                                                    }
+                                                    
+                                                    alert("Error : "  + res[1] + ' ! Please try again with a valid Email Id.');
+                                                    $joomla("#emailTxt").val("");
+                                                    $joomla('.page_loader').hide();
+                                                    return false;
+                                          }
+                                      }
+                       	        });
+       	                }
+             	            $joomla("label.error").show();
+             	    }
+             	 
+       	    
+   	    
    	        
    	});
    	
@@ -744,14 +781,22 @@ if(agency_country){
    	
    	
    	 //validation for email fields
-   	jQuery.validator.addMethod(
-   	"validateEmail", 
-   	function(value, element) {
-   	    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-           return re.test(value);
-   		},
-   		"<?php echo JText::_('COM_REGISTER_PLEASE_ENTER_VALID_EMAIL_ADDRESS');?>"
-   	);
+   
+       	jQuery.validator.addMethod(
+       	"validateEmail", 
+       	function(value, element) {
+       	    if($joomla("input[name='emailTxt']").attr("readonly") != "readonly"){
+           	       const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                   return re.test(value);
+       	    }else{
+       	        return true;
+       	    }
+                   
+           		},
+           		"<?php   echo JText::_('COM_REGISTER_PLEASE_ENTER_VALID_EMAIL_ADDRESS'); ?>"
+           			
+       	);
+   	
    	
    	//validation for password fields
    	jQuery.validator.addMethod(
@@ -826,6 +871,8 @@ if(agency_country){
 <?php  $session->set('authorizarionFlag', 1); ?>
 <div class="item_fields">
    <form name="registerFormOne" id="registerFormOne" method="post" action="" autocomplete="off" enctype="multipart/form-data">
+       
+       
        <input autocomplete="false" name="hidden" type="text" style="display:none;">
       <input name="agentId" id="agentId"  value='<?php echo base64_decode($AgencyId); ?>' type="hidden">
       <div class="container">
@@ -927,7 +974,7 @@ if(agency_country){
                                  <label><?php echo $assArr['email'];?><?php if($elem['EMAIL'][2]){ ?><span class="error">*</span><?php } ?></label>
                               </div>
                               <div class="col-md-8 col-sm-6 col-xs-12">
-                                 <input type="text" class="form-control" name="emailTxt" id="emailTxt" maxlength="50" value="<?=$elem['EMAIL'][4]?>" <?php if($elem['EMAIL'][3]){ ?> readonly <?php } ?> <?php if($elem['EMAIL'][2]){ ?>  required <?php } ?> >
+                                 <input type="text" class="form-control"  name="emailTxt" id="emailTxt" maxlength="50" value="<?=$elem['EMAIL'][4]?>" <?php if($elem['EMAIL'][3]){ ?> readonly <?php } ?> <?php if($elem['EMAIL'][2]){ ?>  required <?php } ?> >
                               </div>
                            </div>
                         </div>
@@ -1204,7 +1251,7 @@ if(agency_country){
                                  </div>
                               </div>
                               <div class="col-md-8 col-sm-6 col-xs-12">
-                                 <input type="password" class="form-control" maxlength="32" name="passwordTxt" id="passwordTxt">
+                                 <input type="password" class="form-control" maxlength="32" name="passwordTxt" id="passwordTxt" autocomplete = "new-password">
                               </div>
                            </div>
                         </div>
