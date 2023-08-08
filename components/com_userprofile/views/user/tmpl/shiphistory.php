@@ -337,7 +337,7 @@ $joomla(document).on('click','.exp_item',function(e){
        if(ShippingIdDisplay){
         shippingId = "<th>Shipping ID</th>";
        }
-       htmse+='<tr class="child_row"><td colspan="12"><table class="table table-bordered"><tr class="'+rs+' wrhuse-grid"><th style="display:none"></th><th>Item Name</th><th>Item Quantity</th><th>Item Status</th><th>Update Invoice</th>'+declaredVal+shippingId+'<th style="display:none"></th><th style="display:none"></th><th style="display:none"></th></tr>';
+       htmse+='<tr class="child_row"><td colspan="12"><table class="table table-bordered"><tr class="'+rs+' wrhuse-grid"><th style="display:none"></th><th>Item Name</th><th>Item Quantity</th><th>Item Status</th><th>View / Update Invoice</th>'+declaredVal+shippingId+'<th style="display:none"></th><th style="display:none"></th><th style="display:none"></th></tr>';
        $joomla('#M_table tbody tr').each( function () {
            
          if($joomla(this).attr('id') == rs){
@@ -385,35 +385,36 @@ $joomla(document).on('click','.ship_img',function(){
          $joomla('#update_invoice_submit').attr('data-idk',$joomla(this).attr("data-idk"));
         $joomla('#viewImage #multimages').html('');
         var expandImg = document.getElementById("expandedImg");
+
         expandImg.parentElement.style.display = "none";
         var res=$joomla(this).data('id');
         
-        // var imgarr = res.split("##");
-        // var imgstr = '';
+        var imgarr = res.split("##");
+        var imgstr = '';
         
-        // for(var i=0;i<imgarr.length;i++){
-        //     if (imgarr[i] !=''){ 
-        //         imgext = imgarr[i].split(".");
-        //         if (imgext[imgext.length - 1] != 'pdf') {
-        //             imgstr += "<div class='col-img-all images-view'><img src='"+imgarr[i]+"' width='100%'></div>";
-        //         }else{
-        //             imgstr += "<div class='col-img-all pdf-view'><a href='"+imgarr[i]+"' target='_blank' class='pdf-img'><img src='<?php echo JURI::base(); ?>components/com_userprofile/images/pdf-icon.png' width='100%'><span class='btn btn-primary'>View PDF</span></a></div>";
-        //          }
-        //     }
-        // }
-        // if(imgstr !=''){
-        //     $joomla('#viewImage #multimages').html(imgstr);
-        //     var firstImgSrc = $joomla('#multimages .images-view:first img').attr("src");
-        //     if(typeof firstImgSrc !== 'undefined'){
-        //      expandImg.src = $joomla('#multimages .images-view:first img').attr("src");
-        //      expandImg.parentElement.style.display = "block";
-        //     }else{
-        //         expandImg.parentElement.style.display = "none";
-        //     }
-        //     $joomla('#multimages .images-view:first').addClass("img-active");
-        // }else{
-        //     $joomla('#viewImage #multimages').html("There is no image for this order");
-        // }
+        for(var i=0;i<imgarr.length;i++){
+            if (imgarr[i] !=''){ 
+                imgext = imgarr[i].split(".");
+                if (imgext[imgext.length - 1] != 'pdf') {
+                    imgstr += "<div class='col-img-all images-view'><img src='"+imgarr[i]+"' width='100%'></div>";
+                }else{
+                    imgstr += "<div class='col-img-all pdf-view'><a href='"+imgarr[i]+"' target='_blank' class='pdf-img'><img src='<?php echo JURI::base(); ?>components/com_userprofile/images/pdf-icon.png' width='100%'><span class='btn btn-primary'>View PDF</span></a></div>";
+                 }
+            }
+        }
+        if(imgstr !=''){
+            $joomla('#viewImage #multimages').html(imgstr);
+            var firstImgSrc = $joomla('#multimages .images-view:first img').attr("src");
+            if(typeof firstImgSrc !== 'undefined'){
+             expandImg.src = $joomla('#multimages .images-view:first img').attr("src");
+             expandImg.parentElement.style.display = "block";
+            }else{
+                expandImg.parentElement.style.display = "none";
+            }
+            $joomla('#multimages .images-view:first').addClass("img-active");
+        }else{
+            $joomla('#viewImage #multimages').html("There is no image for this order");
+        }
     });
        
        
@@ -744,7 +745,11 @@ $joomla(document).on('change','select[name=M_table_length]',function(){
                   //var_dump($rg->Status);
                   
                   if($rg->ItemStatus == "Received" || $rg->ItemStatus == "In Progress" || $rg->ItemStatus == "Hold"){
-                    echo '<td class="updateInvoice"><input type="hidden" name="ItemIdkTxt" value="'.$rg->ItemIdk.'"><a class="ship_img" data-target="#view_image" data-idk="'.$rg->ItemIdk.'"  data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#" >Update Invoice</a></td>';
+                    if($rg->ItemImage1==""){	
+                      echo '<td class="updateInvoice"><input type="hidden" name="ItemIdkTxt" value="'.$rg->ItemIdk.'"><a class="ship_img" data-target="#view_image" data-idk="'.$rg->ItemIdk.'"  data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#" >Update Invoice</a></td>';
+                    }else{
+                      echo '<td class="action_btns"><a class="ship_img" data-idk="'.$rg->ItemIdk.'" data-toggle="modal" data-backdrop="static" data-keyboard="false" href="#" data-id="'.$rg->ItemImage1.'##'.$rg->ItemImage2.'##'.$rg->ItemImage3.'##'.$rg->ItemImage4.'" data-target="#view_image" ><i class="fa fa-eye"></i></a></td>';
+                    }
                   }else{
                       echo '<td class="updateInvoice">-</td>';
                   }
