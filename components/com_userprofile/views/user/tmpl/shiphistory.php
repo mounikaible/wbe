@@ -432,70 +432,70 @@ $joomla(document).on('click','.ship_img',function(){
     
    //update invoice
    
-   $joomla(document).on('click','#update_invoice_submit',function() {
-    feitem=[];
-    var file_data_len = $joomla("input[name='update_invoice[]'").prop('files').length;
+//   $joomla(document).on('click','#update_invoice_submit',function() {
+//     feitem=[];
+//     var file_data_len = $joomla("input[name='update_invoice[]'").prop('files').length;
    
-    if(file_data_len > 0){
-        $joomla(".invoice_pic_error").hide();
-        for(i=0;i<file_data_len;i++){
-        var file_data = $joomla("input[name='update_invoice[]").prop('files')[i];   
-        var form_data = new FormData(); 
-        form_data.append('file', file_data);
-        $joomla.ajax({
-            url: "<?php echo JURI::base(); ?>index.php?option=com_userprofile&task=user.get_ajax_data&uploadflag=1&jpath=<?php echo urlencode  (JPATH_SITE); ?>&pseudoParam="+new Date().getTime(),
-            dataType: 'text',  // what to expect back from the PHP script, if anything
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: form_data, 
-            async: false,                        
-            type: 'post',
-            beforeSend: function() {
-            },
-            success: function(data){
-               feitem.push(data);
+//     if(file_data_len > 0){
+//         $joomla(".invoice_pic_error").hide();
+//         for(i=0;i<file_data_len;i++){
+//         var file_data = $joomla("input[name='update_invoice[]").prop('files')[i];   
+//         var form_data = new FormData(); 
+//         form_data.append('file', file_data);
+//         $joomla.ajax({
+//             url: "<?php echo JURI::base(); ?>index.php?option=com_userprofile&task=user.get_ajax_data&uploadflag=1&jpath=<?php echo urlencode  (JPATH_SITE); ?>&pseudoParam="+new Date().getTime(),
+//             dataType: 'text',  // what to expect back from the PHP script, if anything
+//             cache: false,
+//             contentType: false,
+//             processData: false,
+//             data: form_data, 
+//             async: false,                        
+//             type: 'post',
+//             beforeSend: function() {
+//             },
+//             success: function(data){
+//               feitem.push(data);
                
-            }
-        });
-    }
+//             }
+//         });
+//     }
 
-        // update invoice
+//         // update invoice
 
-        $joomla.ajax({
-        url: "<?php echo JURI::base(); ?>index.php?option=com_userprofile&task=user.get_ajax_data&updateinvoiceflag=1&jpath=<?php echo urlencode  (JPATH_SITE); ?>&pseudoParam="+new Date().getTime(),
-        dataType: 'html', 
-        data: {"invData":feitem,"itemIdk":$joomla(this).attr("data-idk")},                         
-        type: 'get',
-        beforeSend: function() {
-            $joomla(".page_loader").show();
-        },
-        success: function(data){
-            var resArr = data.split(":");
-            if(resArr[0] == 1){
-                localStorage.setItem("updateInv",resArr[1]);
+//         $joomla.ajax({
+//         url: "<?php echo JURI::base(); ?>index.php?option=com_userprofile&task=user.get_ajax_data&updateinvoiceflag=1&jpath=<?php echo urlencode  (JPATH_SITE); ?>&pseudoParam="+new Date().getTime(),
+//         dataType: 'html', 
+//         data: {"invData":feitem,"itemIdk":$joomla(this).attr("data-idk")},                         
+//         type: 'get',
+//         beforeSend: function() {
+//             $joomla(".page_loader").show();
+//         },
+//         success: function(data){
+//             var resArr = data.split(":");
+//             if(resArr[0] == 1){
+//                 localStorage.setItem("updateInv",resArr[1]);
                 
-                $joomla(".invic-suces-msg").html(resArr[1]);
-                $joomla(".invic-suces-msg").show();
-                    var itemsList = '';
-                    for(i=0;i<feitem.length;i++){
-                        itemsList += '<a href="<?php echo JURI::base(); ?>/media/com_userprofile/'+feitem[i]+'" target="_blank" class="view-invioce"> ( View Invoice '+(i+1)+' ) </a>';
-                    }
-                    $joomla(".page_loader").hide();
-                    $joomla(".invoice_details .invoice_pic_name").html(itemsList);
-                    $joomla("#update_invoice").val("");
+//                 $joomla(".invic-suces-msg").html(resArr[1]);
+//                 $joomla(".invic-suces-msg").show();
+//                     var itemsList = '';
+//                     for(i=0;i<feitem.length;i++){
+//                         itemsList += '<a href="<?php echo JURI::base(); ?>/media/com_userprofile/'+feitem[i]+'" target="_blank" class="view-invioce"> ( View Invoice '+(i+1)+' ) </a>';
+//                     }
+//                     $joomla(".page_loader").hide();
+//                     $joomla(".invoice_details .invoice_pic_name").html(itemsList);
+//                     $joomla("#update_invoice").val("");
                     
-            setTimeout(function(){
-                 $joomla(".invic-suces-msg").hide();
-            }, 3000);
-            }
-        }
-    });
-    }else{
-        $joomla(".invoice_pic_error").show();
-    }
+//             setTimeout(function(){
+//                  $joomla(".invic-suces-msg").hide();
+//             }, 3000);
+//             }
+//         }
+//     });
+//     }else{
+//         $joomla(".invoice_pic_error").show();
+//     }
 
-});
+// });
     
 
 ////****
@@ -967,8 +967,10 @@ $joomla(document).on('change','select[name=M_table_length]',function(){
     </div>
   </div>
 </div>
-
+<script src="<?php echo JUri::base(true); ?>/components/com_userprofile/js/custom.js"></script> 
 <script>
+
+ 
       
       $joomla(document).on('change','#update_invoice', function() {
        
