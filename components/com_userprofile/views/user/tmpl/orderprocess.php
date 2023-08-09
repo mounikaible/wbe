@@ -3882,11 +3882,7 @@ if($joomla(this).html() == '+'){
             </div>
             
             <div class="clearfix"></div>
-            <?php  
             
-            Controlbox::getOrdersHoldListCsv($user);
-            
-            ?>
             
             <div class="row ishpments" style="display:none">
                 
@@ -4101,12 +4097,7 @@ if($joomla(this).html() == '+'){
             </div>	
             
             <div class="clearfix"></div>
-            <?php  
-            
-            Controlbox::getOrdersPendingListCsv($user);
-            
-            ?>
-            
+           
             <div class="row ishpments2">
 
 <div class="">
