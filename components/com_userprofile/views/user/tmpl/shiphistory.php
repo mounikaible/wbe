@@ -416,6 +416,18 @@ $joomla(document).on('click','.ship_img',function(){
             $joomla('#viewImage #multimages').html("There is no image for this order");
         }
     });
+
+    $joomla(document).on('click','.col-img-all img',function(){
+            $joomla('.col-img-all').removeClass("img-active");
+            $joomla(this).parent().addClass("img-active");
+            var imgsrc = $joomla(this).attr("src");
+            var alttext = $joomla(this).attr("alt");
+            var expandImg = document.getElementById("expandedImg");
+            var imgText = document.getElementById("imgalttext");
+            expandImg.src = imgsrc;
+            //imgText.innerHTML = alttext;
+            expandImg.parentElement.style.display = "block";
+    });
        
        
         // $joomla(document).on('click','.col-img-all img',function(){
