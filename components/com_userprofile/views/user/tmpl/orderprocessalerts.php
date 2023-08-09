@@ -1354,13 +1354,6 @@ $joomla(document).on('keydown','#orderdateTxt,#txtOrderDate',function(e) {
           </div>
         </div>
         
-        <?php  
-        
-         Controlbox::getInvertoryPurchasesListCsv($user);
-         
-        ?>
-        
-       
         
         <div class="row">
           <div class="table-responsive col-md-12">
