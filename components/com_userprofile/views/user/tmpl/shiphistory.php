@@ -608,11 +608,7 @@ $joomla(document).on('change','select[name=M_table_length]',function(){
             </div>
           </div>
         </div>
-        <?php  
-            
-            Controlbox::getOrdersHistoryListCsv($user);
-            
-        ?>
+        
         
 <div class="row">
     <?php
