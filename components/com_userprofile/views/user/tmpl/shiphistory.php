@@ -565,6 +565,16 @@ $joomla(document).on('change','select[name=M_table_length]',function(){
       ?>
       
       <div id"tabs3">
+        <div class="alertSection" style="display:none;">          
+            <div class="alert alert-success" id="success-alert">
+                <strong></strong>
+            </div>
+        </div>
+        <div class="alertfailSection" style="display:none;">          
+            <div class="alert alert-danger" id="success-danger">
+                <strong></strong>
+            </div>
+        </div>
         <div class="row">
           <div class="col-md-12">
             <div class="col-md-9 col-sm-9">&nbsp;</div>
