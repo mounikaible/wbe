@@ -469,13 +469,7 @@ $joomla(".expand_all").on('click',function(){
 		<div class="main_heading"><?php echo $assArr['invoices'];?></div>
 		<div class="panel-body">
 
-	        
-	    <?php  
-            
-            Controlbox::getInvoicedetailsListCsv($user);
-            
-        ?>
-	        
+	    
 	        <div class="row">
                <div class="col-sm-12 inventry-item">
                    <div class="col-sm-6">
