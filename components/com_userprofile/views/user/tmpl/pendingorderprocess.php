@@ -1249,14 +1249,8 @@ function isNumber(evt) {
             </div>
             </div>
         </div>
-        <?php  
         
-         Controlbox::getInvertoryPurchasesListCsv($user);
-         
-        ?>
        
-       
-        
         <div class="row">
           <div class="col-md-12">
               <div class="table-responsive">
