@@ -966,14 +966,7 @@ $joomla(document).on('change','.mulinvoices,input[type="file"]', function(){
           <input type="hidden" name="id" value="0" />
           <input type="hidden" name="user" value="<?php echo $user;?>" />
         </form>
-        
-        
-        <?php  
-            
-            Controlbox::getShopperassistListCsv($user);
-            
-        ?>
-        
+       
          <div class="row">
                <div class="col-sm-12 inventry-item">
                    <div class="col-sm-6">

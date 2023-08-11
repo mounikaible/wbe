@@ -115,12 +115,7 @@ $joomla(document).ready(function() {
 		<div class="main_heading"><?php echo $assArr['view_Shipments'];?></div>
 		<div class="panel-body">
 		    
-		    <?php  
-            
-                Controlbox::getViewShipmentsListCsv($user);
-            
-            ?>
-		    
+		   
         <div class="row">
                <div class="col-sm-12 inventry-item">
                    <div class="col-sm-6">
