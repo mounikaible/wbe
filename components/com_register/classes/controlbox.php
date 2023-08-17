@@ -612,7 +612,7 @@ class Controlbox{
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
         if(!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^",$user))
         { 
-            $req='{"CompanyID":"'.$CompanyId.'","UserName":"'.$user.'","Email":"","domainurl":"'.$domainurl.'",ActivationKey":"123456789","Portal":"Joomla"}';
+            $req='{"CompanyID":"'.$CompanyId.'","UserName":"'.$user.'","Email":"","domainurl":"'.$domainurl.'","ActivationKey":"123456789","Portal":"Joomla"}';
            curl_setopt($ch, CURLOPT_POSTFIELDS,'{"CompanyID":"'.$CompanyId.'","UserName":"'.$user.'","Email":"","domainurl":"'.$domainurl.'","ActivationKey":"123456789","Portal":"Joomla"}');
         }else{
             $req='{"CompanyID":"'.$CompanyId.'","UserName":"","Email":"'.$user.'","domainurl":"'.$domainurl.'","ActivationKey":"123456789","Portal":"Joomla"}';
@@ -620,6 +620,9 @@ class Controlbox{
         }
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		$result=curl_exec($ch);
+
+        $forgotpassword_log = "logs/forgot_password.log";
+        file_put_contents($forgotpassword_log,"\n -- Start -- \n Company ID :".$CompanyId."\n Request : \n".$req."\n Response : \n".$result."\n -- End -- \n",FILE_APPEND);
 		
 		/** Debug **/
 // 		echo $url;
