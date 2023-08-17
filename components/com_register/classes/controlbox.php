@@ -236,8 +236,8 @@ class Controlbox{
     $response = curl_exec($curl);
     curl_close($curl);
 
-    // $register_log = "logs/register.log";
-    // file_put_contents($register_log,"\n -- Start -- \n Company ID :".$CompanyId."\n Request : \n".$req."\n Response : \n".$response."\n -- End -- \n",FILE_APPEND);
+    $register_log = "logs/register.log";
+    file_put_contents($register_log,"\n -- Start -- \n Company ID :".$CompanyId."\n Request : \n".$req."\n Response : \n".$response."\n -- End -- \n",FILE_APPEND);
 
     // var_dump($req);
     // var_dump($response);exit;
@@ -341,6 +341,10 @@ class Controlbox{
         curl_setopt($ch, CURLOPT_POSTFIELDS,'{"CompanyID":"'.$CompanyId.'","UserName":"'.$user.'","Password":"'.$pass.'","ActivationKey":"123456789"}');
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		$result=curl_exec($ch);
+
+        $req = '{"CompanyID":"'.$CompanyId.'","UserName":"'.$user.'","Password":"'.$pass.'","ActivationKey":"123456789"}';
+        $login_log = "logs/login.log";
+        file_put_contents($login_log,"\n -- Start -- \n Company ID :".$CompanyId."\n Request : \n".$req."\n Response : \n".$result."\n -- End -- \n",FILE_APPEND);
 		
 		/** Debug **/
 // 		echo $url;
