@@ -3170,8 +3170,8 @@ if($priceStr != ""){
 		
 // 		echo $url;
 // 		echo '{"CompanyID":"'.$CompanyId.'","bill_form_no":"'.$txtWArehousid.'","bill_no":"'.$txtOriginalOrderNumber.'","item_Status":"Return","ActivationKey":"123456789","merchant_rno":"'.$txtMerchantNumber.'","r_reason":"'.$txtReturnReason.'","r_s_carrier":"'.$txtReturnCarrier.'","returnAddr":"'.$txtReturnAddress.'","returnCompany":"'.$txtBackCompany.'","spe_instions":"'.$txtSpecialInstructions.'","UploadedFail":"'.$dest1.'"}'; 
-//         var_dump($result);
-//         exit;
+//      var_dump($result);
+//      exit;
         
         $msg=json_decode($result);
         return $msg->Description;
@@ -3196,9 +3196,15 @@ if($priceStr != ""){
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,'{"CompanyID":"'.$CompanyId.'","bill_form_no":"'.$txtWArehousid.'","item_Status":"Hold","r_reason":"'.$txtReturnReason.'","ActivationKey":"123456789"}');
+        $req = '{"CompanyID":"'.$CompanyId.'","bill_form_no":"'.$txtWArehousid.'","item_Status":"Hold","r_reason":"'.$txtReturnReason.'","ActivationKey":"123456789"}';
+        curl_setopt($ch, CURLOPT_POSTFIELDS,$req);
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		$result=curl_exec($ch);
+
+
+        $holditem_log = "logs/holditem.log";
+        file_put_contents($holditem_log,"\n -- Start -- \n Customer ID : \n Company ID :".$CompanyId."\n Request : \n".$req."\n Response : \n".$result."\n -- End -- \n",FILE_APPEND);
+
 		
 // 		echo $url;
 // 		echo '{"CompanyID":"'.$CompanyId.'","bill_form_no":"'.$txtWArehousid.'","item_Status":"Hold","r_reason":"'.$txtReturnReason.'","ActivationKey":"123456789"}';
@@ -4418,12 +4424,13 @@ if($priceStr != ""){
         $volumeStrSum = array_sum(explode(",",$volumeStr));
         $volumetwtStrSum = array_sum(explode(",",$volumetwtStr));
         $dvalueStrSum = array_sum(explode(",",$dvalueStr));
+        $destCntArr = explode(",",$destCnt);
        
          mb_internal_encoding('UTF-8');
          
         $CompanyId = Controlbox::getCompanyId(); 
         $content_params =JComponentHelper::getParams( 'com_userprofile' );
-        $url=$content_params->get( 'webservice' ).'/api/ShipmentsAPI/GetCustomerAdditionalServices?CompanyID='.$CompanyId.'&Quantity='.$totqnt.'&customerId='.$CustId.'&type_business='.$bustype.'&Length='.$lengthStrSum.'&Width='.$widthStrSum.'&Height='.$heightStrSum.'&GrossWeight='.$grosswtStrSum.'&Volume='.$volumeStrSum.'&VolumetricWeight='.$volumetwtStrSum.'&DeclaredValue='.$dvalueStrSum.'&ShipmentCost='.$shipmentCost.'&Destination='.$destCnt;
+        $url=$content_params->get( 'webservice' ).'/api/ShipmentsAPI/GetCustomerAdditionalServices?CompanyID='.$CompanyId.'&Quantity='.$totqnt.'&customerId='.$CustId.'&type_business='.$bustype.'&Length='.$lengthStrSum.'&Width='.$widthStrSum.'&Height='.$heightStrSum.'&GrossWeight='.$grosswtStrSum.'&Volume='.$volumeStrSum.'&VolumetricWeight='.$volumetwtStrSum.'&DeclaredValue='.$dvalueStrSum.'&ShipmentCost='.$shipmentCost.'&Destination='.$destCntArr[0];
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
