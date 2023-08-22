@@ -809,6 +809,14 @@ if(strtolower($elem['DeclaredValDisplay'][1]) == "act"){
                            //console.log(loop[i])
                         //}
                         if(i==13){
+                           // rpitem = loop[33];
+                            // rplbl = loop[31];
+                            // console.log(rpitem + rplbl);
+                            // if(rpitem == "Repack" && !rplables.includes(rplbl)){
+                            //     lg.push(loop[i]);
+                            // }else if(rpitem == "" || rpitem == "undefined" || rpitem == undefined){
+                            //     lg.push(loop[i]);
+                            // }
                            lg.push(loop[i]);
                         }
                         if(i==14){
@@ -2313,6 +2321,14 @@ if(strtolower($elem['DeclaredValDisplay'][1]) == "act"){
                            //console.log(loop[i])
                         //}
                         if(i==13){
+                           // rpitem = loop[33];
+                            // rplbl = loop[31];
+                            // console.log(rpitem + rplbl);
+                            // if(rpitem == "Repack" && !rplables.includes(rplbl)){
+                            //     lg.push(loop[i]);
+                            // }else if(rpitem == "" || rpitem == "undefined" || rpitem == undefined){
+                            //     lg.push(loop[i]);
+                            // }
                            lg.push(loop[i]);
                         }
                         if(i==14){
