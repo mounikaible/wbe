@@ -2292,9 +2292,13 @@ if($priceStr != ""){
         if($stateTxt==0){
             $stateTxt="";
         }
-        curl_setopt($ch, CURLOPT_POSTFIELDS,'{"ImageByteStream":"","CompanyID":"'.$CompanyId.'","ItemId":"'.$itemid.'","CustomerId":"'.$customerid.'","SupplierId":"'.$supplierid.'","CarrierId":"'.$carrierid.'","TrackingId":"'.$trackingid.'","OrderDate":"'.$orderdate.'","ItemImage":"'.$mulfilepath[0].'","ItemImage1":"'.$mulfilepath[1].'","ItemImage2":"'.$mulfilepath[2].'","ItemImage3":"'.$itemimage3.'","ItemImage4":"'.$mulfilepath[3].'","fileName":"'.$filename.'","fileExtension":"'.$filext.'","Dest_Cntry":"'.$countryTxt.'","Dest_Hub":"'.$stateTxt.'","ItemName":"'.$itemname.'","ItemQuantity":"'.$itemquantity.'","ItemPrice":"'.$price.'","Cost":"'.$cost.'","ItemStatus":"'.$status.'","ItemUrl":"ftp","ActivationKey":"123456789","ImageByteStream1":"","ImageByteStream2":"","ImageByteStream3":"","ImageByteStream4":"","fileName1":"'.$filename1.'","fileName2":"'.$filename2.'","fileName3":"'.$filename3.'","fileName4":"'.$filename4.'","fileExtension1":"'.$filext1.'","fileExtension2":"'.$filext2.'","fileExtension3":"'.$filext3.'","fileExtension4":"'.$filext4.'","OrderIdNew":"'.$txtOrderId.'","RMAValue":"'.$txtRmaValue.'","length":"'.$txtLength.'","height":"'.$txtHeigth.'","width":"'.$txtWidth.'","type_busines": "'.$inventoryTxt.'","PackageType":"'.$Package.'"}');        
+        $req = '{"ImageByteStream":"","CompanyID":"'.$CompanyId.'","ItemId":"'.$itemid.'","CustomerId":"'.$customerid.'","SupplierId":"'.$supplierid.'","CarrierId":"'.$carrierid.'","TrackingId":"'.$trackingid.'","OrderDate":"'.$orderdate.'","ItemImage":"'.$mulfilepath[0].'","ItemImage1":"'.$mulfilepath[1].'","ItemImage2":"'.$mulfilepath[2].'","ItemImage3":"'.$itemimage3.'","ItemImage4":"'.$mulfilepath[3].'","fileName":"'.$filename.'","fileExtension":"'.$filext.'","Dest_Cntry":"'.$countryTxt.'","Dest_Hub":"'.$stateTxt.'","ItemName":"'.$itemname.'","ItemQuantity":"'.$itemquantity.'","ItemPrice":"'.$price.'","Cost":"'.$cost.'","ItemStatus":"'.$status.'","ItemUrl":"ftp","ActivationKey":"123456789","ImageByteStream1":"","ImageByteStream2":"","ImageByteStream3":"","ImageByteStream4":"","fileName1":"'.$filename1.'","fileName2":"'.$filename2.'","fileName3":"'.$filename3.'","fileName4":"'.$filename4.'","fileExtension1":"'.$filext1.'","fileExtension2":"'.$filext2.'","fileExtension3":"'.$filext3.'","fileExtension4":"'.$filext4.'","OrderIdNew":"'.$txtOrderId.'","RMAValue":"'.$txtRmaValue.'","length":"'.$txtLength.'","height":"'.$txtHeigth.'","width":"'.$txtWidth.'","type_busines": "'.$inventoryTxt.'","PackageType":"'.$Package.'"}';
+        curl_setopt($ch, CURLOPT_POSTFIELDS,$req);        
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		$result=curl_exec($ch);
+
+        $prealertUpdate_log = "logs/prealert_update.log";
+        file_put_contents($prealertUpdate_log,"\n -- Start -- \n Customer ID : ".$customerid."\n Company ID :".$CompanyId."\n Request : \n".$req."\n Response : \n".$result."\n -- End -- \n",FILE_APPEND);
 		
 		 /** Debug **/
         // echo $url;
@@ -3166,8 +3170,8 @@ if($priceStr != ""){
 		
 // 		echo $url;
 // 		echo '{"CompanyID":"'.$CompanyId.'","bill_form_no":"'.$txtWArehousid.'","bill_no":"'.$txtOriginalOrderNumber.'","item_Status":"Return","ActivationKey":"123456789","merchant_rno":"'.$txtMerchantNumber.'","r_reason":"'.$txtReturnReason.'","r_s_carrier":"'.$txtReturnCarrier.'","returnAddr":"'.$txtReturnAddress.'","returnCompany":"'.$txtBackCompany.'","spe_instions":"'.$txtSpecialInstructions.'","UploadedFail":"'.$dest1.'"}'; 
-//         var_dump($result);
-//         exit;
+//      var_dump($result);
+//      exit;
         
         $msg=json_decode($result);
         return $msg->Description;
@@ -3233,9 +3237,16 @@ if($priceStr != ""){
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+        $req = '{"CompanyID":"'.$CompanyId.'","bill_form_no":"'.$txtWArehousid.'","item_Status":"Hold","r_reason":"'.$txtReturnReason.'","ActivationKey":"123456789"}';
+        curl_setopt($ch, CURLOPT_POSTFIELDS,$req);
         curl_setopt($ch, CURLOPT_POSTFIELDS,'{"CompanyID":"'.$CompanyId.'","bill_form_no":"'.$bill_form_no.'","item_Status":"Hold","r_reason":"'.$txtReturnReason.'","ItemIdk":"'.$itemIdks.'", "Qty":"'.$quantity.'","ActivationKey":"123456789","billFormIdsList":['.$hold_ship.']}');
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		$result=curl_exec($ch);
+
+
+        $holditem_log = "logs/holditem.log";
+        file_put_contents($holditem_log,"\n -- Start -- \n Customer ID : \n Company ID :".$CompanyId."\n Request : \n".$req."\n Response : \n".$result."\n -- End -- \n",FILE_APPEND);
+
 		
 		// echo $url;
 		// echo '{"CompanyID":"'.$CompanyId.'","bill_form_no":"'.$bill_form_no.'","item_Status":"Hold","r_reason":"'.$txtReturnReason.'","ItemIdk":"'.$itemIdks.'", "Qty":"'.$quantity.'","ActivationKey":"123456789","billFormIdsList":['.$hold_ship.']}';
@@ -4455,12 +4466,13 @@ if($priceStr != ""){
         $volumeStrSum = array_sum(explode(",",$volumeStr));
         $volumetwtStrSum = array_sum(explode(",",$volumetwtStr));
         $dvalueStrSum = array_sum(explode(",",$dvalueStr));
+        $destCntArr = explode(",",$destCnt);
        
          mb_internal_encoding('UTF-8');
          
         $CompanyId = Controlbox::getCompanyId(); 
         $content_params =JComponentHelper::getParams( 'com_userprofile' );
-        $url=$content_params->get( 'webservice' ).'/api/ShipmentsAPI/GetCustomerAdditionalServices?CompanyID='.$CompanyId.'&Quantity='.$totqnt.'&customerId='.$CustId.'&type_business='.$bustype.'&Length='.$lengthStrSum.'&Width='.$widthStrSum.'&Height='.$heightStrSum.'&GrossWeight='.$grosswtStrSum.'&Volume='.$volumeStrSum.'&VolumetricWeight='.$volumetwtStrSum.'&DeclaredValue='.$dvalueStrSum.'&ShipmentCost='.$shipmentCost.'&Destination='.$destCnt;
+        $url=$content_params->get( 'webservice' ).'/api/ShipmentsAPI/GetCustomerAdditionalServices?CompanyID='.$CompanyId.'&Quantity='.$totqnt.'&customerId='.$CustId.'&type_business='.$bustype.'&Length='.$lengthStrSum.'&Width='.$widthStrSum.'&Height='.$heightStrSum.'&GrossWeight='.$grosswtStrSum.'&Volume='.$volumeStrSum.'&VolumetricWeight='.$volumetwtStrSum.'&DeclaredValue='.$dvalueStrSum.'&ShipmentCost='.$shipmentCost.'&Destination='.$destCntArr[0];
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

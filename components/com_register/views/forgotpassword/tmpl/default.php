@@ -24,6 +24,21 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_register')
 {
 	$canEdit = JFactory::getUser()->id == $this->item->created_by;
 }
+
+//get labels
+   
+if(strpos($_SERVER['REQUEST_URI'], '/index.php/') !== false){
+  $strplace = strpos($_SERVER['REQUEST_URI'], '/index.php/');
+  $langplace = $strplace + 11;
+  $language = substr($_SERVER['REQUEST_URI'],$langplace,2);
+}
+  $res1=Controlbox::getlabels($language);
+  $assArr = [];
+  
+  foreach($res1 as $response){
+      $assArr[$response['Id']]  = $response['Text'];
+   }
+
 ?>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
 <script type="text/javascript">
