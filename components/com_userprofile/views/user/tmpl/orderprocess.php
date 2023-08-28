@@ -692,16 +692,18 @@ if(strtolower($elem['DeclaredValDisplay'][1]) == "act"){
        $joomla("input[name=txtQty]").live('blur',function(e){
            
            
-           
-           $joomla(this).closest('tr').find("input[name=ItemQtyEdit]").val($joomla(this).val());
-          // $joomla(this).closest('tr').find("input[name=ItemQtyShip]").val($joomla(this).val());
-          
-          if(parseInt($joomla(this).val()) > parseInt($joomla(this).closest('tr').find("input[name=ItemQtyTxt]").val())){
-             alert("Quantity will never update more than previous Quantity");
-             $joomla(this).val($joomla(this).closest('tr').find("input[name=ItemQtyTxt]").val()); 
-             $joomla($joomla(this).closest('tr').find("input[name=ItemQtyEdit]")).val($joomla(this).closest('tr').find("input[name=ItemQtyTxt]").val());
+         $joomla(this).closest('tr').find("input[name=ItemQtyEdit]").val($joomla(this).val());	
+           holdItemData = $joomla(this).closest('tr').find("input[name=Keep]").attr("data-id");	
+           holdItemDataArr = holdItemData.split(":");	
+           $joomla(this).closest('tr').find("input[name=Keep]").attr("data-id",holdItemDataArr[0] + ":" + holdItemDataArr[1] + ":" + $joomla(this).val()); 
+                    
+           if(parseInt($joomla(this).val()) > parseInt($joomla(this).closest('tr').find("input[name=ItemQtyTxt]").val())){	
+             alert("Quantity will never update more than previous Quantity");	
+             $joomla(this).val($joomla(this).closest('tr').find("input[name=ItemQtyTxt]").val()); 	
+             $joomla(this).closest('tr').find("input[name=Keep]").attr("data-id",holdItemDataArr[0] + ":" + holdItemDataArr[1] + ":" + $joomla(this).val());	
+             $joomla($joomla(this).closest('tr').find("input[name=ItemQtyEdit]")).val($joomla(this).closest('tr').find("input[name=ItemQtyTxt]").val());	
           }
-          
+        
           $joomla('#step1 #j_table tbody').remove(); 
           $joomla('#ord_ship #kk_table tbody').remove(); 
           
@@ -3534,28 +3536,38 @@ if(strtolower($elem['DeclaredValDisplay'][1]) == "act"){
        	
    //  });	
    // check box	
-$joomla(".keep_global").click(function() {	
-var count_checked = $joomla(".check_all_items:checked").length; 
-var count_repackchecked = $joomla(".check_all_items_repack:checked").length; 
-
-if(count_checked == 0 && count_repackchecked==0) 	
-{	
-alert("Please select any one warehouse item.");          	
-}else if(count_repackchecked!=0){
-    alert("You have selected repack item. You are not allowed to do this action for item."); 
-}	
-if(count_checked == 1) {	
-   // alert($joomla(".check_all_items:checked").attr("data-id"));	
- 	
-$joomla('#idk2').val($joomla(".check_all_items:checked").attr("data-id")+":");	
-$joomla("#ord_keep").modal('show'); 	
-// $joomla('#idk2').val($joomla(this).data('id'));	
-// $joomla('input[name="qty"]').val($joomla(this).closest('tr').find('input[name="txtQty"]').attr('value'));	
-// $joomla(":checkbox").prop("checked", false);	
+$joomla(".keep_global").click(function() {		
+   //  alert($joomla(".selinpt-chksub:checked").length);	
+var count_checked = $joomla(".selinpt-chksub:checked").length; 	
+var count_repackchecked = $joomla(".check_all_items_repack:checked").length; 	
+if(count_checked == 0 && count_repackchecked==0) 		
+{		
+alert("Please select any one warehouse item.");	
+// $joomla("#ord_keep").modal('hide');	
+}else if(count_repackchecked!=0){	
+    alert("You have selected repack item. You are not allowed to do this action for item."); 	
+}		
+// if(count_checked >= 1) {	
   	
-   } 	
-});	
+   var empString = "";	
+   $joomla('input[name="txtId"]:checked').each(function() {	
+    empString += $joomla(this).parent().find(".keep").attr("data-id")+"##";	
+   });
+
+   $joomla('#idk2').val(empString);		
+$joomla("#ord_keep").modal('show'); 		
+// $joomla('#idk2').val($joomla(this).data('id'));		
+// $joomla('input[name="qty"]').val($joomla(this).closest('tr').find('input[name="txtQty"]').attr('value'));		
+// $joomla(":checkbox").prop("checked", false);		
+  		
+   // } 		
+});		
+// $joomla(".keep_global").click(function() {		
+// var count_checked = $joomla(".check_all_items:checked").length; 	
+// var count_repackchecked = $joomla(".check_all_items_repack:checked").length;
+
 //return	
+
 $joomla(".return_global").click(function() {	
 var count_checked = $joomla(".check_all_items:checked").length;
 var count_repackchecked = $joomla(".check_all_items_repack:checked").length; 
@@ -3624,6 +3636,46 @@ $joomla('#j_table')
  .on( 'search.dt', function () {
    $joomla("#colspantd1,#colspantd2,#colspantd3").addClass("colspan").attr("colspan",$joomla('.mainheader1 th').length);
  })
+ .dataTable();
+//u_table
+
+ $joomla('#u_table')	
+.on( 'draw.dt',function () {	
+    $joomla(".child_row").hide();	
+      if($joomla('#expandAll').prop("checked") == true){	
+          $joomla(".expand_all_btn:visible").addClass("expand_icon");	
+          $joomla(".expand_all_btn").attr("title","Expand All");	
+          $joomla(".expand_all_btn:visible").removeClass("collapse_icon");	
+      }	
+      $joomla(".exp_item").each(function(){	
+         var content = $joomla(this).html();	
+         if(content == "-"){	
+         $joomla(this).trigger("click");	
+         }	
+      });	
+      $joomla("#colspantd1,#colspantd2,#colspantd3").addClass("colspan").attr("colspan",$joomla('.mainheader1 th').length);	
+})	
+.dataTable();	
+     $joomla('#u_table')	
+     .on( 'length.dt',function () {	
+         $joomla(".exp_item").each(function(){	
+         var content = $joomla(this).html();	
+         if(content == "-"){	
+         $joomla(this).trigger("click");	
+         }	
+     });	
+     	
+     if($joomla('#expandAll').prop("checked") == true){	
+         $joomla('#expandAll').prop("checked",false);	
+     }	
+     $joomla("#colspantd1,#colspantd2,#colspantd3").addClass("colspan").attr("colspan",$joomla('.mainheader1 th').length);	
+       	
+     })	
+     .dataTable();	
+ $joomla('#u_table')	
+ .on( 'search.dt', function () {	
+   $joomla("#colspantd1,#colspantd2,#colspantd3").addClass("colspan").attr("colspan",$joomla('.mainheader1 th').length);	
+ })	
  .dataTable();
 
 
@@ -4294,7 +4346,7 @@ if($joomla(this).html() == '+'){
                            echo'<tr>
                               
                               <td colspan="2" class="action_btns">
-                              <input type="checkbox"  name="txtId" class="txtId selinpt-chksub" data-sno="item_wr_'.$idf.'"  value="'.$rg->ItemName.':'.$res->BillFormNo.':'.$rg->ItemQuantity.':'.$res->TrackingId.':'.$rg->ItemIdk.':'.$rg->cost.':'.$rg->cost.':item_wr_'.$idf.':'.$volres.':'.$res->ServiceType.':'.$res->Source.':'.$res->Dest_Cntry.':'.$res->DimUnits.':'.$rg->Length.':'.$rg->Width.':'.$rg->Height.':'.$rg->GrossWeight.':'.$res->WeightUnit.':'.$sim.':'.$res->ShipmentType.':'.$res->SourceHub.':'.$res->DestinationCountryName.':'.$res->DestinationHubName.':'.$rg->Insurance.':'.$rg->ItemPrice.':'.$sim1.':'.$sim2.':'.$sim3.':'.$repack->BusinessType.':'.$rg->Volume.':'.$rg->VolumetricWeight.':'.$rg->InhouseRepacklbl.':'.$repack->ServiceId.'">
+                              <input type="checkbox"  name="txtId" class="txtId selinpt-chksub" data-id="'.$res->BillFormNo.':'.$rg->ItemIdk.':'.$rg->ItemQuantity.'"  data-sno="item_wr_'.$idf.'"  value="'.$rg->ItemName.':'.$res->BillFormNo.':'.$rg->ItemQuantity.':'.$res->TrackingId.':'.$rg->ItemIdk.':'.$rg->cost.':'.$rg->cost.':item_wr_'.$idf.':'.$volres.':'.$res->ServiceType.':'.$res->Source.':'.$res->Dest_Cntry.':'.$res->DimUnits.':'.$rg->Length.':'.$rg->Width.':'.$rg->Height.':'.$rg->GrossWeight.':'.$res->WeightUnit.':'.$sim.':'.$res->ShipmentType.':'.$res->SourceHub.':'.$res->DestinationCountryName.':'.$res->DestinationHubName.':'.$rg->Insurance.':'.$rg->ItemPrice.':'.$sim1.':'.$sim2.':'.$sim3.':'.$repack->BusinessType.':'.$rg->Volume.':'.$rg->VolumetricWeight.':'.$rg->InhouseRepacklbl.':'.$repack->ServiceId.'">
                                <input type="button" name="ship" class="ship" data-sno="item_wr_'.$idf.'" data-id="'.$rg->ItemName.':'.$res->BillFormNo.':'.$rg->ItemQuantity.':'.$res->TrackingId.':'.$rg->ItemIdk.':'.$rg->cost.':'.$rg->cost.':item_wr_'.$idf.':'.$volres.':'.$res->ServiceType.':'.$res->Source.':'.$res->Dest_Cntry.':'.$repack->DimUnits.':'.$res->DimUnits.':'.$rg->Width.':'.$rg->Height.':'.$rg->GrossWeight.':'.$res->WeightUnit.':'.$sim.':'.$res->ShipmentType.':'.$res->SourceHub.':'.$res->DestinationCountryName.':'.$res->DestinationHubName.':'.$rg->Insurance.':'.$rg->ItemPrice.':'.$sim1.':'.$sim2.':'.$sim3.':'.$repack->BusinessType.':'.$rg->Volume.':'.$rg->VolumetricWeight.':'.$rg->InhouseRepacklbl.':'.$repack->ServiceId.'" data-target="#ord_ship" title="'.Jtext::_('COM_USERPROFILE_SHIP_HISTORY_STATUS_SHIP').'">';
                                 if($elem['Hold'][1] == "ACT")
                                   echo '<input type="button" name="Return" class="return" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-id="'.$res->BillFormNo.':'.$rg->ItemIdk.':'.$rg->ItemQuantity.'" data-target="#ord_return"" title="'.Jtext::_('COM_USERPROFILE_SHIP_HISTORY_STATUS_RETURN').'">';

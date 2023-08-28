@@ -3181,10 +3181,51 @@ if($priceStr != ""){
      *
      * @return  bool
      */
-    public static function getaholdshippment($CustId,$txtqty,$txtReturnReason,$txtWArehousid,$txtIdkid)
+    public static function getaholdshippment($CustId,$quantity,$txtReturnReason,$wareHouseids,$itemIdks)
     {
-        mb_internal_encoding('UTF-8');  
         
+        $wareHouseidsStr = explode(",",$wareHouseids);
+        $wareHouseidsUniq = array_unique($wareHouseidsStr);
+        $bill_form_no = implode(", ", $wareHouseidsUniq);
+         
+        // var_dump( $bill_form_no);exit;
+        $wrhstrarr=explode(",",$wareHouseids);
+		$invidkarr=explode(",",$itemIdks);
+		$qtyarr=explode(",",$quantity);
+		$wrhss = array();
+		for($i=0;$i< count($wrhstrarr);$i++){
+		    
+		    if(!array_key_exists($wrhstrarr[$i],$wrhss)){
+		        $wrhss[$wrhstrarr[$i]] = array([$invidkarr[$i],$qtyarr[$i]]);
+		    }else{
+		        array_push($wrhss[$wrhstrarr[$i]],array($invidkarr[$i],$qtyarr[$i]));
+		    }
+		    
+		}
+        // echo '<pre>';
+        // var_dump($wrhss);exit;
+    $hold_ship = '';
+
+    foreach($wrhss as $key => $value){
+    $idkstrwrs = '';
+    $qntstrwrs = '';
+
+    foreach($value as $val){
+        if($val[0]!=""){
+            $idkstrwrs .= $val[0].",";
+        }
+        if($val[1]!=""){
+            $qntstrwrs .= $val[1].",";
+        }
+    }
+
+    $hold_ship .= '{"idks":"'.$idkstrwrs.'","qtys":"'.$qntstrwrs.'","BillFormNo":"'.$key.'"},';
+}
+
+       $hold_ship = rtrim($hold_ship,",");
+		
+      
+        mb_internal_encoding('UTF-8');  
         $CompanyId = Controlbox::getCompanyId();
         $content_params =JComponentHelper::getParams( 'com_userprofile' );
         $url=$content_params->get( 'webservice' ).'/api/shipmentsapi/CreateBillFormReturnDiscardHold';
@@ -3192,13 +3233,13 @@ if($priceStr != ""){
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,'{"CompanyID":"'.$CompanyId.'","bill_form_no":"'.$txtWArehousid.'","item_Status":"Hold","r_reason":"'.$txtReturnReason.'","ActivationKey":"123456789"}');
+        curl_setopt($ch, CURLOPT_POSTFIELDS,'{"CompanyID":"'.$CompanyId.'","bill_form_no":"'.$bill_form_no.'","item_Status":"Hold","r_reason":"'.$txtReturnReason.'","ItemIdk":"'.$itemIdks.'", "Qty":"'.$quantity.'","ActivationKey":"123456789","billFormIdsList":['.$hold_ship.']}');
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		$result=curl_exec($ch);
 		
-// 		echo $url;
-// 		echo '{"CompanyID":"'.$CompanyId.'","bill_form_no":"'.$txtWArehousid.'","item_Status":"Hold","r_reason":"'.$txtReturnReason.'","ActivationKey":"123456789"}';
-// 		var_dump($result);exit;
+		// echo $url;
+		// echo '{"CompanyID":"'.$CompanyId.'","bill_form_no":"'.$bill_form_no.'","item_Status":"Hold","r_reason":"'.$txtReturnReason.'","ItemIdk":"'.$itemIdks.'", "Qty":"'.$quantity.'","ActivationKey":"123456789","billFormIdsList":['.$hold_ship.']}';
+		// var_dump($result);exit;
 		
         $msg=json_decode($result);
         return $msg->Description;
@@ -6081,7 +6122,6 @@ if($priceStr != ""){
 		    $wrhsloop .= '{"BillFormNo":"'.$key.'","idks":"'.$idkstrwr.'","qtys":"'.$qntstrwr.'","itemNames":"'.$artstrwr.'","totalPrices":"'.$pricestrwr.'","inhouseRepackLbl":"'.$repacklblwr.'"},';
 		}
 		$wrhsloop = rtrim($wrhsloop,",");
-
         mb_internal_encoding('UTF-8');
         $content_params =JComponentHelper::getParams( 'com_userprofile' );
         $CompanyId = Controlbox::getCompanyId();
@@ -6114,8 +6154,8 @@ if($priceStr != ""){
             "RepackComments":"'.$repackDesc.'"
           }';
           
-        
-          
+    //   var_dump($req);exit;
+
         
           
         /** Debug **/
@@ -6126,12 +6166,13 @@ if($priceStr != ""){
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS,$req);
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-		$result=curl_exec($ch);
+        $result=curl_exec($ch);
+   
 		$msg=json_decode($result);
 		
-// 		echo $url."##".$req;
-//         var_dump($result);
-//         exit;
+		// echo $url."##".$req;
+        // var_dump($result);
+        // exit;
 
         return $msg;
 		

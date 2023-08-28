@@ -1967,15 +1967,33 @@ ftp_close($ftp_conn);
 	{
 	    $app = JFactory::getApplication();
         $CustId = JRequest::getVar('user', '', 'post');
-        $idk = explode(":",JRequest::getVar('idk', '', 'post'));
-        $txtWArehousid=$idk[0];
-        $txtIdkid=$idk[1];
+        $idk = explode("##",JRequest::getVar('idk', '', 'post'));
+       
+        // $idk = explode(":",JRequest::getVar('idk', '', 'post'));
+        // var_dump($idk);exit;
+        // $idk_list = implode(', ', $idk);
+        $txtWArehousid = [];
+        $txtIdkid = [];
+        $txtqty=[];
+        foreach ($idk as $id) { 
+          $idks_list = explode(":", $id);
+          $txtWArehousid[] = $idks_list[0];
+          $txtIdkid[] = $idks_list[1];
+          $txtqty[]=$idks_list[2];
+        }
+         $wareHouseids = implode(",", $txtWArehousid);
+         $itemIdks = implode(",",  $txtIdkid);
+         $quantity = implode(",", $txtqty);
+        // var_dump($wareHouseids);exit;
+        // $txtWArehousid=$idk[0];
+        // $txtIdkid=$idk[1];
+       
         $txtqty=JRequest::getVar('qty', '', 'post');
         $txtReturnReason = JRequest::getVar('txtReturnReason', '', 'post');
 
         //Redirect to a page of your choice
     	if($CustId!=""){
-           $status=Controlbox::getaholdshippment($CustId,$txtqty,$txtReturnReason,$txtWArehousid,$txtIdkid);
+           $status=Controlbox::getaholdshippment($CustId,$quantity,$txtReturnReason,$wareHouseids,$itemIdks);
         }
 
 
