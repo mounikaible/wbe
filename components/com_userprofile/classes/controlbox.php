@@ -3188,7 +3188,7 @@ if($priceStr != ""){
     public static function getaholdshippment($CustId,$quantity,$txtReturnReason,$wareHouseids,$itemIdks)
     {
         
-        $wareHouseidsStr = explode(",",$wareHouseids);
+        $wareHouseidsStr = explode(",",rtrim($wareHouseids));
         $wareHouseidsUniq = array_unique($wareHouseidsStr);
         $bill_form_no = implode(", ", $wareHouseidsUniq);
          
