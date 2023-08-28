@@ -3193,7 +3193,7 @@ if($priceStr != ""){
         $bill_form_no = implode(", ", $wareHouseidsUniq);
          
         // var_dump( $bill_form_no);exit;
-        $wrhstrarr=explode(",",$wareHouseids);
+        $wrhstrarr=explode(",",rtrim($wareHouseids,","));
 		$invidkarr=explode(",",$itemIdks);
 		$qtyarr=explode(",",$quantity);
 		$wrhss = array();
@@ -3237,9 +3237,9 @@ if($priceStr != ""){
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-        $req = '{"CompanyID":"'.$CompanyId.'","bill_form_no":"'.$txtWArehousid.'","item_Status":"Hold","r_reason":"'.$txtReturnReason.'","ActivationKey":"123456789"}';
+        $req = '{"CompanyID":"'.$CompanyId.'","bill_form_no":"'.$bill_form_no.',","item_Status":"Hold","r_reason":"'.$txtReturnReason.'","ItemIdk":"'.$itemIdks.'", "Qty":"'.$quantity.'","ActivationKey":"123456789","billFormIdsList":['.$hold_ship.']}';
         curl_setopt($ch, CURLOPT_POSTFIELDS,$req);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,'{"CompanyID":"'.$CompanyId.'","bill_form_no":"'.$bill_form_no.'","item_Status":"Hold","r_reason":"'.$txtReturnReason.'","ItemIdk":"'.$itemIdks.'", "Qty":"'.$quantity.'","ActivationKey":"123456789","billFormIdsList":['.$hold_ship.']}');
+        curl_setopt($ch, CURLOPT_POSTFIELDS,'{"CompanyID":"'.$CompanyId.'","bill_form_no":"'.$bill_form_no.',","item_Status":"Hold","r_reason":"'.$txtReturnReason.'","ItemIdk":"'.$itemIdks.'", "Qty":"'.$quantity.'","ActivationKey":"123456789","billFormIdsList":['.$hold_ship.']}');
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		$result=curl_exec($ch);
 
@@ -3249,7 +3249,7 @@ if($priceStr != ""){
 
 		
 		// echo $url;
-		// echo '{"CompanyID":"'.$CompanyId.'","bill_form_no":"'.$bill_form_no.'","item_Status":"Hold","r_reason":"'.$txtReturnReason.'","ItemIdk":"'.$itemIdks.'", "Qty":"'.$quantity.'","ActivationKey":"123456789","billFormIdsList":['.$hold_ship.']}';
+		// echo '{"CompanyID":"'.$CompanyId.'","bill_form_no":"'.$bill_form_no.',","item_Status":"Hold","r_reason":"'.$txtReturnReason.'","ItemIdk":"'.$itemIdks.'", "Qty":"'.$quantity.'","ActivationKey":"123456789","billFormIdsList":['.$hold_ship.']}';
 		// var_dump($result);exit;
 		
         $msg=json_decode($result);
