@@ -318,11 +318,12 @@ if(strtolower($elem['DeclaredValDisplay'][1]) == "act"){
                $joomla.each($joomla("input[name='priceStr[]']"), function(){
                    pricestrs.push($joomla(this).val());
                }); 
+
                
-               if($joomla('input[name="cc"]:checked').val() == "Stripe"){
+               if($joomla('input[name="cc"]:checked').val() == "Stripe" || $joomla('input[name="cc"]:checked').val() == "authorize.net"){
                
                    setTimeout(function () {
-                        ajaxurl = "<?php echo JURI::base(); ?>index.php?option=com_userprofile&task=user.get_ajax_data&amount="+$joomla('input[name="amount"]').val()+"&cardnumberStr="+$joomla('input[name="cardnumberStr"]').val()+"&txtccnumberStr="+$joomla('input[name="txtccnumberStr"]').val()+"&MonthDropDownListStr="+$joomla('select[name="MonthDropDownListStr"]').val()+"&YearDropDownListStr="+$joomla('select[name="YearDropDownListStr"]').val()+"&invidkStr="+$joomla('input[name="invidkStr"]').val()+"&qtyStr="+$joomla('input[name="qtyStr"]').val()+"&wherhourecStr="+$joomla('input[name="wherhourecStr"]').val()+"&user="+$joomla('input[name="user"]').val()+"&txtspecialinsStr="+$joomla('input[name="txtspecialinsStr"]').val()+"&cc=PPD&paymentgateway=Stripe&shipservtStr="+$joomla('input[name="shipservtStr"]').val()+"&consignidStr="+$joomla('input[name="consignidStr"]').val()+"&invf=&filenameStr=&articleStr="+articlestrs+"&priceStr="+pricestrs;
+                        ajaxurl = "<?php echo JURI::base(); ?>index.php?option=com_userprofile&task=user.get_ajax_data&amount="+$joomla('input[name="amount"]').val()+"&cardnumberStr="+$joomla('input[name="cardnumberStr"]').val()+"&txtccnumberStr="+$joomla('input[name="txtccnumberStr"]').val()+"&MonthDropDownListStr="+$joomla('select[name="MonthDropDownListStr"]').val()+"&YearDropDownListStr="+$joomla('select[name="YearDropDownListStr"]').val()+"&invidkStr="+$joomla('input[name="invidkStr"]').val()+"&qtyStr="+$joomla('input[name="qtyStr"]').val()+"&wherhourecStr="+$joomla('input[name="wherhourecStr"]').val()+"&user="+$joomla('input[name="user"]').val()+"&txtspecialinsStr="+$joomla('input[name="txtspecialinsStr"]').val()+"&cc=PPD&paymentgateway="+$joomla('input[name="cc"]:checked').val()+"&shipservtStr="+$joomla('input[name="shipservtStr"]').val()+"&consignidStr="+$joomla('input[name="consignidStr"]').val()+"&invf=&filenameStr=&articleStr="+articlestrs+"&priceStr="+pricestrs;
                         $joomla.ajax({
                        			url: ajaxurl,
                        			data: { "paymentgatewayflag":1,"ratetypeStr": $joomla('input[name="ratetypeStr"]').val(),"Conveniencefees":$joomla('input[name="Conveniencefees"]').val(),"addSerStr":$joomla('input[name="addSerStr"]').val(),"addSerCostStr":$joomla('input[name="addSerCostStr"]').val(),"companyId":$joomla('input[name="companyId"]').val(),"insuranceCost":$joomla('input[name="insuranceCost"]').val(),"extAddSer":$joomla('input[name="extAddSer"]').val(),"paypalinvoice":$joomla('input[name="paypalinvoice"]').val(),"length":$joomla("#lengthStr").val(),"width":$joomla("#widthStr").val(),"height":$joomla("#heightStr").val(),"grosswt":$joomla("#weightStr").val(),"volume":$joomla("#volStr").val(),"volumetwt":$joomla("#volmetStr").val(),"totalDecVal":$joomla('#totalDecVal').val(),"shipmentCost":$joomla('input[name=shipmentCost]').val(),"couponCodeStr":$joomla('#couponCodeStr').val(),"couponDiscAmt":$joomla('input[name=couponDiscAmt]').val(),"repackLblStr":$joomla('#repackLblStr').val()},
@@ -1654,30 +1655,31 @@ if(strtolower($elem['DeclaredValDisplay'][1]) == "act"){
                $joomla('#ord_ship #step3 .btn-primary').attr("disabled", false);
                
                
-           }else if($joomla(this).val() == 'authorize.net'){
-                $joomla(".paypalCreditDebit").hide();
-                $joomla(".final_btns").show();
-                $joomla(".dvPaymentInformation input").val("");
-                $joomla(".dvPaymentInformation select").val("");
-                $joomla(".final_ship").removeAttr("onclick");
+         //   }
+         //  else if($joomla(this).val() == 'authorize.net'){
+         //        $joomla(".paypalCreditDebit").hide();
+         //        $joomla(".final_btns").show();
+         //        $joomla(".dvPaymentInformation input").val("");
+         //        $joomla(".dvPaymentInformation select").val("");
+         //        $joomla(".final_ship").removeAttr("onclick");
               
-               var articlestrs=[];
-               $joomla.each($joomla("input[name='articleStr[]']"), function(){
-                   articlestrs.push($joomla(this).val());
-               });    
-               var pricestrs=[];
-               $joomla.each($joomla("input[name='priceStr[]']"), function(){
-                   pricestrs.push($joomla(this).val());
-               });    
-               var user="<?php echo $user;?>";
-               $joomla('input[name="item_name"]').val($joomla('input[name="invidkStr"]').val()+":"+$joomla('[name="wherhourecStr"]').val()+":"+$joomla('[name="consignidStr"]').val()+":"+$joomla('input[name="txtspecialinsStr"]').val()+":"+$joomla('input[name="shipservtStr"]').val()+":"+$joomla('input[name="paypalinvoice"]').val()+":"+articlestrs+":"+pricestrs+":"+$joomla('input[name="Conveniencefees"]').val()+":"+$joomla('input[name="addSerStr"]').val()+":"+$joomla('input[name="addSerCostStr"]').val()+":"+$joomla('input[name="ratetypeStr"]').val()+":"+$joomla('input[name="companyId"]').val()+":"+$joomla('input[name="insuranceCost"]').val()+":"+$joomla('input[name="extAddSer"]').val()+":"+$joomla("#lengthStr").val()+":"+$joomla("#widthStr").val()+":"+$joomla("#heightStr").val()+":"+$joomla("#weightStr").val()+":"+$joomla("#volStr").val()+":"+$joomla("#volmetStr").val()+":"+$joomla('#totalDecVal').val()+":"+$joomla('input[name=shipmentCost]').val()+":"+$joomla('#couponCodeStr').val()+":"+$joomla('input[name=couponDiscAmt]').val()+":"+user);
-               $joomla('input[name="item_number"]').val($joomla('input[name="qtyStr"]').val());
-               $joomla('#shipmethodtotalStr').text($joomla('input[name="shipcostStr"]').val());
-               $joomla('input[name="amount"]').val(parseFloat($joomla('#shipmethodtotalStr').html()));
+         //       var articlestrs=[];
+         //       $joomla.each($joomla("input[name='articleStr[]']"), function(){
+         //           articlestrs.push($joomla(this).val());
+         //       });    
+         //       var pricestrs=[];
+         //       $joomla.each($joomla("input[name='priceStr[]']"), function(){
+         //           pricestrs.push($joomla(this).val());
+         //       });    
+         //       var user="<?php echo $user;?>";
+         //       $joomla('input[name="item_name"]').val($joomla('input[name="invidkStr"]').val()+":"+$joomla('[name="wherhourecStr"]').val()+":"+$joomla('[name="consignidStr"]').val()+":"+$joomla('input[name="txtspecialinsStr"]').val()+":"+$joomla('input[name="shipservtStr"]').val()+":"+$joomla('input[name="paypalinvoice"]').val()+":"+articlestrs+":"+pricestrs+":"+$joomla('input[name="Conveniencefees"]').val()+":"+$joomla('input[name="addSerStr"]').val()+":"+$joomla('input[name="addSerCostStr"]').val()+":"+$joomla('input[name="ratetypeStr"]').val()+":"+$joomla('input[name="companyId"]').val()+":"+$joomla('input[name="insuranceCost"]').val()+":"+$joomla('input[name="extAddSer"]').val()+":"+$joomla("#lengthStr").val()+":"+$joomla("#widthStr").val()+":"+$joomla("#heightStr").val()+":"+$joomla("#weightStr").val()+":"+$joomla("#volStr").val()+":"+$joomla("#volmetStr").val()+":"+$joomla('#totalDecVal').val()+":"+$joomla('input[name=shipmentCost]').val()+":"+$joomla('#couponCodeStr').val()+":"+$joomla('input[name=couponDiscAmt]').val()+":"+user);
+         //       $joomla('input[name="item_number"]').val($joomla('input[name="qtyStr"]').val());
+         //       $joomla('#shipmethodtotalStr').text($joomla('input[name="shipcostStr"]').val());
+         //       $joomla('input[name="amount"]').val(parseFloat($joomla('#shipmethodtotalStr').html()));
                
-                $joomla(".dvPaymentInformation").show();
-                $joomla('#userprofileFormFive').attr('action','<?php echo JURI::base(); ?>payment.php');
-            }else if($joomla(this).val() == 'Stripe'){
+         //        $joomla(".dvPaymentInformation").show();
+         //        $joomla('#userprofileFormFive').attr('action','<?php //echo JURI::base(); ?>payment.php');
+                }else if($joomla(this).val() == 'Stripe' || $joomla(this).val() == 'authorize.net'){
                 $joomla(".paypalCreditDebit").hide();
                 $joomla(".final_btns").show();
                 $joomla(".dvPaymentInformation input").val("");
