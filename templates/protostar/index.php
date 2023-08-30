@@ -463,7 +463,7 @@ else
 
 <?php if(strtolower($domain) == "kupiglobal"){ ?>
 <script src="//code.tidio.co/2ovbcwa9deojw5akf9mi21yrtijgtjz3.js" async></script>
-<?php }else{ ?>
+<?php }else if(strtolower($domain) != "fizfreight"){ ?>
 <script src="//code.tidio.co/sgniylftg4q85rsgol0lmcfggmaea3al.js" async></script>
 <?php }  ?>
 
