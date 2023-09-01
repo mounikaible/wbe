@@ -3006,11 +3006,17 @@ if($priceStr != ""){
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,'{"CustomerId":"'.$CustId.'","CompanyID":"'.$CompanyId.'","fileName":"'.$fileName.'","fileExtension":"'.$fileExt.'","ImageByteStream":"","ActivationKey":"123456789","CustImgUrl":"ftp","ItemImage":"'.$itemimage.'"}');
+        $req = '{"CustomerId":"'.$CustId.'","CompanyID":"'.$CompanyId.'","fileName":"'.$fileName.'","fileExtension":"'.$fileExt.'","ImageByteStream":"","ActivationKey":"123456789","CustImgUrl":"ftp","ItemImage":"'.$itemimage.'"}';
+        curl_setopt($ch, CURLOPT_POSTFIELDS,$req);
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
 		$result=curl_exec($ch);
 
 		 /** Debug **/
+		 
+		 $updateProfPic_log = "logs/updateProfPic.log";
+        file_put_contents($updateProfPic_log,"\n -- Start -- \n Customer ID : ".$CustId."\n Company ID :".$CompanyId."\n Request : \n".$req."\n Response : \n".$result."\n -- End -- \n",FILE_APPEND);
+		
+		 
 		// echo $url;
 		// echo '{"CustomerId":"'.$CustId.'","CompanyID":"130","fileName":"'.$fileName.'","fileExtension":"'.$fileExt.'","ImageByteStream":"","ActivationKey":"123456789","CustImgUrl":"ftp","ItemImage":"'.$itemimage.'"}';
 		// var_dump($result);exit;
