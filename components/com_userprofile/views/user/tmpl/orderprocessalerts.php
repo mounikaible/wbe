@@ -1191,6 +1191,7 @@ $joomla(document).on('keydown','#orderdateTxt,#txtOrderDate',function(e) {
                 <input class="form-control" name="totalpriceTxt[]"  id="4" value="<?php echo $elem['DeclaredValue'][4]; ?>" <?php if($elem['DeclaredValue'][3]){ ?> readonly <?php } ?> <?php if($elem['DeclaredValue'][2]){ echo "required"; } ?> >
               </div>
             </div>
+            <?php } ?>
              <?php  if(strtolower($elem['ItemStatus'][1]) == strtolower("ACT")){ ?> 
             <div class="col-sm-12 col-md-3">
               <div class="form-group">
@@ -1222,7 +1223,7 @@ $joomla(document).on('keydown','#orderdateTxt,#txtOrderDate',function(e) {
 
                 <!--order id , rma value-->
                 
-            <?php } if(strtolower($elem['RMAValue'][1]) == strtolower("ACT")){    ?>
+            <?php if(strtolower($elem['RMAValue'][1]) == strtolower("ACT")){    ?>
         
             
          <div class="col-sm-12 col-md-3">
