@@ -116,29 +116,32 @@ if($session->get('user_casillero_id')){
       <li class="loader"><a href="<?php echo JRoute::_('index.php?option=com_userprofile&view=user'); ?>" ><?php  echo $dashboard; ?></a></li>
      
      
-      <?php if($dynpage["SupportTickets"][1]=="ACT"){ ?>
-      <li class="loader"><a href="<?php echo JRoute::_('index.php?option=com_userprofile&&view=user&layout=support_ticket'); ?>"><?php  echo $tickets; ?></a></li>
-      <?php } ?>
-      <li class="" ><a target="_blank" class="helpLink" href="<?php echo $help_url; ?>" ><?php  echo $help ?></a></li>
-      <?php //if(strtolower($access->RepackAccess) == "true" || strtolower($access->ConsolidationAccess) == "true") { ?>
-      <!-- <li class="alert-drpdwn">
-     <div class="dropdown">
-            <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Alerts">
-            <i class="fa fa-bell" aria-hidden="true"></i> <span class="caret"></span>
-            </button>           
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                 <?php //if(strtolower($access->RepackAccess) == "true") { ?>
-                    <li class="rnotify_sm_list"><a href="#">Repack<span class="badge badge-warning"></a></li>
-                    <li><a href="#">Inprogress <span class="badge badge-warning"><?php echo $alerts->RepackInprogressCount; ?></span></a></li>
-                    <li><a href="#">Completed <span class="badge badge-success"><?php echo $alerts->RepackCompletedCount; ?></span></a></li>
-                <?php //} if(strtolower($access->ConsolidationAccess) == "true") { ?> 
-                     <li class="cnotify_sm_list"><a href="#">Consolidation </a></li>
-                     <li><a href="#">Inprogress <span class="badge badge-warning"><?php echo $alerts->ConsolidationInprogressCount; ?></span></a></li>
-                     <li><a href="#">Completed <span class="badge badge-success"><?php echo $alerts->ConsolidationCompletedCount; ?></span></a></li>
-                <?php  // } ?>
-            </ul>           
-        </div>
-            </li>  -->
+     <?php if($dynpage["SupportTickets"][1]=="ACT"){ ?>
+     <li class="loader"><a href="<?php echo JRoute::_('index.php?option=com_userprofile&&view=user&layout=support_ticket'); ?>"><?php  echo $tickets; ?></a></li>
+     <?php } if(strtolower($domainname) == "fizfreight" ){ ?>
+     <li class="" ><a target="_blank" class="helpLink" href="https://www.fizuro.com/customer-support" ><?php  echo 'Contact Support' ?></a></li>
+     <?php }else{ ?>
+     <li class="" ><a target="_blank" class="helpLink" href="<?php echo $help_url; ?>" ><?php  echo $help ?></a></li>
+     <?php } ?>
+     <?php //if(strtolower($access->RepackAccess) == "true" || strtolower($access->ConsolidationAccess) == "true") { ?>
+     <!-- <li class="alert-drpdwn">
+    <div class="dropdown">
+           <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Alerts">
+           <i class="fa fa-bell" aria-hidden="true"></i> <span class="caret"></span>
+           </button>           
+           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <?php //if(strtolower($access->RepackAccess) == "true") { ?>
+                   <li class="rnotify_sm_list"><a href="#">Repack<span class="badge badge-warning"></a></li>
+                   <li><a href="#">Inprogress <span class="badge badge-warning"><?php echo $alerts->RepackInprogressCount; ?></span></a></li>
+                   <li><a href="#">Completed <span class="badge badge-success"><?php echo $alerts->RepackCompletedCount; ?></span></a></li>
+               <?php //} if(strtolower($access->ConsolidationAccess) == "true") { ?> 
+                    <li class="cnotify_sm_list"><a href="#">Consolidation </a></li>
+                    <li><a href="#">Inprogress <span class="badge badge-warning"><?php echo $alerts->ConsolidationInprogressCount; ?></span></a></li>
+                    <li><a href="#">Completed <span class="badge badge-success"><?php echo $alerts->ConsolidationCompletedCount; ?></span></a></li>
+               <?php  // } ?>
+           </ul>           
+       </div>
+           </li>  -->
            
       <li class="dropdown user-prfile">
       <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#" title="Userprofile"> <i class="fa fa-user" aria-hidden="true"></i><span class="caret"></span></a>

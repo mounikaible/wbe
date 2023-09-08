@@ -1046,8 +1046,11 @@ if(agency_country){
                                                  // if($arr->ResCode ==1 ){
                                                      
                                                   foreach($arr->Data as $rg){
-                                        
-                                                     $countries.= '<option  value="'.$rg->CountryCode.':'.preg_replace('/[^0-9]/', '', $rg->CountryDailCodes).'" >'.$rg->CountryDesc.'</option>';
+                                                     $def_cont = '';
+                                                     if($rg->CountryCode == $elem['COUNTRY'][4]){
+                                                      $def_cont = "selected";
+                                                     }
+                                                     $countries.= '<option  value="'.$rg->CountryCode.':'.preg_replace('/[^0-9]/', '', $rg->CountryDailCodes).'" '.$def_cont.'>'.$rg->CountryDesc.'</option>';
                                                   }
                                                   
                                                 //  }
