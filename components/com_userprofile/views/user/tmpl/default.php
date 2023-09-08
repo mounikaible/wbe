@@ -445,7 +445,7 @@ $joomla(function() {
               <h4><?php echo Jtext::_('COM_USERPROFILE_DASHBOARD_SHIPMENT_ADDRESS');?></h4>
               <address>
               <span class="name user_name1"><?php echo $UserView->UserName;?></span>  <span class="user_num"> <?php echo strtoupper($user);?></span><br>
-              <span class="userAdd1"><?php echo str_replace(",","",strtoupper($UserView->Address1)).'</span>';?><br> <?php if(!empty($UserView->Address2)){ echo '<span class="userAdd2">'.str_replace(",","",strtoupper($UserView->Address2)).'</span> ,<br>'; } ?>
+              <span class="userAdd1"><?php echo str_replace(",","",strtoupper($UserView->Address1)).'</span>';?><br> <?php if(!empty($UserView->Address2)){ echo '<span class="userAdd2">'.str_replace(",","",strtoupper($UserView->Address2)).',<br></span>'; } ?>
               <span class="userCity"><?php echo $UserView->City;?></span>,&nbsp; <span class="userState"><?php echo $UserView->State;?></span>,&nbsp;
               <span class="userCountry"><?php echo $UserView->Country;?></span>&nbsp;- &nbsp;<span class="userPostalCode"><?php echo $UserView->PostalCode.'</span><br>';?> 
 			  <span class="userPhone">
@@ -524,8 +524,7 @@ $joomla(function() {
               <h4><?php echo Jtext::_('COM_USERPROFILE_DASHBOARD_SHIPMENT_ADDRESS');?></h4>
               <address>
               <span class="name user_name1"><?php echo $UserView->UserName;?></span>  <span class="user_num"> <?php echo strtoupper($user);?></span><br>
-              <span class="userAdd1"><?php echo str_replace(",","",strtoupper($UserView->Address1)).'</span>';?><br> <?php if(!empty($UserView->Address2)){ echo '<span class="userAdd2">'.str_replace(",","",strtoupper($UserView->Address2)).'</span> ,<br>'; } ?>
-              <span class="userCity"><?php echo $UserView->City;?></span>,&nbsp; <span class="userState"><?php echo $UserView->State;?></span>,&nbsp;
+            <span class="userAdd1"><?php echo str_replace(",","",strtoupper($UserView->Address1)).'</span>';?><br> <?php if(!empty($UserView->Address2)){ echo '<span class="userAdd2">'.str_replace(",","",strtoupper($UserView->Address2)).',<br></span>'; } ?>
               <span class="userCountry"><?php echo $UserView->Country;?></span>&nbsp;- &nbsp;<span class="userPostalCode"><?php echo $UserView->PostalCode.'</span><br>';?> 
 			  <span class="userPhone">
               <?php if($UserView->PhoneCell) echo 'PHONE : '.$UserView->PhoneCell.'<br>';?>
