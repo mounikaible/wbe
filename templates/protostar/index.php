@@ -46,6 +46,14 @@ $CompanyLogo = $domainDetails[0]->CompanyLogo;
 $domain = strtolower($domainDetails[0]->Domain);
 $menuAccesses = $domainDetails[0]->menuAccesses;
 
+foreach($domainDetails[0]->PaymentGateways as $PaymentGateways){
+	if($PaymentGateways->PaymentGatewayName == "Chatbot"){
+		  $ApiUrl = strtolower($PaymentGateways->ApiUrl);
+		  $TransactionKey = $PaymentGateways->TransactionKey;
+	}
+		 
+}
+
 $menuAccessStr='';
 foreach($menuAccesses as $access){
     $menuAccessStr .= $access->MenuItem.",".$access->Access.":";
@@ -461,11 +469,11 @@ else
 
 </script>
 
-<?php if(strtolower($domain) == "kupiglobal"){ ?>
+<!-- <?#php if(strtolower($domain) == "kupiglobal"){ ?>
 <script src="//code.tidio.co/2ovbcwa9deojw5akf9mi21yrtijgtjz3.js" async></script>
-<?php }else if(strtolower($domain) != "fizfreight"){ ?>
+<?#php }else if(strtolower($domain) != "fizfreight"){ ?>
 <script src="//code.tidio.co/sgniylftg4q85rsgol0lmcfggmaea3al.js" async></script>
-<?php }  ?>
-
+<?#php }  ?> -->
+<script src="<?php echo $ApiUrl .'/'. $TransactionKey; ?>.js" async></script>
 </body>
 </html>
