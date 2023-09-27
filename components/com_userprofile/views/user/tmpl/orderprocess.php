@@ -5362,12 +5362,12 @@ if($joomla(this).html() == '+'){
                            <?php  if(($maccarr["PromoCoupon"] == "True" && $elem['Promocoupon'][1] == "ACT") || ($maccarr["PromoCoupon"] == "True" && $elem['Promocoupon'][1] == null) ){ ?> 
                            <div class="coupons_section"> 
                            <div class="cupn-serch" style="display:block;">
-                              <h4 class="modal-title"><strong>Apply Coupon</strong></h4>
+                              <h4 class="modal-title"><strong><?php echo $assArr['Apply Coupon']; ?></strong></h4>
                              
                                <div class="row">
                                    <div class="col-md-6 col-sm-12 col-xs-12">
                                        <input type="text" name="custCouponCode" id="custCouponCode" class="form-control" placeholder="Enter a valid coupon code">
-                                        <a name="couponSubmit" class="couponSubmit">Apply</a>
+                                        <a name="couponSubmit" class="couponSubmit"><?php echo $assArr['Apply']; ?></a>
                                         <span class="couponErrorMsg error-msg"></span>
                                    </div>
                                    </div>

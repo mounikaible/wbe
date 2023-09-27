@@ -1328,7 +1328,7 @@ if(agency_country){
                         <div class="form-group acpt_trms_err">
                            <label>
                            <input type="checkbox" name="termsTxt" id="termsTxt" value=1 class="required">
-                           <?php echo 'I ACCEPT <a target="_blank" href="'.$termspath.$language.'.php">TERMS AND CONDITIONS</a>'; ?><span class="error">*</span></label>
+                           <?php echo $assArr['Accept_Text'] '<a target="_blank" href="'.$termspath.$language.'.php">TERMS AND CONDITIONS</a>'; ?><span class="error">*</span></label>
                         </div>
                      </div>
                      
