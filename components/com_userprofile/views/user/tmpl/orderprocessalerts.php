@@ -1263,12 +1263,12 @@ $joomla(document).on('keydown','#orderdateTxt,#txtOrderDate',function(e) {
             <!-- Package Field-->
             <div class="col-sm-12 col-md-4">
                 <div class="form-group">
-                      <label><?php echo "Box (Do you need the original box? You might be able to save in fees without it. (box may apply volumetric weight) Free re-packaging)"; ?> <a href="https://youtu.be/xikvgWJRmXQ" target="_blank"><i class="fa fa-youtube" aria-hidden="true" style="font-size:24px;color:blue"></i></a> : </label>
+                      <label><?php echo $assArr['Box_Text']; ?> <a href="https://youtu.be/xikvgWJRmXQ" target="_blank"><i class="fa fa-youtube" aria-hidden="true" style="font-size:24px;color:blue"></i></a> : </label>
                       <br>
-                      <input type="radio" id="package_yes" value="Yes" name="package[]" >
-                      <?php echo "Yes";?>
-                      <input type="radio" id="package_no" checked value="No" name="package[]" >
-                      <?php echo "No";?>
+                      <input type="radio" id="package_yes" value="<?php echo $assArr['Yes']; ?>" name="package[]" >
+                      <?php echo $assArr['Yes'];?>
+                      <input type="radio" id="package_no" checked value="<?php echo $assArr['No']; ?>" name="package[]" >
+                      <?php echo $assArr['No'];?>
                       
                 </div>
               </div>   
@@ -1585,10 +1585,10 @@ $joomla(document).on('keydown','#orderdateTxt,#txtOrderDate',function(e) {
               <div class="form-group">
                     <label><?php echo "Box (Do you need the original box? You might be able to save in fees without it. (box may apply volumetric weight) Free re-packaging)"; ?> <a href="https://youtu.be/xikvgWJRmXQ" target="_blank"><i class="fa fa-youtube" aria-hidden="true" style="font-size:24px;color:blue"></i></a> : </label>
                     <br>
-                    <input type="radio" id="edit_package_yes" value="Yes" name="editPackage" >
-                    <?php echo "Yes";?>
-                    <input type="radio" id="edit_package_no" checked value="No" name="editPackage" >
-                    <?php echo "No";?>
+                    <input type="radio" id="edit_package_yes" value="<?php echo $assArr['Yes']; ?>" name="editPackage" >
+                    <?php echo $assArr['Yes'];?>
+                    <input type="radio" id="edit_package_no" checked value="<?php echo $assArr['No']; ?>" name="editPackage" >
+                    <?php echo $assArr['No'];?>
                     
               </div>
             </div>   

@@ -117,9 +117,9 @@ if($session->get('user_casillero_id')){
      
      
      <?php if($dynpage["SupportTickets"][1]=="ACT"){ ?>
-     <li class="loader"><a href="<?php echo JRoute::_('index.php?option=com_userprofile&&view=user&layout=support_ticket'); ?>"><?php  echo $tickets; ?></a></li>
+     <li class="loader"><a href="<?php echo JRoute::_('index.php?option=com_userprofile&&view=user&layout=support_ticket'); ?>"><?php  echo $assArr['Tickets']; ?></a></li>
      <?php } if(strtolower($domainname) == "fizfreight" ){ ?>
-     <li class="" ><a target="_blank" class="helpLink" href="https://www.fizuro.com/customer-support" ><?php  echo 'Contact Support' ?></a></li>
+     <li class="" ><a target="_blank" class="helpLink" href="https://www.fizuro.com/customer-support" ><?php  echo $assArr['Contact_Support']; ?></a></li>
      <?php }else{ ?>
      <li class="" ><a target="_blank" class="helpLink" href="<?php echo $help_url; ?>" ><?php  echo $help ?></a></li>
      <?php } ?>
@@ -150,7 +150,7 @@ if($session->get('user_casillero_id')){
           <?php if($dynpage["ChangePassword"][1]=="ACT"){ ?>
           <li class="loader"><a href="<?php echo JRoute::_('index.php?option=com_userprofile&view=user&layout=changepassword'); ?>"><?php  echo $changePass ?></a></li>
           <?php } ?>
-          <li class="loader"><a href="<?php echo JRoute::_('index.php?option=com_userprofile&task=user.logout'); ?>"><?php  echo $logout ?></a></li>
+          <li class="loader"><a href="<?php echo JRoute::_('index.php?option=com_userprofile&task=user.logout'); ?>"><?php  echo $assArr['Logout']; ?></a></li>
        </ul>
       </li>
    

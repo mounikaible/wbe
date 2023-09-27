@@ -520,9 +520,9 @@ $joomla(".expand_all").on('click',function(){
                           foreach($ordersView as $rg){
                             $totDue = ($rg->FinalCost)-($rg->AmountPaid);
                             if($totDue > 0){
-                            $paynow = '<td class="inhouse_paynow"><a class="ship label-warning" data-target="#ord_ship" data-toggle="modal" data-id="'.$rg->ItemDetails[0]->BillFormNo.':'.$rg->ItemDetails[0]->ItemIdk.'::'.$rg->AmountPaid.':'.$rg->FormNumber.':::'.$rg->FinalCost.'::'.$rg->InhouseIdk.':'.$rg->InvoiceNumber.':'.$rg->InvoiceType.'" >Pay Now</a></td>';
+                            $paynow = '<td class="inhouse_paynow"><a class="ship label-warning" data-target="#ord_ship" data-toggle="modal" data-id="'.$rg->ItemDetails[0]->BillFormNo.':'.$rg->ItemDetails[0]->ItemIdk.'::'.$rg->AmountPaid.':'.$rg->FormNumber.':::'.$rg->FinalCost.'::'.$rg->InhouseIdk.':'.$rg->InvoiceNumber.':'.$rg->InvoiceType.'" >'.$assArr['Pay_Now'].'</a></td>';
                             }else{
-                              $paynow = '<td class="inhouse_paynow" ><a class="ship label-success">Paid</a></td>';
+                              $paynow = '<td class="inhouse_paynow" ><a class="ship label-success">'.$assArr['Paid'].'</a></td>';
                             }
                             
                             
