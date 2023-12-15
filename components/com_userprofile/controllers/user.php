@@ -390,6 +390,15 @@ class UserprofileControllerUser extends JControllerLegacy
             $photoname=explode($phototype,$photofilename);
             $photoname=$photoname[0];
             $photosrc = addslashes(file_get_contents($photoFile['tmp_name']));
+            $TARGET=$this->GUIDv4();
+            $photodest = JPATH_SITE. "/media/com_userprofile/".$TARGET.'/'.$photofilename;
+            $photodest1 = $TARGET.'/'.$photofilename;
+            JFile::upload($photoFile['tmp_name'], $photodest);
+            $ftpsrc = $photodest;
+            $directory = $TARGET;
+            $this->fileUploadToFTP($ftpsrc,$directory,$photofilename);            
+            // var_dump($directory);exit;
+            //JFile::upload($photosrc, $photodest);
             //$photodest = JPATH_SITE. "/media/com_userprofile/".$TARGET.'/'.$photofilename;
             //$photodest1 = $TARGET.'/'.$photofilename;
             //JFile::upload($photosrc, $photodest);
@@ -402,6 +411,14 @@ class UserprofileControllerUser extends JControllerLegacy
             $formname=explode($formtype,$formfilename);
             $formname=$formname[0];
             $formsrc = addslashes(file_get_contents($formFile['tmp_name']));
+            $TARGET=$this->GUIDv4();
+            $formdest = JPATH_SITE. "/media/com_userprofile/".$TARGET.'/'.$formfilename;
+            $formdest1 = $TARGET.'/'.$formfilename;
+            JFile::upload($formFile['tmp_name'], $formdest);
+            $ftpsrc = $formdest;
+            $directory = $TARGET;
+            $this->fileUploadToFTP($ftpsrc,$directory,$formfilename); // V2.7.4
+            //JFile::upload($formsrc, $formdest);
             //$formdest = JPATH_SITE. "/media/com_userprofile/".$TARGET.'/'.$formfilename;
             //$formdest1 = $TARGET.'/'.$formfilename;
             //JFile::upload($formsrc, $formdest);
@@ -413,7 +430,15 @@ class UserprofileControllerUser extends JControllerLegacy
             $utilitytype=".".$utilitytype;
             $utilityname=explode($utilitytype,$utilityfilename);
             $utilityname=$utilityname[0];
-            $utilitysrc = addslashes(file_get_contents($utilityFile['tmp_name']));;
+            $othersrc = addslashes(file_get_contents($otherFile['tmp_name']));
+            $TARGET=$this->GUIDv4();
+            $otherdest = JPATH_SITE. "/media/com_userprofile/".$TARGET.'/'.$otherfilename;
+            $otherdest1 = $TARGET.'/'.$otherfilename;
+            JFile::upload($otherFile['tmp_name'], $otherdest);
+            $ftpsrc = $otherdest;
+            $directory = $TARGET;
+            $this->fileUploadToFTP($ftpsrc,$directory,$otherfilename); // V2.7.4
+            //JFile::upload($othersrc, $otherdest);
             //$utilitydest = JPATH_SITE. "/media/com_userprofile/".$TARGET.'/'.$utilityfilename;
             //$utilitydest1 = $TARGET.'/'.$utilityfilename;
             //JFile::upload($utilitysrc, $utilitydest);
@@ -426,16 +451,23 @@ class UserprofileControllerUser extends JControllerLegacy
             $othertype=".".$othertype;
             $othername=explode($othertype,$otherfilename);
             $othername=$othername[0];
-            $othersrc = addslashes(file_get_contents($otherFile['tmp_name']));;
+            $othersrc = addslashes(file_get_contents($otherFile['tmp_name']));
+            $TARGET=$this->GUIDv4();
+            $otherdest = JPATH_SITE. "/media/com_userprofile/".$TARGET.'/'.$otherfilename;
+            $otherdest1 = $TARGET.'/'.$otherfilename;
+            JFile::upload($_FILES['file']["tmp_name"],  $otherdest);
+            $ftpsrc = $otherdest;
+            $directory = $TARGET;
+            $this->fileUploadToFTP($ftpsrc,$directory, $othername); // V2.7.4
             //$otherdest = JPATH_SITE. "/media/com_userprofile/".$TARGET.'/'.$otherfilename;
             //$otherdest1 = $TARGET.'/'.$otherfilename;
             //JFile::upload($othersrc, $otherdest);
         }
         //Redirect to a page of your choice
         if($taskmethod=="Insert"){
-            $status=Controlbox::insertDocument($CustId,$photoname, base64_encode($photosrc),$phototype, $formname,base64_encode($formsrc),$formtype,$utilityname,base64_encode($utilitysrc),$utilitytype,$othername,base64_encode( $othersrc),$othertype);
+            $status=Controlbox::insertDocument($CustId,$photoname, base64_encode($photosrc),$phototype, $formname,base64_encode($formsrc),$formtype,$utilityname,base64_encode($utilitysrc),$utilitytype,$othername,base64_encode( $othersrc),$othertype,$photodest1,$formdest1,$utilitydest1,$otherdest1);
         }else{
-            $status=Controlbox::updateDocument($CustId,$photoname, base64_encode($photosrc),$phototype, $formname,base64_encode($formsrc),$formtype,$utilityname,base64_encode($utilitysrc),$utilitytype,$othername,base64_encode( $othersrc),$othertype);
+            $status=Controlbox::updateDocument($CustId,$photoname, base64_encode($photosrc),$phototype, $formname,base64_encode($formsrc),$formtype,$utilityname,base64_encode($utilitysrc),$utilitytype,$othername,base64_encode( $othersrc),$othertype,$photodest1,$formdest1,$utilitydest1,$otherdest1);
         }
 
         if($status==""){
