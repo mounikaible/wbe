@@ -1137,6 +1137,7 @@ class Controlbox{
      */                                        
     public static function updateDocument($CustId,$photoname, $photosrc,$phototype, $formname,$formsrc,$formtype,$utilityname,$utilitysrc,$utilitytype,$othername,$othersrc,$othertype,$photodest1,$formdest1,$utilitydest1,$otherdest1)
     {
+        
         mb_internal_encoding('UTF-8');
         
         $CompanyId = Controlbox::getCompanyId();
