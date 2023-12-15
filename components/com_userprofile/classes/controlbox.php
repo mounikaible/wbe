@@ -1113,14 +1113,14 @@ class Controlbox{
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,'{"CompanyID":"'.$CompanyId.'","CustId":"'.$CustId.'","ActivationKey":"123456789","commandType":"Insert","identity_form_Name":"'.$photoname.'","identity_form_doc":"'.$photosrc.'","identity_form_content_type":"'.$phototype.'","form_name":"'.$formname.'","form_doc":"'.$formsrc.'","form_content_type":"'.$formtype.'","utility_name":"'.$utilityname.'","utility_doc":"'.$utilitysrc.'","utility_content_type":"'.$utilitytype.'","other_name":"'.$othername.'","other_doc":"'.$othersrc.'","other_content_type":"'.$othertype.'","identity_form_doc_ftppath":"'.$photodest1.'","form_doc_ftppath":"'.$formdest1.'","utility_doc_ftppath":"'.$utilitydest1.'","other_doc_ftppath":"'.$otherdest1.'"}');
+        curl_setopt($ch, CURLOPT_POSTFIELDS,'{"CompanyID":"'.$CompanyId.'","CustId":"'.$CustId.'","ActivationKey":"123456789","commandType":"Insert","identity_form_Name":"'.$photoname.'","identity_form_doc":"","identity_form_content_type":"'.$phototype.'","form_name":"'.$formname.'","form_doc":"","form_content_type":"'.$formtype.'","utility_name":"'.$utilityname.'","utility_doc":"","utility_content_type":"'.$utilitytype.'","other_name":"'.$othername.'","other_doc":"","other_content_type":"'.$othertype.'","identity_form_doc_ftppath":"'.$photodest1.'","form_doc_ftppath":"'.$formdest1.'","utility_doc_ftppath":"'.$utilitydest1.'","other_doc_ftppath":"'.$otherdest1.'"}');
         curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
         $result=curl_exec($ch);
         
         /** Debug **/
-        // echo $url;
-        // echo '{"CompanyID":"'.$CompanyId.'","CustId":"'.$CustId.'","ActivationKey":"123456789","commandType":"Insert","identity_form_Name":"'.$photoname.'","identity_form_doc":"'.$photosrc.'","identity_form_content_type":"'.$phototype.'","form_name":"'.$formname.'","form_doc":"'.$formsrc.'","form_content_type":"'.$formtype.'","utility_name":"'.$utilityname.'","utility_doc":"'.$utilitysrc.'","utility_content_type":"'.$utilitytype.'","other_name":"'.$othername.'","other_doc":"'.$othersrc.'","other_content_type":"'.$othertype.'","identity_form_doc_ftppath":"'.$photodest1.'","form_doc_ftppath":"'.$formdest1.'","utility_doc_ftppath":"'.$utilitydest1.'","other_doc_ftppath":"'.$otherdest1.'"}';
-       	// var_dump($result);exit;
+        echo $url;
+        echo '{"CompanyID":"'.$CompanyId.'","CustId":"'.$CustId.'","ActivationKey":"123456789","commandType":"Insert","identity_form_Name":"'.$photoname.'","identity_form_doc":"","identity_form_content_type":"'.$phototype.'","form_name":"'.$formname.'","form_doc":"","form_content_type":"'.$formtype.'","utility_name":"'.$utilityname.'","utility_doc":"","utility_content_type":"'.$utilitytype.'","other_name":"'.$othername.'","other_doc":"","other_content_type":"'.$othertype.'","identity_form_doc_ftppath":"'.$photodest1.'","form_doc_ftppath":"'.$formdest1.'","utility_doc_ftppath":"'.$utilitydest1.'","other_doc_ftppath":"'.$otherdest1.'"}';
+       	var_dump($result);exit;
        	
 		$msg=json_decode($result);
 		return $msg->Description;
@@ -1137,7 +1137,7 @@ class Controlbox{
      */                                        
     public static function updateDocument($CustId,$photoname, $photosrc,$phototype, $formname,$formsrc,$formtype,$utilityname,$utilitysrc,$utilitytype,$othername,$othersrc,$othertype,$photodest1,$formdest1,$utilitydest1,$otherdest1)
     {
-        
+
         mb_internal_encoding('UTF-8');
         
         $CompanyId = Controlbox::getCompanyId();

@@ -392,6 +392,7 @@ class UserprofileControllerUser extends JControllerLegacy
             $photosrc = addslashes(file_get_contents($photoFile['tmp_name']));
             $TARGET=$this->GUIDv4();
             $photodest = JPATH_SITE. "/media/com_userprofile/".$TARGET.'/'.$photofilename;
+            // var_dump($photodest);exit;
             $photodest1 = $TARGET.'/'.$photofilename;
             JFile::upload($photoFile['tmp_name'], $photodest);
             $ftpsrc = $photodest;
